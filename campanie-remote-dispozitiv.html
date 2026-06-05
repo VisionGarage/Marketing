@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VisionGarage — Dispozitiv Remote | Comandă Acum</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#b8952a;--gold-l:#d4ae55;--gold-d:#9a7b20;
+  --ink:#1a3330;--ink-l:#244742;
+  --text:#3a342e;--muted:#857e72;
+  --border:#e0dbd1;--warm:#faf9f7;--sec:#f5f3ef;
+  --green:#25d366;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:#fff;color:var(--text);font-family:"Jost",sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;}
+a{text-decoration:none;color:inherit;}
+.wrap{max-width:1040px;margin:0 auto;padding:0 28px;}
+.sec-label{font-size:.62rem;font-weight:600;letter-spacing:.36em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;}
+
+/* ─── NAV ─────────────────────────────────────── */
+nav{position:sticky;top:0;z-index:200;background:rgba(20,42,39,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(184,149,42,.2);}
+.nav-in{max-width:1040px;margin:0 auto;padding:.65rem 28px;display:flex;align-items:center;justify-content:space-between;gap:1rem;}
+.nav-logo-wrap{display:flex;align-items:center;gap:.75rem;}
+.nav-logo-box{width:32px;height:32px;background:var(--gold);display:flex;align-items:center;justify-content:center;}
+.nav-logo-box svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:1.8;}
+.nav-brand{font-family:"Cormorant Garamond",serif;font-size:1.05rem;font-weight:600;color:#fff;letter-spacing:.04em;}
+.nav-right{display:flex;align-items:center;gap:.8rem;}
+.nav-promo-badge{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:rgba(184,149,42,.15);color:var(--gold-l);border:1px solid rgba(184,149,42,.3);padding:.35rem .9rem;}
+.nav-cta{display:inline-flex;align-items:center;gap:.4rem;background:var(--green);color:#fff;padding:.5rem 1.1rem;font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;}
+.nav-cta svg{width:14px;height:14px;fill:#fff;}
+
+/* ─── HERO ────────────────────────────────────── */
+.hero{background:linear-gradient(155deg,#1a3330 0%,#0d1e1c 60%,#111b19 100%);position:relative;overflow:hidden;padding:4.5rem 0 4rem;}
+.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(184,149,42,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(184,149,42,.04) 1px,transparent 1px);background-size:52px 52px;}
+.hero::after{content:"";position:absolute;top:-30%;right:-10%;width:60%;height:80%;background:radial-gradient(ellipse,rgba(184,149,42,.14),transparent 65%);}
+.hero-glow{position:absolute;bottom:-20%;left:-10%;width:50%;height:70%;background:radial-gradient(ellipse,rgba(26,51,48,.6),transparent 70%);}
+.hero-in{position:relative;z-index:2;display:grid;grid-template-columns:1fr 420px;gap:3rem;align-items:center;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.62rem;font-weight:600;letter-spacing:.36em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;}
+.hero-eyebrow::before{content:"";width:24px;height:1px;background:var(--gold);}
+.hero h1{font-family:"Cormorant Garamond",serif;font-size:clamp(2.4rem,4.5vw,3.8rem);font-weight:500;color:#fff;line-height:1.0;margin-bottom:1.2rem;}
+.hero h1 em{font-style:italic;color:var(--gold-l);}
+.hero h1 strong{font-style:normal;font-weight:600;}
+.hero-desc{font-size:.94rem;color:rgba(255,255,255,.5);line-height:1.8;max-width:480px;margin-bottom:2rem;}
+.hero-desc b{color:rgba(255,255,255,.82);font-weight:400;}
+.hero-actions{display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;margin-bottom:2.2rem;}
+.btn{display:inline-flex;align-items:center;gap:.5rem;font-size:.73rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;padding:.95rem 1.9rem;cursor:pointer;transition:all .22s;border:none;}
+.btn-gold{background:var(--gold);color:#fff;} .btn-gold:hover{background:var(--gold-l);transform:translateY(-1px);}
+.btn-ghost{background:transparent;color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.22);} .btn-ghost:hover{border-color:var(--gold-l);color:var(--gold-l);}
+.btn svg{width:14px;height:14px;}
+.hero-trust{display:flex;gap:1.4rem;flex-wrap:wrap;}
+.trust-item{display:flex;align-items:center;gap:.45rem;font-size:.72rem;color:rgba(255,255,255,.38);font-weight:400;}
+.trust-item svg{width:13px;height:13px;stroke:var(--gold);fill:none;stroke-width:2;}
+
+/* hero card */
+.hero-card{background:rgba(255,255,255,.04);border:1px solid rgba(184,149,42,.2);backdrop-filter:blur(8px);padding:2rem;}
+.hc-promo{background:var(--gold);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;padding:.5rem 1rem;text-align:center;margin:-2rem -2rem 1.6rem;}
+.hc-title{font-family:"Cormorant Garamond",serif;font-size:1.2rem;font-weight:600;color:#fff;margin-bottom:.4rem;}
+.hc-sub{font-size:.75rem;color:rgba(255,255,255,.45);margin-bottom:1.4rem;line-height:1.6;}
+.hc-devices{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.6rem;}
+.hc-dev{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);padding:1rem 1.1rem;display:flex;align-items:center;justify-content:space-between;}
+.hc-dev:hover{border-color:rgba(184,149,42,.4);background:rgba(184,149,42,.06);}
+.hcd-l{display:flex;align-items:center;gap:.75rem;}
+.hcd-icon{width:36px;height:36px;border:1px solid rgba(184,149,42,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hcd-icon svg{width:16px;height:16px;stroke:var(--gold-l);fill:none;stroke-width:1.5;}
+.hcd-name{font-family:"Cormorant Garamond",serif;font-size:1rem;font-weight:600;color:#fff;}
+.hcd-type{font-size:.62rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);}
+.hcd-arrow{font-size:.8rem;color:var(--gold);font-weight:600;}
+.hc-note{font-size:.69rem;color:rgba(255,255,255,.3);text-align:center;line-height:1.5;}
+.hc-note b{color:var(--gold-l);font-weight:600;letter-spacing:.08em;}
+
+/* ─── OFERTĂ PROMO ────────────────────────────── */
+.offer-strip{background:var(--ink);border-top:1px solid rgba(184,149,42,.25);border-bottom:1px solid rgba(184,149,42,.25);padding:1rem 0;}
+.offer-strip-in{display:flex;align-items:center;justify-content:center;gap:2.5rem;flex-wrap:wrap;}
+.os-item{display:flex;align-items:center;gap:.5rem;font-size:.72rem;color:rgba(255,255,255,.45);font-weight:400;}
+.os-item svg{width:14px;height:14px;stroke:var(--gold);fill:none;stroke-width:1.8;}
+.os-item b{color:rgba(255,255,255,.82);font-weight:500;}
+.os-div{width:1px;height:18px;background:rgba(255,255,255,.1);}
+
+/* ─── DE CE AI NEVOIE ─────────────────────────── */
+.why{background:var(--warm);padding:4rem 0;}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:2.4rem;}
+.why-card{background:#fff;border:1px solid var(--border);padding:1.8rem 1.6rem;position:relative;overflow:hidden;}
+.why-card::after{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold-l));transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.why-card:hover::after{transform:scaleX(1);}
+.why-card:hover{box-shadow:0 10px 30px rgba(26,51,48,.07);}
+.why-ic{width:42px;height:42px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;}
+.why-ic svg{width:20px;height:20px;stroke:var(--gold);fill:none;stroke-width:1.4;}
+.why-h{font-family:"Cormorant Garamond",serif;font-size:1.2rem;font-weight:600;color:var(--ink);margin-bottom:.45rem;line-height:1.2;}
+.why-p{font-size:.78rem;color:var(--muted);line-height:1.7;}
+.why-p b{color:var(--text);font-weight:500;}
+
+/* ─── DISPOZITIVE ─────────────────────────────── */
+.devices{padding:4.5rem 0;background:#fff;}
+.devices-header{text-align:center;margin-bottom:3rem;}
+.devices-header h2{font-family:"Cormorant Garamond",serif;font-size:clamp(1.9rem,3vw,2.7rem);font-weight:500;color:var(--ink);margin-bottom:.7rem;}
+.devices-header p{font-size:.9rem;color:var(--muted);max-width:500px;margin:0 auto;line-height:1.75;}
+.devices-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.dev-card{border:1px solid var(--border);overflow:hidden;position:relative;}
+.dev-card.featured{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold);}
+.dev-best{position:absolute;top:0;right:0;background:var(--gold);color:#fff;font-size:.58rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:.4rem .9rem;}
+.dev-header{background:var(--ink);padding:1.8rem 2rem 1.6rem;}
+.dev-header.light{background:var(--sec);}
+.dev-badge-row{display:flex;align-items:center;gap:.7rem;margin-bottom:.8rem;}
+.dev-badge{font-size:.58rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;padding:.3rem .8rem;border:1px solid;}
+.dev-badge.std{color:rgba(255,255,255,.5);border-color:rgba(255,255,255,.2);}
+.dev-badge.adv{color:var(--gold);border-color:rgba(184,149,42,.5);background:rgba(184,149,42,.08);}
+.dev-badge.std-light{color:var(--muted);border-color:var(--border);}
+.dev-name{font-family:"Cormorant Garamond",serif;font-size:2rem;font-weight:500;color:#fff;line-height:1;}
+.dev-name.dark{color:var(--ink);}
+.dev-tagline{font-size:.78rem;color:rgba(255,255,255,.4);margin-top:.3rem;line-height:1.5;}
+.dev-tagline.dark{color:var(--muted);}
+.dev-body{padding:2rem;}
+.dev-desc{font-size:.82rem;color:var(--muted);line-height:1.7;margin-bottom:1.5rem;}
+.dev-desc b{color:var(--text);font-weight:500;}
+.dev-features{list-style:none;margin-bottom:1.8rem;display:flex;flex-direction:column;gap:.55rem;}
+.dev-features li{display:flex;align-items:flex-start;gap:.6rem;font-size:.77rem;color:var(--text);line-height:1.45;}
+.dev-features li::before{content:"";width:16px;height:16px;flex-shrink:0;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;background:rgba(184,149,42,.06);margin-top:1px;}
+.dev-features li span{display:block;width:16px;height:16px;flex-shrink:0;background:var(--gold);margin-top:1px;position:relative;}
+.dev-features li span::after{content:"✓";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:#fff;font-weight:700;}
+.dev-divider{height:1px;background:var(--border);margin-bottom:1.6rem;}
+.dev-promo-row{display:flex;align-items:center;justify-content:space-between;background:var(--sec);border:1px solid var(--border);padding:.85rem 1rem;margin-bottom:1rem;}
+.dpr-l{font-size:.68rem;color:var(--muted);}
+.dpr-code{font-size:.82rem;font-weight:700;letter-spacing:.18em;color:var(--gold);font-family:"Jost",monospace;}
+.dpr-r{font-size:.68rem;color:var(--muted);}
+.buy-btn{display:flex;align-items:center;justify-content:center;width:100%;font-size:.73rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;padding:1rem;transition:all .22s;gap:.5rem;cursor:pointer;}
+.buy-btn.dark{background:var(--ink);color:#fff;} .buy-btn.dark:hover{background:var(--ink-l);}
+.buy-btn.gold{background:var(--gold);color:#fff;} .buy-btn.gold:hover{background:var(--gold-l);}
+.buy-btn svg{width:13px;height:13px;}
+.dev-note{text-align:center;font-size:.67rem;color:var(--muted);margin-top:.6rem;line-height:1.5;}
+
+/* ─── CUM FUNCȚIONEAZĂ ────────────────────────── */
+.how{background:var(--ink);padding:4.5rem 0;position:relative;overflow:hidden;}
+.how::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(184,149,42,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(184,149,42,.04) 1px,transparent 1px);background-size:52px 52px;}
+.how-in{position:relative;z-index:1;}
+.how-header{margin-bottom:3rem;}
+.how-header .sec-label{color:var(--gold);}
+.how-header h2{font-family:"Cormorant Garamond",serif;font-size:clamp(1.8rem,3vw,2.5rem);font-weight:500;color:#fff;margin-bottom:.6rem;}
+.how-header p{font-size:.88rem;color:rgba(255,255,255,.4);line-height:1.75;max-width:520px;}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;}
+.steps::before{content:"";position:absolute;top:28px;left:12.5%;right:12.5%;height:1px;background:linear-gradient(90deg,transparent,var(--gold),rgba(184,149,42,.4),var(--gold),transparent);}
+.step{padding:0 1rem;text-align:center;position:relative;}
+.step-num{width:56px;height:56px;border:1px solid rgba(184,149,42,.3);background:rgba(184,149,42,.08);display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;position:relative;z-index:1;}
+.step-num span{font-family:"Cormorant Garamond",serif;font-size:1.5rem;font-weight:600;color:var(--gold);}
+.step-t{font-size:.82rem;font-weight:600;color:#fff;margin-bottom:.35rem;line-height:1.3;}
+.step-d{font-size:.73rem;color:rgba(255,255,255,.35);line-height:1.6;}
+.how-diagram{margin-top:3rem;background:rgba(255,255,255,.03);border:1px solid rgba(184,149,42,.15);padding:2rem;display:grid;grid-template-columns:1fr 80px 1fr;align-items:center;gap:0;}
+.diag-node{text-align:center;padding:1.5rem 1rem;}
+.dn-role{font-size:.58rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.7rem;}
+.dn-icon{width:52px;height:52px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;margin:0 auto .7rem;}
+.dn-icon svg{width:24px;height:24px;stroke:rgba(255,255,255,.6);fill:none;stroke-width:1.3;}
+.dn-icon.gold-border{border-color:rgba(184,149,42,.4);}
+.dn-icon.gold-border svg{stroke:var(--gold-l);}
+.dn-t{font-size:.88rem;font-weight:500;color:#fff;line-height:1.3;margin-bottom:.3rem;}
+.dn-sub{font-size:.68rem;color:rgba(255,255,255,.3);line-height:1.4;}
+.diag-arrow{display:flex;flex-direction:column;align-items:center;gap:6px;}
+.da-line{width:100%;height:1px;background:linear-gradient(90deg,rgba(184,149,42,.2),var(--gold),rgba(184,149,42,.2));}
+.da-lbl{font-size:.54rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);white-space:nowrap;}
+.da-dots{display:flex;gap:3px;}
+.da-dots i{width:4px;height:4px;border-radius:50%;background:var(--gold);animation:pulse 1.6s ease-in-out infinite;}
+.da-dots i:nth-child(2){animation-delay:.3s;} .da-dots i:nth-child(3){animation-delay:.6s;}
+@keyframes pulse{0%,100%{opacity:.2;}50%{opacity:1;}}
+
+/* ─── CAZURI DE UTILIZARE ─────────────────────── */
+.cases{background:var(--warm);padding:4.5rem 0;}
+.cases-header{margin-bottom:2.8rem;}
+.cases-header h2{font-family:"Cormorant Garamond",serif;font-size:clamp(1.8rem,3vw,2.5rem);font-weight:500;color:var(--ink);margin-bottom:.6rem;}
+.cases-header p{font-size:.88rem;color:var(--muted);max-width:520px;line-height:1.75;}
+.brand-filters{display:flex;gap:.5rem;margin-bottom:1.8rem;flex-wrap:wrap;}
+.bf{font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.5rem 1.2rem;border:1px solid var(--border);background:#fff;color:var(--muted);cursor:pointer;transition:all .18s;}
+.bf.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+.bf:hover:not(.on){border-color:var(--gold);color:var(--ink);}
+.cases-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.case-card{background:#fff;border:1px solid var(--border);border-left:3px solid var(--gold);padding:1.2rem 1.4rem;transition:box-shadow .2s;}
+.case-card:hover{box-shadow:0 6px 20px rgba(26,51,48,.06);}
+.case-card.hide{display:none;}
+.cc-brand{font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.3rem;}
+.cc-title{font-size:.9rem;font-weight:600;color:var(--ink);margin-bottom:.3rem;line-height:1.3;}
+.cc-desc{font-size:.76rem;color:var(--muted);line-height:1.6;}
+.cc-desc b{color:var(--text);font-weight:500;}
+
+/* ─── TESTIMONIALE ────────────────────────────── */
+.testi{background:#fff;padding:4.5rem 0;}
+.testi-header{text-align:center;margin-bottom:3rem;}
+.testi-header h2{font-family:"Cormorant Garamond",serif;font-size:clamp(1.8rem,3vw,2.5rem);font-weight:500;color:var(--ink);margin-bottom:.6rem;}
+.testi-header p{font-size:.88rem;color:var(--muted);max-width:460px;margin:0 auto;line-height:1.75;}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.tcard{background:var(--sec);border:1px solid var(--border);padding:1.8rem;position:relative;}
+.tcard::before{content:"\201C";font-family:"Cormorant Garamond",serif;font-size:4rem;color:var(--gold);opacity:.25;position:absolute;top:.6rem;left:1.2rem;line-height:1;}
+.tcard-text{font-size:.82rem;color:var(--text);line-height:1.75;margin-bottom:1.2rem;position:relative;z-index:1;padding-top:.8rem;}
+.tcard-text em{font-style:italic;}
+.tcard-footer{display:flex;align-items:center;gap:.75rem;border-top:1px solid var(--border);padding-top:1rem;}
+.tcard-avatar{width:36px;height:36px;background:var(--ink);display:flex;align-items:center;justify-content:center;font-family:"Cormorant Garamond",serif;font-size:1rem;font-weight:600;color:var(--gold);flex-shrink:0;}
+.tcard-name{font-size:.78rem;font-weight:600;color:var(--ink);}
+.tcard-role{font-size:.68rem;color:var(--muted);}
+.tcard-stars{display:flex;gap:2px;margin-left:auto;}
+.tcard-stars span{color:var(--gold);font-size:.75rem;}
+
+/* ─── CTA FINAL ────────────────────────────────── */
+.cta-final{background:linear-gradient(135deg,#1a3330,#0d1e1c);padding:4.5rem 0;position:relative;overflow:hidden;text-align:center;}
+.cta-final::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(184,149,42,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(184,149,42,.05) 1px,transparent 1px);background-size:52px 52px;}
+.cta-final::after{content:"";position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:80%;height:120%;background:radial-gradient(ellipse,rgba(184,149,42,.1),transparent 60%);pointer-events:none;}
+.cta-in{position:relative;z-index:1;}
+.cta-badge{display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;background:rgba(184,149,42,.15);color:var(--gold-l);border:1px solid rgba(184,149,42,.3);padding:.45rem 1.1rem;margin-bottom:1.5rem;}
+.cta-final h2{font-family:"Cormorant Garamond",serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:500;color:#fff;margin-bottom:.8rem;line-height:1.05;}
+.cta-final h2 em{font-style:italic;color:var(--gold-l);}
+.cta-final p{font-size:.9rem;color:rgba(255,255,255,.45);max-width:480px;margin:0 auto 2.5rem;line-height:1.8;}
+.cta-final p b{color:rgba(255,255,255,.75);font-weight:400;}
+.cta-btns{display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;margin-bottom:2rem;}
+.promo-code-box{display:inline-flex;align-items:center;gap:.8rem;background:rgba(255,255,255,.05);border:1px solid rgba(184,149,42,.25);padding:.8rem 1.4rem;}
+.pcb-label{font-size:.65rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);}
+.pcb-code{font-size:.88rem;font-weight:700;letter-spacing:.22em;color:var(--gold-l);font-family:"Jost",monospace;}
+.pcb-copy{font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);cursor:pointer;padding:.3rem .7rem;border:1px solid rgba(184,149,42,.3);transition:all .18s;}
+.pcb-copy:hover{background:rgba(184,149,42,.15);}
+
+/* ─── FAQ ──────────────────────────────────────── */
+.faq{background:var(--warm);padding:4rem 0;}
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:2.4rem;}
+.faq-item{background:#fff;border:1px solid var(--border);padding:1.5rem 1.6rem;}
+.faq-q{font-size:.85rem;font-weight:600;color:var(--ink);margin-bottom:.5rem;line-height:1.35;display:flex;gap:.7rem;}
+.faq-q::before{content:"Q";font-family:"Cormorant Garamond",serif;font-size:1rem;font-weight:600;color:var(--gold);flex-shrink:0;}
+.faq-a{font-size:.78rem;color:var(--muted);line-height:1.7;padding-left:1.35rem;}
+.faq-a b{color:var(--text);font-weight:500;}
+
+/* ─── FOOTER ───────────────────────────────────── */
+footer{background:var(--ink);padding:2.5rem 0 1.8rem;}
+.foot-in{display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-bottom:2rem;}
+.foot-brand{display:flex;align-items:center;gap:.75rem;}
+.foot-logo-box{width:36px;height:36px;background:var(--gold);display:flex;align-items:center;justify-content:center;}
+.foot-logo-box svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:1.8;}
+.foot-name{font-family:"Cormorant Garamond",serif;font-size:1.1rem;font-weight:600;color:#fff;}
+.foot-tagline{font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.3);}
+.foot-contact{display:flex;flex-direction:column;gap:.6rem;}
+.foot-contact-item{display:flex;align-items:center;gap:.55rem;font-size:.76rem;color:rgba(255,255,255,.45);}
+.foot-contact-item svg{width:14px;height:14px;stroke:var(--gold);fill:none;stroke-width:1.6;flex-shrink:0;}
+.foot-contact-item a{color:rgba(255,255,255,.65);transition:color .18s;}
+.foot-contact-item a:hover{color:var(--gold-l);}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:1.3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem;}
+.foot-copy{font-size:.67rem;color:rgba(255,255,255,.25);}
+.foot-wa{display:inline-flex;align-items:center;gap:.4rem;background:var(--green);color:#fff;padding:.5rem 1rem;font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;}
+.foot-wa svg{width:13px;height:13px;fill:#fff;}
+
+/* ─── STICKY CTA BAR ──────────────────────────── */
+.sticky-bar{position:fixed;bottom:0;left:0;right:0;z-index:300;background:var(--ink);border-top:1px solid rgba(184,149,42,.3);padding:.85rem 28px;display:flex;align-items:center;justify-content:center;gap:2rem;transform:translateY(100%);transition:transform .35s ease;flex-wrap:wrap;}
+.sticky-bar.visible{transform:translateY(0);}
+.sb-text{font-size:.76rem;color:rgba(255,255,255,.5);}
+.sb-text b{color:#fff;font-weight:500;}
+.sb-actions{display:flex;gap:.7rem;align-items:center;}
+.sb-code{font-size:.7rem;font-weight:700;letter-spacing:.18em;color:var(--gold);background:rgba(184,149,42,.1);border:1px solid rgba(184,149,42,.25);padding:.4rem .9rem;}
+
+/* ─── RESPONSIVE ──────────────────────────────── */
+@media(max-width:768px){
+  .hero-in{grid-template-columns:1fr;gap:2rem;}
+  .hero-card{display:none;}
+  .devices-grid,.cases-grid,.testi-grid,.why-grid,.faq-grid{grid-template-columns:1fr;}
+  .steps{grid-template-columns:1fr 1fr;gap:1rem;}
+  .steps::before{display:none;}
+  .how-diagram{grid-template-columns:1fr;gap:1.2rem;}
+  .diag-arrow{flex-direction:row;}
+  .offer-strip-in{gap:1rem;}
+  .os-div{display:none;}
+  .nav-promo-badge{display:none;}
+  .sticky-bar{flex-direction:column;gap:.7rem;padding:1rem 20px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-in">
+    <div class="nav-logo-wrap">
+      <div class="nav-logo-box">
+        <svg viewBox="0 0 24 24"><path d="M5 17a2 2 0 1 0 4 0 2 2 0 0 0-4 0M15 17a2 2 0 1 0 4 0 2 2 0 0 0-4 0"/><path d="M5 17H3v-6l2-5h9l4 5h1a2 2 0 0 1 2 2v4h-2M9 17h6"/></svg>
+      </div>
+      <div>
+        <div class="nav-brand">VisionGarage</div>
+        <div style="font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.3);">Codare &amp; Programare Remote</div>
+      </div>
+    </div>
+    <div class="nav-right">
+      <div class="nav-promo-badge">Promo activ: VISIONGARAGE</div>
+      <a class="nav-cta" href="https://wa.me/40700000000" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="wrap">
+    <div class="hero-in">
+      <div>
+        <div class="hero-eyebrow">Dispozitiv Remote VisionGarage</div>
+        <h1>Lucrări pe care<br><em>le refuzai</em> ieri —<br><strong>rezolvate azi.</strong></h1>
+        <p class="hero-desc">
+          Un dispozitiv în portul OBD2, internet stabil și accesezi servicii de codare și programare remote ca și cum ai avea un specialist BMW, VAG sau Mercedes <b>direct în atelierul tău.</b>
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-gold" href="#dispozitive">
+            <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            Comandă acum
+          </a>
+          <a class="btn btn-ghost" href="#cum-functioneaza">Cum funcționează</a>
+        </div>
+        <div class="hero-trust">
+          <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/></svg>Fără abonament</div>
+          <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/></svg>Livrăm configurat</div>
+          <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/></svg>Plătești per sesiune</div>
+          <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/></svg>BMW · VAG · Mercedes</div>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="hc-promo">Cod promo activ — reducere aplicată</div>
+        <div class="hc-title">Comandă dispozitivul tău</div>
+        <div class="hc-sub">Configurăm și livrăm direct la service. Conectezi, noi lucrăm.</div>
+        <div class="hc-devices">
+          <a class="hc-dev" href="https://buy.stripe.com/fZu8wO4HU4z6bYsbRxabK0a?prefilled_promo_code=VISIONGARAGE" target="_blank">
+            <div class="hcd-l">
+              <div class="hcd-icon">
+                <svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>
+              </div>
+              <div>
+                <div class="hcd-name">Dispozitiv Wi-Fi</div>
+                <div class="hcd-type">Standard · Wireless</div>
+              </div>
+            </div>
+            <div class="hcd-arrow">→</div>
+          </a>
+          <a class="hc-dev" href="https://buy.stripe.com/8x29AScam4z64w04p5abK0z?prefilled_promo_code=VISIONGARAGE" target="_blank">
+            <div class="hcd-l">
+              <div class="hcd-icon">
+                <svg viewBox="0 0 24 24"><path d="M4 9l8 8 8-8"/><path d="M12 3v14M4 21h16"/></svg>
+              </div>
+              <div>
+                <div class="hcd-name">Dispozitiv LAN</div>
+                <div class="hcd-type">Avansat · Cablu</div>
+              </div>
+            </div>
+            <div class="hcd-arrow">→</div>
+          </a>
+        </div>
+        <div class="hc-note">Cod promo: <b>VISIONGARAGE</b> — aplicat automat la checkout</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFER STRIP -->
+<div class="offer-strip">
+  <div class="offer-strip-in">
+    <div class="os-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span><b>Livrare</b> în toată România</span></div>
+    <div class="os-div"></div>
+    <div class="os-item"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg><span>Plată sigură prin <b>Stripe</b></span></div>
+    <div class="os-div"></div>
+    <div class="os-item"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span><b>Tunel P2P securizat</b> — acces autorizat</span></div>
+    <div class="os-div"></div>
+    <div class="os-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Sesiuni în <b>timp real</b></span></div>
+  </div>
+</div>
+
+<!-- DE CE AI NEVOIE -->
+<section class="why">
+  <div class="wrap">
+    <div class="sec-label">De ce ai nevoie</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.5rem);font-weight:500;color:var(--ink);margin-bottom:.6rem;">Nu mai refuzi lucrări complicate</h2>
+    <p style="font-size:.88rem;color:var(--muted);max-width:520px;line-height:1.75;margin-bottom:0;">
+      Modulele second-hand, ECU-urile schimbate sau piesele care cer acces la serverul OEM nu mai sunt o problemă.
+    </p>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-ic"><svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div class="why-h">Plătești per lucrare</div>
+        <p class="why-p">Fără abonament lunar, fără costuri fixe. <b>Investești doar când ai nevoie</b> — dispozitivul rămâne al tău pentru totdeauna.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+        <div class="why-h">Accesăm serverele OEM</div>
+        <p class="why-p">BMW, VAG, Mercedes — avem <b>acces autorizat la serverele producătorilor</b>. Component Protection, SCN Coding, NCD 2.0 și altele.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-ic"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+        <div class="why-h">Timp real, fără deplasare</div>
+        <p class="why-p">Te conectezi, noi preluăm. <b>Lucrăm direct pe mașina ta din atelier</b> — la fel ca și cum am fi acolo.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-ic"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+        <div class="why-h">Gata de lucru din zi 1</div>
+        <p class="why-p">Livrăm dispozitivul <b>configurat și testat</b>. Îl conectezi la OBD2, dai internet și ne contactezi.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="why-h">Conexiune criptată P2P</div>
+        <p class="why-p">Tunelul de date este <b>securizat end-to-end</b>. Nimeni altcineva nu are acces la vehiculul tău în timp ce lucrăm.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-ic"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <div class="why-h">Suport direct pe WhatsApp</div>
+        <p class="why-p">Planificăm sesiunea împreună, <b>răspundem rapid</b> și suntem cu tine până la finalizarea lucrării.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DISPOZITIVE -->
+<section class="devices" id="dispozitive">
+  <div class="wrap">
+    <div class="devices-header">
+      <div class="sec-label">Dispozitive</div>
+      <h2>Alege varianta potrivită</h2>
+      <p>Ambele dispozitive sunt livrate configurate, gata de conectat. Codul promo este aplicat automat la checkout.</p>
+    </div>
+    <div class="devices-grid">
+
+      <!-- Wi-Fi -->
+      <div class="dev-card">
+        <div class="dev-header light">
+          <div class="dev-badge-row">
+            <span class="dev-badge std-light">Standard</span>
+          </div>
+          <div class="dev-name dark">Dispozitiv Wi-Fi</div>
+          <div class="dev-tagline dark">Wireless · Portabil · Ușor de mutat între mașini</div>
+        </div>
+        <div class="dev-body">
+          <p class="dev-desc">Conexiune wireless — <b>portabil, rapid de conectat</b> și acoperă marea majoritate a lucrărilor zilnice fără cablu.</p>
+          <ul class="dev-features">
+            <li><span></span>Component Protection VAG (deblocare module SH)</li>
+            <li><span></span>SVM — Software Version Management</li>
+            <li><span></span>Codare și activări BMW / VAG</li>
+            <li><span></span>Inițializare și adaptare module</li>
+            <li><span></span>Proceduri standard de durată medie</li>
+          </ul>
+          <div class="dev-divider"></div>
+          <div class="dev-promo-row">
+            <div><div class="dpr-l">Cod promo</div><div class="dpr-code">VISIONGARAGE</div></div>
+            <div class="dpr-r">Aplicat automat →</div>
+          </div>
+          <a class="buy-btn dark" href="https://buy.stripe.com/fZu8wO4HU4z6bYsbRxabK0a?prefilled_promo_code=VISIONGARAGE" target="_blank">
+            <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            Comandă Wi-Fi
+          </a>
+          <div class="dev-note">Livrare în 1-3 zile lucrătoare · Configurat &amp; testat</div>
+        </div>
+      </div>
+
+      <!-- LAN -->
+      <div class="dev-card featured">
+        <div class="dev-best">Recomandat</div>
+        <div class="dev-header">
+          <div class="dev-badge-row">
+            <span class="dev-badge adv">Avansat</span>
+          </div>
+          <div class="dev-name">Dispozitiv LAN</div>
+          <div class="dev-tagline">Cablu · Latență minimă · Transfer masiv</div>
+        </div>
+        <div class="dev-body">
+          <p class="dev-desc">Cablu direct — <b>conexiune stabilă, latență minimă</b>, ideal pentru programare ECU, sesiuni lungi și operațiuni complexe care cer transfer mare de date.</p>
+          <ul class="dev-features">
+            <li><span></span>SCN Coding Mercedes (coding pe serverul Mercedes)</li>
+            <li><span></span>NCD 2.0 BMW (Seria G/I 2021+ — autorizare obligatorie)</li>
+            <li><span></span>Programare ECU motor (EDC17, MD1 și altele)</li>
+            <li><span></span>Reset ISN și programare cutie ZF 6HP/8HP</li>
+            <li><span></span>Toate funcțiile disponibile pe Wi-Fi +</li>
+          </ul>
+          <div class="dev-divider"></div>
+          <div class="dev-promo-row">
+            <div><div class="dpr-l">Cod promo</div><div class="dpr-code">VISIONGARAGE</div></div>
+            <div class="dpr-r">Aplicat automat →</div>
+          </div>
+          <a class="buy-btn gold" href="https://buy.stripe.com/8x29AScam4z64w04p5abK0z?prefilled_promo_code=VISIONGARAGE" target="_blank">
+            <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            Comandă LAN
+          </a>
+          <div class="dev-note">Livrare în 1-3 zile lucrătoare · Configurat &amp; testat</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CUM FUNCȚIONEAZĂ -->
+<section class="how" id="cum-functioneaza">
+  <div class="wrap how-in">
+    <div class="how-header">
+      <div class="sec-label">Procesul</div>
+      <h2>Simplu ca 1, 2, 3, 4</h2>
+      <p>De la prima conectare la lucrarea finalizată — totul durează cât o sesiune normală de service.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num"><span>1</span></div>
+        <div class="step-t">Pregătești mașina</div>
+        <div class="step-d">Scan complet (toate modulele) și trimiți raportul pe WhatsApp</div>
+      </div>
+      <div class="step">
+        <div class="step-num"><span>2</span></div>
+        <div class="step-t">Ne contactezi</div>
+        <div class="step-d">Spui marca, modelul și lucrarea — stabilim ora sesiunii</div>
+      </div>
+      <div class="step">
+        <div class="step-num"><span>3</span></div>
+        <div class="step-t">Conectezi dispozitivul</div>
+        <div class="step-d">OBD2 + Wi-Fi sau LAN — tunelul se stabilește automat</div>
+      </div>
+      <div class="step">
+        <div class="step-num"><span>4</span></div>
+        <div class="step-t">Noi preluăm</div>
+        <div class="step-d">Lucrăm în timp real, ca și cum am fi în atelierul tău</div>
+      </div>
+    </div>
+    <div class="how-diagram">
+      <div class="diag-node">
+        <div class="dn-role">Tu · La mașină</div>
+        <div class="dn-icon">
+          <svg viewBox="0 0 24 24"><path d="M5 17a2 2 0 1 0 4 0 2 2 0 0 0-4 0M15 17a2 2 0 1 0 4 0 2 2 0 0 0-4 0"/><path d="M5 17H3v-6l2-5h9l4 5h1a2 2 0 0 1 2 2v4h-2M9 17h6"/></svg>
+        </div>
+        <div class="dn-t">Dispozitiv VisionGarage</div>
+        <div class="dn-sub">OBD2 + Wi-Fi sau LAN</div>
+      </div>
+      <div class="diag-arrow">
+        <div class="da-dots"><i></i><i></i><i></i></div>
+        <div class="da-line"></div>
+        <div class="da-lbl">Tunel P2P</div>
+        <div class="da-line"></div>
+        <div class="da-dots"><i></i><i></i><i></i></div>
+      </div>
+      <div class="diag-node">
+        <div class="dn-role">VisionGarage · La distanță</div>
+        <div class="dn-icon gold-border">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div class="dn-t">Specialist VisionGarage</div>
+        <div class="dn-sub">Acces autorizat la serverele OEM</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAZURI REALE -->
+<section class="cases" id="cazuri">
+  <div class="wrap">
+    <div class="cases-header">
+      <div class="sec-label">Cazuri reale</div>
+      <h2>Ce rezolvăm pentru tine</h2>
+      <p>Situații concrete din atelier, exact cum apar la tine. Filtrează după marcă:</p>
+    </div>
+    <div class="brand-filters">
+      <button class="bf on" data-f="all" onclick="filterCases(this)">Toate</button>
+      <button class="bf" data-f="bmw" onclick="filterCases(this)">BMW</button>
+      <button class="bf" data-f="vag" onclick="filterCases(this)">VAG (VW · Audi · Škoda)</button>
+      <button class="bf" data-f="mercedes" onclick="filterCases(this)">Mercedes</button>
+    </div>
+    <div class="cases-grid" id="casesGrid">
+      <div class="case-card" data-brand="bmw">
+        <div class="cc-brand">BMW · Casetă de direcție</div>
+        <div class="cc-title">Volan blocat după montaj, eroare ESP</div>
+        <div class="cc-desc">Apare "increased steering effort" sau cade ESP-ul. <b>Codăm caseta direct pe mașină, remote.</b> Nu trimiți nimic la noi.</div>
+      </div>
+      <div class="case-card" data-brand="vag">
+        <div class="cc-brand">Audi 48V · A6 · A7 · Q5 · Q7 · Q8</div>
+        <div class="cc-title">Alternator 48V schimbat — nu pornește</div>
+        <div class="cc-desc">Apare eroare "48V system". <b>Adaptăm noua piesă remote prin serverul VAG</b> — fără adaptare, sistemul rămâne blocat.</div>
+      </div>
+      <div class="case-card" data-brand="bmw">
+        <div class="cc-brand">BMW F / G · Cutie ZF 6HP / 8HP</div>
+        <div class="cc-title">Cutie schimbată, nu intră în viteze</div>
+        <div class="cc-desc"><b>Reset ISN, programare și codare cutie, direct pe mașină, remote.</b> Nicio deplasare, nicio demontare suplimentară.</div>
+      </div>
+      <div class="case-card" data-brand="vag">
+        <div class="cc-brand">VAG · VW · Audi · Škoda · SEAT · Cupra</div>
+        <div class="cc-title">Modul second-hand cu Component Protection</div>
+        <div class="cc-desc">Blocat pe VIN-ul vechi. <b>Îl deblocăm remote prin serverul VAG</b> și modulul devine funcțional în atelier.</div>
+      </div>
+      <div class="case-card" data-brand="bmw">
+        <div class="cc-brand">BMW F / G · ECU Motor (EDC17 · MD1)</div>
+        <div class="cc-title">ECU motor schimbat — nu pornește</div>
+        <div class="cc-desc">Trimiți citirile de pe ambele module. <b>Procesăm și programăm ECU remote</b>, gata de pornire fără deplasare.</div>
+      </div>
+      <div class="case-card" data-brand="mercedes">
+        <div class="cc-brand">Mercedes · W204 · W205 · W212 · W213+</div>
+        <div class="cc-title">Modul nou — erori care nu dispar</div>
+        <div class="cc-desc">Mercedes cere SCN Coding pe serverul propriu. <b>Facem SCN remote</b> și modulul devine complet funcțional.</div>
+      </div>
+      <div class="case-card" data-brand="vag">
+        <div class="cc-brand">VAG · Quattro / 4Motion</div>
+        <div class="cc-title">Cutie de transfer schimbată — adaptare</div>
+        <div class="cc-desc">Tracțiunea integrală cere adaptare obligatorie. <b>O facem remote prin serverul VAG</b>, fără alte scule speciale.</div>
+      </div>
+      <div class="case-card" data-brand="bmw">
+        <div class="cc-brand">BMW Seria G · I (2021+)</div>
+        <div class="cc-title">Codări care cer autorizare NCD 2.0</div>
+        <div class="cc-desc"><b>Conectezi dispozitivul LAN, noi facem codarea și activările remote</b> prin serverul BMW — inclusiv funcții restricționate.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALE -->
+<section class="testi">
+  <div class="wrap">
+    <div class="testi-header">
+      <div class="sec-label">Ce spun service-urile</div>
+      <h2>Rezultate reale din ateliere</h2>
+      <p>Service-uri independente care folosesc deja dispozitivul VisionGarage.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="tcard">
+        <p class="tcard-text">„Am montat un modul second-hand pe un Q7 și stătea blocat de 3 zile. <em>Am sunat VisionGarage, am conectat dispozitivul și în 20 de minute era deblocat.</em> Clientul a plecat fericit."</p>
+        <div class="tcard-footer">
+          <div class="tcard-avatar">M</div>
+          <div><div class="tcard-name">Mihai D.</div><div class="tcard-role">Service auto independent · Cluj</div></div>
+          <div class="tcard-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        </div>
+      </div>
+      <div class="tcard">
+        <p class="tcard-text">„SCN Coding pe un W213 — am evitat să trimit mașina la dealer. <em>Totul s-a rezolvat remote în aceeași zi.</em> Prețul pe sesiune e incomparabil cu ce cere dealer-ul."</p>
+        <div class="tcard-footer">
+          <div class="tcard-avatar">A</div>
+          <div><div class="tcard-name">Alexandru R.</div><div class="tcard-role">Atelier specializat · București</div></div>
+          <div class="tcard-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        </div>
+      </div>
+      <div class="tcard">
+        <p class="tcard-text">„BMW G cu NCD 2.0 — fără dispozitivul LAN nici nu mă puteam conecta. <em>Acum accept orice BMW seria G fără să stau pe gânduri.</em> A meritat din prima zi."</p>
+        <div class="tcard-footer">
+          <div class="tcard-avatar">C</div>
+          <div><div class="tcard-name">Cosmin P.</div><div class="tcard-role">Service multimarcă · Timișoara</div></div>
+          <div class="tcard-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <div class="wrap cta-in">
+    <div class="cta-badge">Ofertă activă</div>
+    <h2>Comandă azi, lucrezi <em>mâine.</em></h2>
+    <p>Livrăm configurat, cu cod promo aplicat. <b>Un singur dispozitiv deschide toate lucrările pe care le refuzai.</b></p>
+    <div class="cta-btns">
+      <a class="btn btn-gold" href="https://buy.stripe.com/fZu8wO4HU4z6bYsbRxabK0a?prefilled_promo_code=VISIONGARAGE" target="_blank">
+        Comandă Wi-Fi →
+      </a>
+      <a class="btn btn-gold" href="https://buy.stripe.com/8x29AScam4z64w04p5abK0z?prefilled_promo_code=VISIONGARAGE" target="_blank">
+        Comandă LAN →
+      </a>
+    </div>
+    <div class="promo-code-box">
+      <span class="pcb-label">Cod promo</span>
+      <span class="pcb-code" id="promoCode">VISIONGARAGE</span>
+      <button class="pcb-copy" onclick="copyPromo()">Copiază</button>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="wrap">
+    <div class="sec-label">Întrebări frecvente</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.4rem);font-weight:500;color:var(--ink);margin-bottom:.4rem;">Ai întrebări? Avem răspunsuri.</h2>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <div class="faq-q">Dispozitivul e pentru o singură mașină?</div>
+        <p class="faq-a">Nu. <b>Dispozitivul e al tău și îl muți de la o mașină la alta</b> — atâta timp cât mașina e în lucru și conectată la internet, ne putem conecta.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Cât costă o sesiune remote?</div>
+        <p class="faq-a"><b>Prețul variază în funcție de lucrare</b> — îl stabilim înainte de fiecare sesiune. Nu există costuri ascunse sau abonament.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Trebuie să am internet de mare viteză?</div>
+        <p class="faq-a">Nu neapărat. <b>Conexiune stabilă de minimum 10 Mbps</b> e suficientă pentru Wi-Fi. Pentru sesiuni LAN cu transfer mare recomandăm 25+ Mbps.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Ce fac dacă sesiunea se întrerupe?</div>
+        <p class="faq-a">Tunelul se restabilește automat la reconectare. <b>Suntem disponibili pe WhatsApp</b> și rezolvăm orice problemă tehnică în timp real.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Cum primesc dispozitivul?</div>
+        <p class="faq-a"><b>Livrăm configurat și testat</b> prin curier, în 1-3 zile lucrătoare. Vine gata de conectat — nu trebuie să configurezi nimic.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Pot folosi dispozitivul fără sesiune remotă?</div>
+        <p class="faq-a">Dispozitivul creează tunelul de acces. <b>Sesiunea activă se planifică împreună cu noi</b> — nu funcționează ca interfață independentă de diagnoză.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-in">
+      <div>
+        <div class="foot-brand" style="margin-bottom:.8rem;">
+          <div class="foot-logo-box">
+            <svg viewBox="0 0 24 24"><path d="M5 17a2 2 0 1 0 4 0 2 2 0 0 0-4 0M15 17a2 2 0 1 0 4 0 2 2 0 0 0-4 0"/><path d="M5 17H3v-6l2-5h9l4 5h1a2 2 0 0 1 2 2v4h-2M9 17h6"/></svg>
+          </div>
+          <div>
+            <div class="foot-name">VisionGarage</div>
+            <div class="foot-tagline">Codare &amp; Programare Remote</div>
+          </div>
+        </div>
+        <p style="font-size:.75rem;color:rgba(255,255,255,.3);max-width:280px;line-height:1.7;">Servicii profesionale de codare, programare și adaptare module auto — remote, fără deplasare.</p>
+      </div>
+      <div class="foot-contact">
+        <div class="foot-contact-item">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg>
+          <a href="https://visiongarage.ro" target="_blank">visiongarage.ro</a>
+        </div>
+        <div class="foot-contact-item">
+          <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          <a href="https://wa.me/40700000000" target="_blank">WhatsApp</a>
+        </div>
+      </div>
+      <div>
+        <a class="foot-wa" href="https://wa.me/40700000000" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          Scrie-ne pe WhatsApp
+        </a>
+        <p style="font-size:.67rem;color:rgba(255,255,255,.25);margin-top:.7rem;text-align:center;">Răspundem rapid</p>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div class="foot-copy">© 2026 VisionGarage. Toate drepturile rezervate.</div>
+      <div class="foot-copy">Cod promo activ: <span style="color:var(--gold-l);font-weight:600;letter-spacing:.12em;">VISIONGARAGE</span></div>
+    </div>
+  </div>
+</footer>
+
+<!-- STICKY BAR -->
+<div class="sticky-bar" id="stickyBar">
+  <div class="sb-text"><b>Dispozitiv VisionGarage</b> — comandă cu cod promo</div>
+  <div class="sb-actions">
+    <div class="sb-code">VISIONGARAGE</div>
+    <a class="btn btn-gold" style="padding:.6rem 1.3rem;font-size:.68rem;" href="https://buy.stripe.com/fZu8wO4HU4z6bYsbRxabK0a?prefilled_promo_code=VISIONGARAGE" target="_blank">Wi-Fi →</a>
+    <a class="btn btn-gold" style="padding:.6rem 1.3rem;font-size:.68rem;" href="https://buy.stripe.com/8x29AScam4z64w04p5abK0z?prefilled_promo_code=VISIONGARAGE" target="_blank">LAN →</a>
+  </div>
+</div>
+
+<script>
+// Sticky bar on scroll
+(function(){
+  var bar = document.getElementById('stickyBar');
+  var shown = false;
+  window.addEventListener('scroll', function(){
+    var scrolled = window.scrollY > 600;
+    if(scrolled !== shown){
+      shown = scrolled;
+      bar.classList.toggle('visible', shown);
+    }
+  }, {passive:true});
+})();
+
+// Case filter
+function filterCases(btn){
+  document.querySelectorAll('.bf').forEach(function(b){ b.classList.remove('on'); });
+  btn.classList.add('on');
+  var f = btn.getAttribute('data-f');
+  document.querySelectorAll('.case-card').forEach(function(c){
+    if(f === 'all' || c.getAttribute('data-brand') === f){
+      c.classList.remove('hide');
+    } else {
+      c.classList.add('hide');
+    }
+  });
+}
+
+// Copy promo code
+function copyPromo(){
+  var code = document.getElementById('promoCode').textContent;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(code).then(function(){
+      var btn = document.querySelector('.pcb-copy');
+      var orig = btn.textContent;
+      btn.textContent = 'Copiat!';
+      setTimeout(function(){ btn.textContent = orig; }, 2000);
+    });
+  }
+}
+</script>
+</body>
+</html>
