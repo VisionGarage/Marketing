@@ -1,0 +1,49 @@
+﻿ID,Tip,SKU,"GTIN, UPC, EAN sau ISBN",Nume,Publicat,Este reprezentativ?,Vizibilitate în catalog,Descriere scurtă,Descriere,Dată începere promoție,Dată încheiere promoție,Stare taxă,Clasă de impozitare,În stoc?,Stoc,Cantitate mică în stoc,Precomenzile sunt permise?,Vândut individual?,Greutate (kg),Lungime (cm),Lățime (cm),Înălțime (cm),Permiți recenzii de la clienți?,Notă de cumpărare,Preț promoțional,Preț obișnuit,Categorii,Etichete,Clasă de livrare,Imagini,Limită de descărcări,Zile de expirare descărcare,Părinte,Produse grupate,Upsells,Vânzări încrucișate,URL extern,Text buton,Poziție,Branduri,Nume atribut 1,Valoare (valori) atribut 1,Vizibilitate atribut 1,Atribut 1 global,Nume atribut 2,Valoare (valori) atribut 2,Vizibilitate atribut 2,Atribut 2 global,Meta: _yoast_indexnow_last_ping,Meta: _enable_request_quote_immo,Meta: custom_package_number,Meta: custom_product_type,Meta: _wc_gla_visibility,Meta: _enable_request_quote_airbag,Meta: _enable_request_quote,Meta: wcpa_exclude_global_forms,Meta: _yoast_wpseo_primary_product_brand,Meta: _yoast_wpseo_primary_product_cat,Meta: _yoast_wpseo_focuskw,Meta: _yoast_wpseo_title,Meta: _yoast_wpseo_metadesc,Meta: _yoast_wpseo_linkdex,Meta: _yoast_wpseo_content_score,Meta: _yoast_wpseo_focuskeywords,Meta: _yoast_wpseo_keywordsynonyms,Meta: _yoast_wpseo_estimated-reading-time-minutes,Meta: rank_math_primary_product_brand,Meta: rank_math_primary_product_cat,Meta: rank_math_title,Meta: rank_math_description,Meta: rank_math_focus_keyword,Meta: rank_math_news_sitemap_robots,Meta: rank_math_internal_links_processed,Meta: _wc_gla_sync_status,Meta: _wc_gla_synced_at,Meta: rank_math_seo_score,Meta: _wc_gla_mc_status
+3399,"simple, virtual",,,Immo OFF / Transfer IMMO TCU VAG – Cutii Automate DQ / DL / VL | VisionGarage,1,0,visible,"Serviciu software Immo OFF sau Transfer / Clonare IMMO pentru cutii automate VAG (TCU). Dezactivăm imobilizatorul sau transferăm datele IMMO pe unitatea de înlocuire – procesare exclusiv software, fără modificări hardware. Compatibil: DQ200, DQ200G2, DQ250, DQ400, DL501 Gen1/Gen2, VL381, VL300, DL382.","<h2>Immo OFF / Transfer IMMO – Cutii Automate VAG (TCU)</h2>
+<p>Serviciu software oferit de VisionGarage pentru unitățile de control ale cutiilor automate VAG (TCU). Dezactivăm imobilizatorul (<strong>Immo OFF</strong>) sau transferăm datele IMMO de pe cutia veche pe cea de înlocuire (<strong>Transfer / Clonare IMMO</strong>). Procesarea se face exclusiv software, prin modificarea fișierelor citite din TCU, fără modificări fizice ale componentelor electronice.</p>
+
+<h3>Operațiuni disponibile</h3>
+<ul>
+<li><strong>Immo OFF</strong> – dezactivarea imobilizatorului din TCU prin fișier modificat. Indicat când schimbarea modulului sau coruperea datelor împiedică pornirea vehiculului.</li>
+<li><strong>Transfer / Clonare IMMO</strong> – copierea datelor IMMO din TCU sursă în TCU de înlocuire, plug &amp; play, fără recodare suplimentară.</li>
+</ul>
+
+<h3>Modele TCU compatibile</h3>
+<ul>
+<li>DQ200 / DQ200G2</li>
+<li>DQ250 / DQ400</li>
+<li>DL501 Gen 1 / DL501 Gen 2</li>
+<li>VL381 / VL300</li>
+<li>DL382</li>
+</ul>
+
+<h3>Cum funcționează – pas cu pas</h3>
+<ol>
+<li>Extrage fișierul TCU cu echipamente compatibile (Flex, PCMFlash, KTAG, CMD etc.).</li>
+<li>Trimite fișierul prin formularul de comandă sau pe email / WhatsApp.</li>
+<li>Stabilim împreună operațiunea necesară: Immo OFF sau Transfer / Clonare IMMO.</li>
+<li>Primești fișierul modificat, gata de rescriere în TCU.</li>
+<li>Opțional: TCU poate fi trimis fizic la sediul nostru pentru prelucrare internă.</li>
+</ol>
+
+<h3>Cerințe pentru procesare</h3>
+<ul>
+<li>Fișier citit corect (Flash sau EEPROM, după caz).</li>
+<li>VIN-ul vehiculului și descrierea problemei inițiale.</li>
+<li>Pentru Transfer IMMO: fișierele din <strong>ambele</strong> TCU-uri (sursă + donor).</li>
+<li>Solicitare făcută exclusiv în scop de reparație.</li>
+</ul>
+
+<h3>Limitări</h3>
+<ul>
+<li>Nu oferim coduri de activare sau pairing chei.</li>
+<li>Nu procesăm fișiere corupte sau incomplete.</li>
+<li>Nu garantăm funcționarea în prezența unor defecte hardware pre-existente.</li>
+</ul>
+
+<hr />
+
+<h3>Declarație legală</h3>
+<p>VisionGarage este un service auto independent. Dezactivarea imobilizatorului (Immo OFF) și transferul datelor IMMO sunt oferite strict pentru restaurarea funcțională a cutiilor automate cu module defecte sau cu date corupte, la solicitarea proprietarului legal și exclusiv în scop de reparație. Serviciul NU este destinat ocolirii sistemelor antifurt pe vehicule care nu aparțin clientului. Volkswagen, Audi, Skoda, Seat și denumirile DL/DQ aparțin proprietarilor de drept; VisionGarage nu reprezintă acești producători. Orice utilizare în scop ilegal este interzisă și intră în răspunderea exclusivă a clientului.</p>
+
+<p><a href=""https://visiongarage.ro/produs/immo-off-ecu-vag/"">Vezi și: Immo OFF ECU VAG – Dezactivare imobilizator VW, Audi, Skoda, Seat</a></p>",,,taxable,,1,,,0,0,,,,,0,"Mulțumim pentru comandă! Trimite fișierul TCU (Flash + EEPROM, după caz) la office@visiongarage.ro sau pe WhatsApp, cu VIN-ul vehiculului și descrierea problemei. Pentru Transfer IMMO sunt necesare fișierele din ambele TCU-uri (sursă + donor). Procesăm de regulă în aceeași zi lucrătoare.",300,500,FILESERVICE,"clonare TCU VAG, cutie automata VAG, dezactivare imobilizator cutie, fileservice TCU, immo off DL501, immo off DQ200, immo off DQ250, immo off DQ400, immo off TCU VAG, transfer immo DL382, transfer immo TCU, VL300 TCU, VL381 TCU",,https://visiongarage.ro/wp-content/uploads/2025/12/ChatGPT-Image-Dec-27-2025-04_06_48-PM.webp,,,,,,,,,0,,Model TCU,"DQ200\, DQ200G2\, DQ250\, DQ400\, DL501 Gen 1\, DL501 Gen 2\, VL381\, VL300\, DL382",1,0,OPERATIUNE,"Immo OFF, Transfer / Clonare IMMO",1,0,1766844670,no,,,sync-and-show,no,no,,,149,immo off TCU VAG,"Immo OFF / Transfer IMMO TCU VAG – DQ200, DL501, DL382 | VisionGarage","Serviciu Immo OFF și Transfer IMMO pentru cutii automate VAG: DQ200, DQ250, DQ400, DL501 Gen1/Gen2, DL382, VL381, VL300. Procesare software, fără modificări hardware. Trimite fișierul, primești soluția în aceeași zi.",81,90,[],"[""""]",2,,149,"Immo OFF / Transfer IMMO TCU VAG – DQ200, DL501, DL382 | VisionGarage","Serviciu Immo OFF și Transfer IMMO pentru cutii automate VAG: DQ200, DQ250, DQ400, DL501 Gen1/Gen2, DL382, VL381, VL300. Procesare software, fără modificări hardware. Trimite fișierul, primești soluția în aceeași zi.",immo off TCU VAG,index,1,synced,1780548914,62,approved
