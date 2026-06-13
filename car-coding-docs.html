@@ -2,7 +2,18 @@
 <html lang="ro">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="VG Codări">
+<meta name="theme-color" content="#e8b800" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#e8b800">
+<meta name="description" content="175+ codări BMW, VAG, Mercedes structurate cu pași, parametri și surse forum.">
+<meta name="application-name" content="VisionGarage Codări">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="vg-icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="vg-icon.svg">
 <title>VisionGarage – Baza de Date Codări Auto</title>
 <style>
   :root {
@@ -423,10 +434,108 @@
     .form-row { grid-template-columns:1fr; }
     .cards-grid { grid-template-columns:1fr; }
     .stats-inner { gap:16px; }
+    body { padding-bottom: calc(60px + env(safe-area-inset-bottom)); }
+    .header-inner { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
+    .content-wrap { padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
+  }
+
+  /* ── PWA BOTTOM NAV ── */
+  :root { --nav-height: 60px; }
+  #pwa-bottom-nav {
+    display: none;
+    position: fixed; bottom: 0; left: 0; right: 0;
+    height: calc(var(--nav-height) + env(safe-area-inset-bottom));
+    background: var(--card); border-top: 1px solid var(--border);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    z-index: 900; padding-bottom: env(safe-area-inset-bottom);
+  }
+  #pwa-bottom-nav.visible { display: flex; }
+  .pwa-nav-inner { display: flex; width: 100%; height: var(--nav-height); align-items: stretch; }
+  .pwa-nav-btn {
+    flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 3px; background: none; border: none; color: var(--muted); cursor: pointer;
+    font-size: 11px; font-weight: 600; letter-spacing: .3px; transition: color .2s;
+    -webkit-tap-highlight-color: transparent; padding: 0;
+  }
+  .pwa-nav-btn .nav-icon { font-size: 22px; line-height: 1; }
+  .pwa-nav-btn.active, .pwa-nav-btn:hover { color: var(--accent); }
+
+  /* ── INSTALL BANNER ── */
+  #install-banner {
+    display: none; position: fixed; bottom: calc(var(--nav-height) + env(safe-area-inset-bottom) + 12px);
+    left: 16px; right: 16px; z-index: 910;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    border: 1px solid var(--accent); border-radius: 14px;
+    padding: 14px 16px; box-shadow: 0 8px 32px rgba(0,0,0,.6);
+    animation: slideUp .35s ease;
+  }
+  #install-banner.visible { display: flex; align-items: center; gap: 12px; }
+  .install-icon { font-size: 28px; flex-shrink: 0; }
+  .install-text { flex: 1; }
+  .install-text strong { display: block; color: var(--accent); font-size: 14px; margin-bottom: 2px; }
+  .install-text span { font-size: 12px; color: var(--muted); }
+  .install-actions { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
+  .btn-install { background: var(--accent); color: #000; border: none; border-radius: 8px;
+    padding: 7px 14px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+  .btn-dismiss { background: none; border: 1px solid var(--border); color: var(--muted);
+    border-radius: 8px; padding: 5px 10px; font-size: 11px; cursor: pointer; }
+
+  /* ── OFFLINE BANNER ── */
+  #offline-banner {
+    display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 950;
+    background: #c0392b; color: #fff; text-align: center;
+    padding: calc(4px + env(safe-area-inset-top)) 16px 6px;
+    font-size: 13px; font-weight: 600; letter-spacing: .3px;
+  }
+  #offline-banner.visible { display: block; }
+
+  /* ── UPDATE BANNER ── */
+  #update-banner {
+    display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 940;
+    background: var(--accent); color: #000; text-align: center;
+    padding: calc(4px + env(safe-area-inset-top)) 16px 6px;
+    font-size: 13px; font-weight: 700; cursor: pointer;
+  }
+  #update-banner.visible { display: block; }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 </style>
 </head>
 <body>
+
+<!-- PWA BANNERS & BOTTOM NAV -->
+<div id="offline-banner">📵 Ești offline – se afișează date din cache</div>
+<div id="update-banner" onclick="pwaApplyUpdate()">🔄 Versiune nouă disponibilă – apasă pentru a actualiza</div>
+<div id="install-banner">
+  <div class="install-icon">📲</div>
+  <div class="install-text">
+    <strong>Instalează VG Codări</strong>
+    <span>Acces rapid, funcționează offline</span>
+  </div>
+  <div class="install-actions">
+    <button class="btn-install" onclick="pwaInstall()">Instalează</button>
+    <button class="btn-dismiss" onclick="pwaDismiss()">Ignoră</button>
+  </div>
+</div>
+<nav id="pwa-bottom-nav">
+  <div class="pwa-nav-inner">
+    <button class="pwa-nav-btn active" id="nav-home" onclick="pwaNav('home')">
+      <span class="nav-icon">🏠</span><span>Acasă</span>
+    </button>
+    <button class="pwa-nav-btn" id="nav-search" onclick="pwaNav('search')">
+      <span class="nav-icon">🔍</span><span>Caută</span>
+    </button>
+    <button class="pwa-nav-btn" id="nav-add" onclick="pwaNav('add')">
+      <span class="nav-icon">➕</span><span>Adaugă</span>
+    </button>
+    <button class="pwa-nav-btn" id="nav-forum" onclick="pwaNav('forum')">
+      <span class="nav-icon">🌐</span><span>Forum</span>
+    </button>
+  </div>
+</nav>
 
 <!-- HEADER -->
 <header>
@@ -2372,6 +2481,106 @@ document.addEventListener('keydown', e => {
 
 // ===================== START =====================
 init();
+
+// ===================== PWA =====================
+let _swReg = null;
+let _installPrompt = null;
+let _newSW = null;
+
+// Service Worker registration
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').then(reg => {
+      _swReg = reg;
+      reg.addEventListener('updatefound', () => {
+        const sw = reg.installing;
+        sw.addEventListener('statechange', () => {
+          if (sw.state === 'installed' && navigator.serviceWorker.controller) {
+            _newSW = sw;
+            document.getElementById('update-banner').classList.add('visible');
+          }
+        });
+      });
+    }).catch(() => {});
+
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      window.location.reload();
+    });
+  });
+}
+
+function pwaApplyUpdate() {
+  if (_newSW) { _newSW.postMessage({ type: 'SKIP_WAITING' }); }
+  document.getElementById('update-banner').classList.remove('visible');
+}
+
+// Install prompt
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  _installPrompt = e;
+  if (!localStorage.getItem('pwa_dismissed')) {
+    setTimeout(() => document.getElementById('install-banner').classList.add('visible'), 2000);
+  }
+  document.getElementById('pwa-bottom-nav').classList.add('visible');
+});
+
+window.addEventListener('appinstalled', () => {
+  document.getElementById('install-banner').classList.remove('visible');
+  _installPrompt = null;
+  showToast('✅ VG Codări instalat cu succes!');
+});
+
+function pwaInstall() {
+  if (!_installPrompt) return;
+  _installPrompt.prompt();
+  _installPrompt.userChoice.then(r => {
+    if (r.outcome === 'accepted') showToast('✅ Se instalează...');
+    document.getElementById('install-banner').classList.remove('visible');
+    _installPrompt = null;
+  });
+}
+
+function pwaDismiss() {
+  document.getElementById('install-banner').classList.remove('visible');
+  localStorage.setItem('pwa_dismissed', '1');
+}
+
+// Show bottom nav when running as standalone PWA
+if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
+  document.getElementById('pwa-bottom-nav').classList.add('visible');
+}
+
+// Offline / online
+function updateOnlineStatus() {
+  const banner = document.getElementById('offline-banner');
+  if (navigator.onLine) { banner.classList.remove('visible'); }
+  else { banner.classList.add('visible'); }
+}
+window.addEventListener('online', updateOnlineStatus);
+window.addEventListener('offline', updateOnlineStatus);
+updateOnlineStatus();
+
+// Bottom nav actions
+function pwaNav(tab) {
+  document.querySelectorAll('.pwa-nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('nav-' + tab)?.classList.add('active');
+  if (tab === 'home') { closeModal(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+  if (tab === 'search') { document.getElementById('searchInput').focus(); document.getElementById('searchInput').scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+  if (tab === 'add') { toggleAddForm(); }
+  if (tab === 'forum') { toggleForumSearch(); }
+}
+
+// URL parameter handling (PWA shortcuts)
+(function handleURLParams() {
+  const p = new URLSearchParams(location.search);
+  const brand = p.get('brand');
+  const action = p.get('action');
+  if (brand && ['BMW','VAG','Mercedes'].includes(brand)) {
+    const btn = document.querySelector(`.brand-btn[data-brand="${brand}"]`);
+    if (btn) filterBrand(brand, btn);
+  }
+  if (action === 'add') { setTimeout(toggleAddForm, 300); }
+})();
 </script>
 </body>
 </html>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="80" fill="#0a0a0f"/>
+  <rect width="512" height="512" rx="80" fill="url(#g)"/>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e8b800"/>
+      <stop offset="100%" stop-color="#ff6b00"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0a0f"/>
+      <stop offset="100%" stop-color="#1a1a2e"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="80" fill="url(#g2)"/>
+  <!-- VG letters -->
+  <text x="256" y="200" font-family="Arial Black,sans-serif" font-weight="900" font-size="140" fill="#e8b800" text-anchor="middle" letter-spacing="-4">VG</text>
+  <!-- Car icon simplified -->
+  <rect x="100" y="270" width="312" height="90" rx="20" fill="#e8b800" opacity="0.15"/>
+  <rect x="140" y="250" width="232" height="70" rx="16" fill="#e8b800" opacity="0.25"/>
+  <!-- Wheels -->
+  <circle cx="160" cy="368" r="32" fill="none" stroke="#e8b800" stroke-width="10" opacity="0.8"/>
+  <circle cx="352" cy="368" r="32" fill="none" stroke="#e8b800" stroke-width="10" opacity="0.8"/>
+  <circle cx="160" cy="368" r="12" fill="#e8b800" opacity="0.6"/>
+  <circle cx="352" cy="368" r="12" fill="#e8b800" opacity="0.6"/>
+  <!-- Code symbol -->
+  <text x="256" y="450" font-family="Courier New,monospace" font-size="36" fill="#e8b800" text-anchor="middle" opacity="0.7">&lt;/&gt;</text>
+</svg>
