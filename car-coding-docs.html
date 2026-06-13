@@ -774,7 +774,7 @@
 
 <script>
 // ===================== DATA =====================
-const DB_KEY = 'vg_codings_v3';
+const DB_KEY = 'vg_codings_v4';
 
 const MODELS = {
   BMW: ['Seria 1 (E87/E81)','Seria 1 (F20/F21)','Seria 2 (F22/F23)','Seria 3 (E90/E91/E92)','Seria 3 (F30/F31)','Seria 3 (G20/G21)',
@@ -1446,13 +1446,455 @@ const SAMPLE_CODINGS = [
    steps:['BimmerCode Expert > HU_MGU','GESTURE_ALL = aktiv','Definit: zoom, volum, apel, hartă','Testează fiecare gest'],
    code:'HU_MGU:\nGESTURE_ZOOM = AKTIV\nGESTURE_VOLUME = AKTIV\nGESTURE_CALL = AKTIV\nGESTURE_MAP = AKTIV',warning:'',
    source:'https://bimmerpost.com',sourceLabel:'Bimmerpost G11',tags:['gesture','G11','Seria 7','iDrive'],added:'2024-08-09'},
+
+// ── BMW G20/G30 – BDC/FEM avansate ───────────────────────────────────────────
+  {id:106,brand:'BMW',model:'Seria 3 (G20/G21)',year:'2019-2024',category:'Confort',title:'Drive Mode Memory – reținere mod condus G20',
+   difficulty:'Mediu',tool:'BimmerCode Expert',description:'Sistemul reține modul de condus (Comfort/Sport/Sport+) după oprire. Pe G20 setarea se face din FEM sau DSC module – implicit se resetează la Comfort la fiecare pornire.',
+   steps:['BimmerCode Expert > FEM (Front Electronic Module)','DRIVE_MODE_MEMORY = aktiv','Sau DSC module > FAHRMODUS_SPEICHERN = aktiv','Testează: setează Sport, oprește, repornește – ar trebui să rămână în Sport'],
+   code:'FEM:\nDRIVE_MODE_MEMORY = AKTIV\nFAHRMODUS_SPEICHERN = AKTIV',warning:'Unele update-uri OTA BMW pot reseta. Reverificați după fiecare update software.',
+   source:'https://g20.bimmerpost.com/forums/showthread.php?t=1791723',sourceLabel:'Bimmerpost G20',tags:['drive mode','memory','G20','FEM'],added:'2024-08-11'},
+
+  {id:107,brand:'BMW',model:'Seria 3 (G20/G21)',year:'2019-2024',category:'Confort',title:'Comfort Access – Walk-Away Auto Lock G20',
+   difficulty:'Mediu',tool:'BimmerCode Expert',description:'Mașina se blochează automat când te îndepărtezi cu cheia în buzunar (Comfort Access). Deblocare automată când te apropii.',
+   steps:['BimmerCode Expert > BDC_BODY','1DF7 Comfort Access Settings','WALK_AWAY_LOCK = aktiv','APPROACH_UNLOCK = aktiv','Testează: pleacă 3m de mașină – se blochează singur'],
+   code:'BDC_BODY:\n1DF7_WALK_AWAY_LOCK = AKTIV\n1DF7_APPROACH_UNLOCK = AKTIV',warning:'Necesită Comfort Access hardware (SA322).',
+   source:'https://g20.bimmerpost.com/forums/showthread.php?t=1791723',sourceLabel:'Bimmerpost G20',tags:['comfort access','walk-away','G20','BDC'],added:'2024-08-13'},
+
+  {id:108,brand:'BMW',model:'Seria 5 (G30/G31)',year:'2017-2023',category:'Confort',title:'Comfort Close – geamuri + trapă cu telecomanda G30',
+   difficulty:'Ușor',tool:'BimmerCode',description:'Ținând apăsat butonul de blocare pe telecomandă, geamurile și trapa panoramică se închid. Util dacă ai uitat geamurile deschise.',
+   steps:['BimmerCode > BDC_BODY sau FEM','KOMFORTSCHLIESSUNG_WINDOWS = aktiv','KOMFORTSCHLIESSUNG_SUNROOF = aktiv','Testează: ține Lock 3s'],
+   code:'FEM:\nKOMFORTSCHLIESSUNG_WINDOWS = AKTIV\nKOMFORTSCHLIESSUNG_SUNROOF = AKTIV',warning:'',
+   source:'https://www.alpinamotorsports.com/bimmercode-g30-coding-guide/',sourceLabel:'AlpinaMotorsports G30',tags:['comfort close','geamuri','G30','telecomandă'],added:'2024-08-15'},
+
+  {id:109,brand:'BMW',model:'Seria 3 (G20/G21)',year:'2019-2024',category:'Sunet',title:'Active Sound Design – intensitate sunet motor G20',
+   difficulty:'Mediu',tool:'BimmerCode Expert',description:'Ajustarea nivelului sunetului motor sintetizat în habitaclu prin difuzoare (Active Sound Design). Disponibil pe 4 cil. unde sunetul natural este mai slab.',
+   steps:['BimmerCode Expert > SM (Sound Module) sau DME','ACTIVE_SOUND_DESIGN_LEVEL = ENHANCED','Sau ASD_VOLUME = HIGH','Testează la accelerare în Sport mode'],
+   code:'SM:\nACTIVE_SOUND_DESIGN = ENHANCED\nASD_SPORT_PLUS = AKTIV',warning:'',
+   source:'https://g20.bimmerpost.com',sourceLabel:'Bimmerpost G20',tags:['sunet','active sound','G20','DME'],added:'2024-08-17'},
+
+  {id:110,brand:'BMW',model:'Seria 5 (G30/G31)',year:'2017-2023',category:'Motor',title:'Sport+ mode deblocare permanentă G30',
+   difficulty:'Avansat',tool:'BimmerCode Expert / E-SYS',description:'Activarea permanentă a modului Sport+ (disponibil pe M550i și M5) sau deblocarea pe versiunile standard unde software-ul este restricționat.',
+   steps:['BimmerCode Expert > EDC (Electronic Damper Control)','SPORT_PLUS_AVAILABLE = aktiv','Sau E-SYS > DSC > SPORTPLUS_MODE = ENABLED','Testează: M/S buton > Sport+'],
+   code:'EDC:\nSPORT_PLUS_AVAILABLE = AKTIV\nDSC:\nSPORTPLUS_MODE = ENABLED',warning:'Poate afecta comportamentul suspensiei. Testați cu atenție.',
+   source:'https://www.bimmerfest.com/threads/g30-coding-guide.1001034/',sourceLabel:'BimmerFest G30',tags:['sport+','G30','motor','DSC'],added:'2024-08-19'},
+
+// ── BMW F07 5 GT / F01 7 Series ────────────────────────────────────────────────
+  {id:111,brand:'BMW',model:'Seria 7 (F01/F02)',year:'2008-2015',category:'Confort',title:'Mirror fold + Comfort close F01',
+   difficulty:'Ușor',tool:'NCS Expert / BimmerCode',description:'Pliere oglindă automată și închidere geamuri cu telecomanda pe F01/F02. Coduri similare cu F10.',
+   steps:['NCS Expert > FRM','ASP_BEIKLAPPEN_BEI_KOMFORTSCHLIESSEN = aktiv','FH_KOMFORTSCHLIESSUNG = aktiv','Testează cu telecomanda'],
+   code:'FRM:\nASP_BEIKLAPPEN = AKTIV\nFH_KOMFORTSCHLIESSUNG = AKTIV',warning:'',
+   source:'https://bimmerfest.com/forums/showthread.php?t=645268',sourceLabel:'BimmerFest F07',tags:['oglindă','geamuri','F01','confort'],added:'2024-08-21'},
+
+  {id:112,brand:'BMW',model:'Seria 7 (F01/F02)',year:'2008-2015',category:'Display',title:'Rear seat entertainment display coding F01',
+   difficulty:'Mediu',tool:'E-SYS',description:'Activare și configurare sistem de divertisment pentru pasagerii din spate (RSE – Rear Seat Entertainment) pe F01/F02 dacă hardware-ul este montat.',
+   steps:['E-SYS > RSE module','RSE_SYSTEM_ENABLE = aktiv','RSE_HDMI_INPUT = aktiv','Testează cu monitor spate pornit'],
+   code:'RSE:\nRSE_SYSTEM_ENABLE = AKTIV\nRSE_HDMI = AKTIV',warning:'Necesită hardware RSE (monitoare spate) montate fizic.',
+   source:'https://bimmerfest.com/forums',sourceLabel:'BimmerFest',tags:['RSE','rear entertainment','F01','Seria 7'],added:'2024-08-23'},
+
+// ── BMW X1 F48 ────────────────────────────────────────────────────────────────
+  {id:113,brand:'BMW',model:'X1 (F48)',year:'2015-2022',category:'Confort',title:'Start-Stop Memory + Mirror Fold X1 F48',
+   difficulty:'Ușor',tool:'BimmerCode',description:'Dezactivare permanentă Start-Stop și pliere automată oglinzi la blocare pe X1 F48.',
+   steps:['BimmerCode > EfficientDynamics > MSA = nicht_aktiv','BimmerCode > FRM > Mirror Fold on Lock = aktiv'],
+   code:'EfficientDynamics:\nMSA = NICHT_AKTIV\nFRM:\nSPIEGEL_ANKLAPPEN = KOMFORT_SCHLIESSEN',warning:'',
+   source:'https://bimmercode.app/vehicles/bmw/x1/f48/',sourceLabel:'BimmerCode X1 F48',tags:['start-stop','oglindă','X1','F48'],added:'2024-08-25'},
+
+  {id:114,brand:'BMW',model:'X1 (F48)',year:'2015-2022',category:'Lumini',title:'DRL permanent + Angel Eyes X1 F48',
+   difficulty:'Ușor',tool:'BimmerCode',description:'Activare DRL permanent și intensitate maximă inele poziționale pe X1 F48.',
+   steps:['BimmerCode > FRM > DRL = aktiv','CORONA_HELL_DRL = 100','Testează ziua'],
+   code:'FRM:\nKL_30_DRL = AKTIV\nCORONA_DRL_INTENSITY = 100',warning:'',
+   source:'https://bimmercode.app/vehicles/bmw/x1/f48/',sourceLabel:'BimmerCode',tags:['DRL','angel eyes','X1','F48'],added:'2024-08-27'},
+
+// ── BMW MINI F56/F55 ──────────────────────────────────────────────────────────
+  {id:115,brand:'BMW',model:'MINI Cooper (F56/F55)',year:'2014-2023',category:'Lumini',title:'Angel Eyes DRL + Rear Fog activare MINI F56',
+   difficulty:'Ușor',tool:'BimmerCode',description:'Activare Angel Eyes la intensitate maximă ca DRL și activare far ceată spate pe MINI Cooper F56/F55.',
+   steps:['BimmerCode > FRM > DRL Ringlight = aktiv','REAR_FOG_LIGHT = aktiv','Testează ziua și noaptea'],
+   code:'FRM:\nDRL_RINGLIGHT = AKTIV\nCORONA_INTENSITY = 100\nREAR_FOG = AKTIV',warning:'',
+   source:'https://www.minif56.com/threads/the-other-coding-options-tracker-f55-f56-f54.40969/',sourceLabel:'MiniF56 Forum',tags:['angel eyes','DRL','MINI','F56'],added:'2024-08-29'},
+
+  {id:116,brand:'BMW',model:'MINI Cooper (F56/F55)',year:'2014-2023',category:'Confort',title:'5-flash comfort blink + Mirror Fold MINI',
+   difficulty:'Ușor',tool:'BimmerCode',description:'Semnalizare cu 5 blinuri la atingere scurtă și pliere automată oglinzi la blocare pe MINI F56.',
+   steps:['BimmerCode > SZL > TIPP_BLINKEN_ANZ = 5','BimmerCode > FRM > Mirror Fold = aktiv'],
+   code:'SZL:\nTIPP_BLINKEN_ANZ = 5\nFRM:\nSPIEGEL_ANKLAPPEN = AKTIV',warning:'',
+   source:'https://www.minif56.com',sourceLabel:'MiniF56 Forum',tags:['semnal','oglindă','MINI','F56'],added:'2024-08-31'},
+
+  {id:117,brand:'BMW',model:'MINI Cooper (F56/F55)',year:'2014-2023',category:'Sunet',title:'JCW exhaust mode + Active Sound MINI',
+   difficulty:'Mediu',tool:'BimmerCode Expert',description:'Activare mod evacuare JCW (John Cooper Works) sau modificare profil sunet activ pe MINI F56 Cooper S / JCW.',
+   steps:['BimmerCode Expert > DME','EXHAUST_MODE = JCW (sau SPORT)','ASD_PROFILE = JCW','Testează la accelerare în Sport mode'],
+   code:'DME:\nEXHAUST_MODE = JCW\nASD_PROFILE = JCW',warning:'',
+   source:'https://www.northamericanmotoring.com/forums',sourceLabel:'NAM MINI Forum',tags:['JCW','evacuare','sunet','MINI'],added:'2024-09-02'},
+
+// ── BMW G42 Seria 2 Coupe ─────────────────────────────────────────────────────
+  {id:118,brand:'BMW',model:'Seria 2 (G42)',year:'2021-2024',category:'Confort',title:'Auto Start-Stop Memory G42',
+   difficulty:'Ușor',tool:'BimmerCode',description:'Dezactivare permanentă Start-Stop pe noua Seria 2 G42 (Coupe). Aceeași structură ca G20.',
+   steps:['BimmerCode > EfficientDynamics','MSA_VERHALTEN_NACH_MOTORSTART = nicht_aktiv'],
+   code:'EfficientDynamics:\nMSA_VERHALTEN_NACH_MOTORSTART = NICHT_AKTIV',warning:'',
+   source:'https://bimmerpost.com',sourceLabel:'Bimmerpost G42',tags:['start-stop','G42','Seria 2','confort'],added:'2024-09-04'},
+
+  {id:119,brand:'BMW',model:'Seria 2 (G42)',year:'2021-2024',category:'Display',title:'Lap Timer + Sport Display G42',
+   difficulty:'Ușor',tool:'BimmerCode',description:'Activare lap timer și afișaj sportiv în instrumentarul G42. Aceeași codare ca G20.',
+   steps:['BimmerCode > KOMBI','SPORT_DISPLAY_ANZEIGE = aktiv','LAP_TIMER_FUNKTION = aktiv'],
+   code:'KOMBI:\nSPORT_DISPLAY = AKTIV\nLAP_TIMER = AKTIV',warning:'',
+   source:'https://bimmerpost.com',sourceLabel:'Bimmerpost',tags:['lap timer','sport display','G42','KOMBI'],added:'2024-09-06'},
+
+// ── VAG – Audi A4 B8/B8.5 ────────────────────────────────────────────────────
+  {id:120,brand:'VAG',model:'Audi A4 (B8)',year:'2008-2015',category:'Lumini',title:'Dezactivare lumini amber sidemarker SUA (B8)',
+   difficulty:'Ușor',tool:'VCDS',description:'Dezactivarea becurilor portocalii de poziție laterale (amber sidemarker) montate pe variantele americane sau unele europene. Aspect vizual mai curat.',
+   steps:['VCDS > Module 09 – Central Electronics','Long Coding Byte 10 Bit 3 = 0 (sidemarker off)'],
+   code:'Module 09:\nByte 10 Bit 3 = 0 (amber sidemarker OFF)',warning:'',
+   source:'https://www.audizine.com/forum/showthread.php/403694',sourceLabel:'Audizine B8',tags:['sidemarker','lumini','A4 B8','VCDS'],added:'2024-09-08'},
+
+  {id:121,brand:'VAG',model:'Audi A4 (B8)',year:'2008-2015',category:'Display',title:'Hidden Menu MMI 3G activare A4 B8',
+   difficulty:'Mediu',tool:'VCDS',description:'Activare meniu ascuns în MMI 3G pe A4 B8/B8.5. Se accesează ținând Car + Setup apăsate 5 secunde.',
+   steps:['VCDS > Module 5F – Information Electronics','Adaptation Channel 6 = 1 (hidden menu enable)','Accesează: ține apăsat Car + Setup 5 sec în MMI'],
+   code:'Module 5F Adaptation:\nChannel 6 = 1 (hidden menu ON)',warning:'Nu modificați valori în meniu fără cunoștințe tehnice.',
+   source:'https://www.audizine.com/forum/showthread.php/403694',sourceLabel:'Audizine B8',tags:['hidden menu','MMI','A4 B8','diagnostics'],added:'2024-09-10'},
+
+  {id:122,brand:'VAG',model:'Audi A4 (B8)',year:'2008-2015',category:'Confort',title:'Mirror folding + Coming Home A4 B8',
+   difficulty:'Ușor',tool:'VCDS',description:'Pliere automată oglinzi și faruri Coming/Leaving Home pe A4 B8.',
+   steps:['VCDS > Module 46 > Mirror Folding = activate','Module 09 > Coming Home Duration = 30s'],
+   code:'Module 46:\nMirror_Folding = ON_LOCK\nModule 09:\nComing_Home = 30s',warning:'',
+   source:'https://vcds-expert.com/2016/04/01/audi-a4s4a5s5b8/',sourceLabel:'VCDS-Expert B8',tags:['oglindă','coming home','A4 B8','confort'],added:'2024-09-12'},
+
+  {id:123,brand:'VAG',model:'Audi A4 (B8)',year:'2008-2015',category:'Display',title:'Gauge Sweep + Digital Speed A4 B8',
+   difficulty:'Ușor',tool:'VCDS',description:'Activare sweep ace instrumentar la pornire și afișaj vitezometru digital în colțul bordului.',
+   steps:['VCDS > Module 17','Byte 1 Bit 0 = 1 (sweep)','Adaptation > Digital Speed = Active'],
+   code:'Module 17:\nByte 1 Bit 0 = 1 (gauge sweep)\nAdaptation: Digital_Speed = ACTIVE',warning:'',
+   source:'https://www.audizine.com/forum',sourceLabel:'Audizine',tags:['needle sweep','digital speed','A4 B8','display'],added:'2024-09-14'},
+
+// ── VAG – Audi A5 B9 ──────────────────────────────────────────────────────────
+  {id:124,brand:'VAG',model:'Audi A5 (B9)',year:'2016-2023',category:'Display',title:'Virtual Cockpit Sport + G-Meter A5 B9',
+   difficulty:'Mediu',tool:'OBDEleven / VCDS',description:'Activare layout sport Virtual Cockpit și G-force meter pe A5 B9. Codare identică cu A4 B9.',
+   steps:['OBDEleven > Module 17','Byte 19 Bit 2 = 1 (extra layouts)','G_Meter_Display = Active'],
+   code:'Module 17:\nByte 19 Bit 2 = 1\nG_Meter = ACTIVE',warning:'',
+   source:'https://www.audiworld.com/forums/audi-a5-s5-rs5-b9-220',sourceLabel:'AudiWorld A5 B9',tags:['virtual cockpit','G-meter','A5 B9','display'],added:'2024-09-16'},
+
+  {id:125,brand:'VAG',model:'Audi A5 (B9)',year:'2016-2023',category:'Sunet',title:'Engine Sound Enhancement A5 B9',
+   difficulty:'Mediu',tool:'OBDEleven',description:'Activare sau intensificare sunet motor prin difuzoare (Active Sound Design) pe A5 B9.',
+   steps:['OBDEleven > Module 5F','Engine Sound = Enhanced','Testează la accelerare'],
+   code:'Module 5F:\nEngine_Sound = ENHANCED',warning:'',
+   source:'https://www.audiworld.com/forums',sourceLabel:'AudiWorld',tags:['sunet','engine sound','A5 B9'],added:'2024-09-18'},
+
+// ── VAG – VW Golf 7 GTI / R ───────────────────────────────────────────────────
+  {id:126,brand:'VAG',model:'VW Golf 7 (5G)',year:'2013-2020',category:'Motor',title:'XDS Torque Vectoring ajustare Golf 7 GTI/R',
+   difficulty:'Avansat',tool:'VCDS',description:'Modificarea intensității sistemului XDS (electronic differential lock) pentru comportament sportiv mai pronunțat la viraje. GTI are XDS, Golf R are XDS+.',
+   steps:['VCDS > Module 03 – ABS Brakes','Security Access: 20103','Adaptation > XDS = STRONG (sau MEDIUM)','Testează la viraje rapide pe circuit'],
+   code:'Module 03:\nSecurity: 20103\nXDS_Strength = STRONG',warning:'Schimbarea XDS afectează comportamentul dinamic. Testați pe circuit mai întâi.',
+   source:'https://www.vwroc.com/forums/topic/11324-7r-xds-settings/',sourceLabel:'VWROC Golf R',tags:['XDS','torque vectoring','Golf7 GTI','motor','performanță'],added:'2024-09-20'},
+
+  {id:127,brand:'VAG',model:'VW Golf 7 (5G)',year:'2013-2020',category:'Motor',title:'DCC suspension profile ajustare Golf 7',
+   difficulty:'Mediu',tool:'VCDS / OBDEleven',description:'Modificarea profilelor DCC (Dynamic Chassis Control) pentru o setare intermediară mai fermă fără a fi Sport complet. Disponibil pe Golf 7 cu DCC opțional.',
+   steps:['VCDS > Module 76 – Parking Assist sau Chassis','Adaptation > DCC Comfort Damping = reduce','Sau OBDEleven > DCC > Profile tuning','Testează pe drum normal vs sport'],
+   code:'Module 76:\nDCC_Comfort_Hardness = 75%\nDCC_Sport_Hardness = 100%',warning:'Necesită hardware DCC montat (opțiune suplimentară Golf 7).',
+   source:'https://golfmk7.com/forums/showthread.php?t=22067',sourceLabel:'GolfMK7 Track',tags:['DCC','suspensie','Golf7','motor'],added:'2024-09-22'},
+
+  {id:128,brand:'VAG',model:'VW Golf 7 (5G)',year:'2013-2020',category:'Confort',title:'Haldex AWD preload ajustare Golf R MK7',
+   difficulty:'Avansat',tool:'VCDS',description:'Ajustarea preload-ului sistemului Haldex (4Motion AWD) pe Golf R MK7 pentru tracțiune mai bună la pornire din loc și comportament AWD mai agresiv.',
+   steps:['VCDS > Module 22 – AWD (Haldex)','Security Access code Haldex','Adaptation > Preload = MEDIUM/HIGH','Testează tracțiunea pe suprafețe variabile'],
+   code:'Module 22 – AWD:\nHaldex_Preload = MEDIUM\nHaldex_Response = FAST',warning:'Ajustări greșite pot afecta comportamentul 4x4. Testați cu atenție.',
+   source:'https://www.vwroc.com/forums/topic/21951-haldex-awd-settings-in-vcds/',sourceLabel:'VWROC Haldex',tags:['Haldex','AWD','Golf R','4Motion','motor'],added:'2024-09-24'},
+
+// ── VAG – VW Polo 6R/6C ──────────────────────────────────────────────────────
+  {id:129,brand:'VAG',model:'VW Polo 5 (6R)',year:'2009-2014',category:'Lumini',title:'DRL activare Polo 6R (Module 09)',
+   difficulty:'Ușor',tool:'VCDS / OBDEleven',description:'Activare lumini de zi DRL pe Polo 6R prin codarea modulului electronic central.',
+   steps:['VCDS > Module 09','Security 31347','Long Coding Byte 0 Bit 2 = 1 (DRL aktiv)','Testează'],
+   code:'Module 09:\nByte 0 Bit 2 = 1 (DRL)',warning:'',
+   source:'https://www.vag-coding.net/vw/polo-5-6r/',sourceLabel:'VAG-Coding Polo 6R',tags:['DRL','Polo 6R','lumini','Module 09'],added:'2024-09-26'},
+
+  {id:130,brand:'VAG',model:'VW Polo 5 (6R)',year:'2009-2014',category:'Confort',title:'Coming Home lights + Mirror fold Polo 6R',
+   difficulty:'Ușor',tool:'VCDS',description:'Activare faruri Coming Home și pliere automată oglinzi la blocare pe VW Polo 6R.',
+   steps:['VCDS > Module 09 > Adaptation > Coming Home = 30s','Module 46 > Mirror Folding = ON_LOCK'],
+   code:'Module 09:\nComing_Home = 30s\nModule 46:\nMirror_Folding = ON_LOCK',warning:'',
+   source:'https://www.vag-coding.net/vw/polo-5-6r/',sourceLabel:'VAG-Coding',tags:['coming home','oglindă','Polo 6R','confort'],added:'2024-09-28'},
+
+  {id:131,brand:'VAG',model:'VW Polo 6 (AW)',year:'2018-2024',category:'Lumini',title:'DRL intensitate și culoare Polo 6 AW',
+   difficulty:'Ușor',tool:'OBDEleven',description:'Ajustarea intensității DRL pe Polo AW (generația 6) cu LED DRL full. Platforma MQB A0.',
+   steps:['OBDEleven > Module 09','Adaptation > DRL_Brightness = 90','Salvează și verifică'],
+   code:'Module 09:\nDRL_Brightness = 90',warning:'',
+   source:'https://www.vag-coding.net/vw/polo-6-aw1/',sourceLabel:'VAG-Coding Polo AW',tags:['DRL','Polo AW','lumini','MQB A0'],added:'2024-09-30'},
+
+// ── VAG – Seat Ateca / Skoda Superb ──────────────────────────────────────────
+  {id:132,brand:'VAG',model:'Seat Ateca',year:'2016-2024',category:'Lumini',title:'DRL + Emergency brake flash Seat Ateca',
+   difficulty:'Ușor',tool:'VCDS / OBDEleven',description:'DRL permanent și flasher frânare urgentă pe Seat Ateca MQB platform.',
+   steps:['VCDS > Module 09 > Security 31347','Byte 0 Bit 2 = 1 (DRL)','Byte 1 Bit 2 = 1 (emergency brake)'],
+   code:'Module 09:\nByte 0 Bit 2 = 1 (DRL)\nByte 1 Bit 2 = 1 (brake flash)',warning:'',
+   source:'https://www.vag-coding.net',sourceLabel:'VAG-Coding',tags:['DRL','frânare','Ateca','Seat'],added:'2024-10-02'},
+
+  {id:133,brand:'VAG',model:'Škoda Superb 3',year:'2015-2023',category:'Confort',title:'Mirror fold + Beep off Superb 3',
+   difficulty:'Ușor',tool:'VCDS / OBDEleven',description:'Pliere automată oglinzi și eliminare beep confirmare blocare pe Škoda Superb 3 (MQB).',
+   steps:['Module 46 > Mirror Folding = ON_LOCK','Byte 1 Bit 3 = 0 (beep off)'],
+   code:'Module 46:\nMirror_Folding = ON_LOCK\nByte 1 Bit 3 = 0 (beep OFF)',warning:'',
+   source:'https://www.vag-coding.net',sourceLabel:'VAG-Coding',tags:['oglindă','beep','Superb 3','Skoda'],added:'2024-10-04'},
+
+// ── Mercedes W246 B-Class ─────────────────────────────────────────────────────
+  {id:134,brand:'Mercedes',model:'Clasa B (W246)',year:'2011-2018',category:'Display',title:'AMG Menu IC172 activare W246',
+   difficulty:'Mediu',tool:'Xentry / iCarSoft',description:'Activare meniu AMG în instrumentarul IC172 pe B-Class W246. Disponibil OBD2 click & play.',
+   steps:['iCarSoft MB II sau Xentry','Module IC172','AMG_MENU = ENABLED','PERFORMANCE_PAGES = ON','Test: Menu > AMG'],
+   code:'IC172:\nAMG_MENU = ENABLED\nPERFORMANCE_PAGES = ON',warning:'',
+   source:'https://xentry.top/mercedes-amg-menu-activation-ic172/',sourceLabel:'Xentry.top IC172',tags:['AMG menu','W246','B class','IC172'],added:'2024-10-06'},
+
+  {id:135,brand:'Mercedes',model:'Clasa B (W246)',year:'2011-2018',category:'Confort',title:'Auto lock + Hill Start Assist W246',
+   difficulty:'Ușor',tool:'iCarSoft',description:'Activare blocare automată uși la viteză și Hill Start Assist (menține frâna la pornire din pantă) pe W246.',
+   steps:['iCarSoft MB II > Coding','KFB > AUTO_LOCK_SPEED = 15','HILL_START_ASSIST = ENABLED','Confirm'],
+   code:'KFB:\nAUTO_LOCK_SPEED = 15\nHILL_START_ASSIST = ENABLED',warning:'',
+   source:'https://mbworld.org',sourceLabel:'MBWorld',tags:['auto lock','hill start','W246','confort'],added:'2024-10-08'},
+
+// ── Mercedes GLA W156/H247 ────────────────────────────────────────────────────
+  {id:136,brand:'Mercedes',model:'GLA (X156)',year:'2014-2020',category:'Display',title:'AMG Menu IC172 activare GLA X156',
+   difficulty:'Mediu',tool:'Xentry / iCarSoft',description:'Meniu AMG în instrumentar IC172 pe GLA X156 cu date performanță. Același IC ca W246.',
+   steps:['iCarSoft MB II > IC module','AMG_MENU = ENABLED','Test: Settings > AMG'],
+   code:'IC172:\nAMG_MENU = ENABLED',warning:'',
+   source:'https://xentry.top/mercedes-amg-menu-activation-ic172/',sourceLabel:'Xentry.top',tags:['AMG menu','GLA','X156','display'],added:'2024-10-10'},
+
+  {id:137,brand:'Mercedes',model:'GLA (H247)',year:'2020-2024',category:'Display',title:'AMG Menu + MBUX extins GLA H247',
+   difficulty:'Mediu',tool:'Xentry / iCarSoft',description:'Activare meniu AMG și funcționalități MBUX extinse pe GLA H247 noua generație.',
+   steps:['iCarSoft MB II sau Xentry','IC module > AMG_MENU = ENABLED','MBUX_EXTENDED = YES','Restart'],
+   code:'IC:\nAMG_MENU = ENABLED\nMBUX_EXTENDED = YES',warning:'',
+   source:'https://mbworld.org',sourceLabel:'MBWorld GLA',tags:['AMG menu','MBUX','GLA H247','display'],added:'2024-10-12'},
+
+// ── Mercedes CLA C117 ─────────────────────────────────────────────────────────
+  {id:138,brand:'Mercedes',model:'CLA (C117)',year:'2013-2019',category:'Display',title:'AMG Menu + fuel litri CLA C117',
+   difficulty:'Mediu',tool:'Vediamo / iCarSoft',description:'Activare meniu AMG în bord și afișaj nivel carburant în litri pe CLA C117.',
+   steps:['iCarSoft MB sau Vediamo > IC','AMG_MENU = ENABLED','FUEL_DISPLAY = LITERS','Restart'],
+   code:'IC:\nAMG_MENU = ENABLED\nFUEL_DISPLAY = LITERS',warning:'',
+   source:'https://mbworld.org',sourceLabel:'MBWorld CLA',tags:['AMG menu','litri','CLA C117','display'],added:'2024-10-14'},
+
+// ── Mercedes W205 – codări suplimentare ──────────────────────────────────────
+  {id:139,brand:'Mercedes',model:'Clasa C (W205)',year:'2014-2021',category:'Confort',title:'Hill Start Assist activare W205',
+   difficulty:'Ușor',tool:'DTS Monaco / iCarSoft',description:'Activare Hill Start Assist (menține frâna automat la pornire din rampă) pe W205 dacă opțiunea nu a fost inclusă în configurație.',
+   steps:['DTS Monaco sau iCarSoft > ESP/ABS module','HILL_START_ASSIST = ENABLED','Confirm și testează la pornire din pantă'],
+   code:'ESP:\nHILL_START_ASSIST = ENABLED',warning:'',
+   source:'https://help.autosvs.com/kb/mercedes-benz-hill-assist-start-function-coding-by-dts-monaco/',sourceLabel:'AutoSvs DTS Monaco',tags:['hill start','confort','W205','ESP'],added:'2024-10-16'},
+
+  {id:140,brand:'Mercedes',model:'Clasa C (W205)',year:'2014-2021',category:'Rețea',title:'CarPlay activare COMAND NTG 5.5 W205',
+   difficulty:'Avansat',tool:'Xentry / Vediamo',description:'Activare Apple CarPlay pe sisteme COMAND NTG 5.5 (post-2016). Necesită actualizare firmware și codare specifică.',
+   steps:['Xentry > HU_COMAND > Variant Coding','CARPLAY_ENABLED = YES','CARPLAY_WIRELESS = YES (dacă hardware suportă)','Actualizare firmware NTG 5.5 la versiunea corectă','Test: conectare iPhone Lightning/USB'],
+   code:'HU_COMAND:\nCARPLAY_ENABLED = YES\nCARPLAY_WIRELESS = YES',warning:'Necesită firmware NTG 5.5.7.0 sau mai nou. Verificați versiunea înainte.',
+   source:'https://www.otoideal.com/en/blog/mercedes-benz-hidden-feature-activation-carplay-coding',sourceLabel:'OtoIdeal',tags:['CarPlay','COMAND','W205','NTG 5.5'],added:'2024-10-18'},
+
+  {id:141,brand:'Mercedes',model:'Clasa C (W205)',year:'2014-2021',category:'Siguranță',title:'Active Parking Assist activare W205',
+   difficulty:'Avansat',tool:'Xentry',description:'Activarea sistemului de parcare automată (Active Parking Assist) dacă hardware-ul senzori ultrasonci + servodirecție electrică este montat.',
+   steps:['Xentry > PTS (Park Tronic System)','ACTIVE_PARKING_ASSIST = ENABLED','Calibrare senzori necesară','Test: apasă P buton > mașina scanează locuri de parcare'],
+   code:'PTS:\nACTIVE_PARKING_ASSIST = ENABLED\nAUTO_STEER = ENABLED',warning:'Necesită hardware senzori PTS și servodirecție electrică EPS.',
+   source:'https://mbworld.org',sourceLabel:'MBWorld',tags:['parcare automată','PTS','W205','siguranță'],added:'2024-10-20'},
+
+// ── Mercedes W213 – codări suplimentare ──────────────────────────────────────
+  {id:142,brand:'Mercedes',model:'Clasa E (W213)',year:'2016-2023',category:'Rețea',title:'CarPlay Wireless activare W213 MBUX',
+   difficulty:'Avansat',tool:'Xentry',description:'Activare CarPlay wireless pe W213 cu sistem MBUX (post-2018). Pe modelele mai vechi se poate activa CarPlay prin USB.',
+   steps:['Xentry > HU_MBUX','CARPLAY_WIRELESS = YES','Firmware update dacă necesar','Test: iPhone > Setări > General > CarPlay > [Mașina ta]'],
+   code:'HU_MBUX:\nCARPLAY_WIRELESS = YES\nCARPLAY_USB = YES',warning:'Necesită iOS 12+ și hardware WiFi adaptor compatibil.',
+   source:'https://www.otoideal.com/en/blog/mercedes-benz-hidden-feature-activation-carplay-coding',sourceLabel:'OtoIdeal',tags:['CarPlay','wireless','W213','MBUX'],added:'2024-10-22'},
+
+  {id:143,brand:'Mercedes',model:'Clasa E (W213)',year:'2016-2023',category:'Siguranță',title:'Night View Assist Plus activare W213',
+   difficulty:'Avansat',tool:'Xentry / Vediamo',description:'Activare sistem Night View Assist cu cameră infraroșu și detecție pedestriani pe W213. Necesită hardware SA608 camera infraroșu.',
+   steps:['Verifică SA608 Night View în opțiuni VIN','Xentry > NIVI module','PED_DETECTION = ENABLED','NIVI_DISPLAY = IC (bord)','Calibrare cameră obligatorie'],
+   code:'NIVI:\nNIGHT_VIEW_ASSIST = ENABLED\nPED_DETECTION = ENABLED\nNIVI_DISPLAY = INSTRUMENT_CLUSTER',warning:'EXCLUSIV cu hardware cameră infraroșu SA608.',
+   source:'https://mbworld.org',sourceLabel:'MBWorld W213',tags:['night vision','pedestrian','W213','siguranță'],added:'2024-10-24'},
+
+// ── BMW E46 ───────────────────────────────────────────────────────────────────
+  {id:144,brand:'BMW',model:'Seria 3 (E46)',year:'1998-2006',category:'Lumini',title:'Angel Eyes intensitate E46 (cod rezistor)',
+   difficulty:'Mediu',tool:'NCS Expert',description:'Pe E46 angel eyes sunt halogene sau CCFL. Intensitatea se mărește prin rezistori sau upgrade LED ring. Codarea se referă la activarea lor permanentă ca DRL.',
+   steps:['NCS Expert > LM (Lichtmodul)','CORONA_IMMER = aktiv','Sau upgrade fizic la LED rings (recomandat)','Test ziua și noaptea'],
+   code:'LM:\nCORONA_IMMER = AKTIV\nCORONA_MIT_FERNLICHT = AKTIV',warning:'E46 angel eyes originale sunt halogene – upgrade LED îmbunătățește semnificativ vizibilitatea.',
+   source:'https://www.bimmerfest.com',sourceLabel:'BimmerFest E46',tags:['angel eyes','E46','lumini','DRL'],added:'2024-10-26'},
+
+  {id:145,brand:'BMW',model:'Seria 3 (E46)',year:'1998-2006',category:'Confort',title:'Folding mirrors E46 (NCS Expert)',
+   difficulty:'Mediu',tool:'NCS Expert',description:'Activare pliere oglinzi la blocare pe E46 cu oglinzi electrice. Nu toate variantele au motorașele de pliere.',
+   steps:['Verifică că ai oglinzi cu motoraș de pliere (nu toate E46)','NCS Expert > FRM sau LM','ASP_BEIKLAPPEN = aktiv','Testează cu cheița'],
+   code:'FRM:\nASP_BEIKLAPPEN = AKTIV',warning:'Necesită oglinzi cu motor de pliere montat.',
+   source:'https://www.bimmerfest.com',sourceLabel:'BimmerFest E46',tags:['oglindă','E46','confort','NCS Expert'],added:'2024-10-28'},
+
+// ── BMW X6 E71 ────────────────────────────────────────────────────────────────
+  {id:146,brand:'BMW',model:'X6 (E71)',year:'2008-2014',category:'Confort',title:'Mirror fold + VIM + sport display X6 E71',
+   difficulty:'Mediu',tool:'BimmerCode / E-SYS',description:'Pachet combinat codări pe X6 E71: pliere oglinzi, video în mișcare și sport display. Coduri similare F10/F01.',
+   steps:['BimmerCode > FRM > Mirror Fold = aktiv','HU_CIC > VIDEO_IN_MOTION = aktiv','KOMBI > SPORT_DISPLAY = aktiv'],
+   code:'FRM:\nSPIEGEL_ANKLAPPEN = AKTIV\nHU_CIC:\nVIDEO_IN_MOTION = AKTIV\nKOMBI:\nSPORT_DISPLAY = AKTIV',warning:'',
+   source:'https://bimmerpost.com',sourceLabel:'Bimmerpost X6',tags:['oglindă','video','sport display','X6','E71'],added:'2024-10-30'},
+
+// ── BMW F07 5 Series GT ───────────────────────────────────────────────────────
+  {id:147,brand:'BMW',model:'Seria 5 (F07 GT)',year:'2010-2017',category:'Confort',title:'Trunk auto open + power tailgate coding F07',
+   difficulty:'Mediu',tool:'BimmerCode / E-SYS',description:'Activare deschidere portbagaj electric și personalizare viteză deschidere pe F07 GT.',
+   steps:['BimmerCode Expert > HKFM (Heckklappen-Modul)','HECKKLAPPE_AUTO_OPEN = aktiv','HECKKLAPPE_SPEED = MITTEL','Testează cu butonul portbagaj'],
+   code:'HKFM:\nHECKKLAPPE_AUTO_OPEN = AKTIV\nHECKKLAPPE_SPEED = MITTEL',warning:'',
+   source:'https://bimmerfest.com/forums',sourceLabel:'BimmerFest F07',tags:['portbagaj','electric','F07','confort'],added:'2024-11-01'},
+
+// ── VAG – Audi TT 8S ──────────────────────────────────────────────────────────
+  {id:148,brand:'VAG',model:'Audi TT (8S)',year:'2014-2023',category:'Display',title:'Virtual Cockpit full screen + needle sweep TT 8S',
+   difficulty:'Mediu',tool:'OBDEleven / VCDS',description:'Activare ecran full pentru hartă navigare în Virtual Cockpit TT 8S și sweep de ace la pornire.',
+   steps:['OBDEleven > Module 17 – Instruments','Full_Screen_Map = ACTIVE','Byte 1 Bit 0 = 1 (sweep)'],
+   code:'Module 17:\nFull_Screen_Map = ACTIVE\nByte 1 Bit 0 = 1',warning:'',
+   source:'https://www.audizine.com',sourceLabel:'Audizine TT',tags:['virtual cockpit','hartă','TT 8S','display'],added:'2024-11-03'},
+
+// ── Mercedes W205 C63 AMG ─────────────────────────────────────────────────────
+  {id:149,brand:'Mercedes',model:'Clasa C (W205)',year:'2014-2021',category:'Motor',title:'C63 AMG – exhaust valve control coding',
+   difficulty:'Avansat',tool:'Xentry / Vediamo',description:'Configurarea comportamentului supapei de evacuare pe C63 AMG W205. Se poate seta deschidere permanentă, sau dependent de mod condus (Comfort = închis, Sport/Race = deschis).',
+   steps:['Xentry > ME (Engine Management) module','EXHAUST_VALVE_MODE = RACE_SPORT','Sau ALWAYS_OPEN pentru sunet maxim permanent','Testează în diferite moduri de condus'],
+   code:'ME_AMG:\nEXHAUST_VALVE_MODE = RACE_SPORT\n(opțiuni: COMFORT_CLOSED, SPORT_OPEN, ALWAYS_OPEN)',warning:'Sunet semnificativ mai puternic. Verificați legile locale pentru emisii sonore.',
+   source:'https://mbworld.org',sourceLabel:'MBWorld C63',tags:['evacuare','sunet','C63 AMG','W205','motor'],added:'2024-11-05'},
+
+// ── VW Touareg ────────────────────────────────────────────────────────────────
+  {id:150,brand:'VAG',model:'VW Tiguan (5N)',year:'2007-2016',category:'Lumini',title:'DRL + Coming Home Tiguan MK1',
+   difficulty:'Ușor',tool:'VCDS',description:'Activare DRL și faruri Coming/Leaving Home pe Tiguan prima generație (5N).',
+   steps:['VCDS > Module 09 > Security 31347','Byte 0 Bit 2 = 1 (DRL)','Adaptation > Coming Home = 30s'],
+   code:'Module 09:\nByte 0 Bit 2 = 1 (DRL)\nComing_Home = 30s',warning:'',
+   source:'https://www.vag-coding.net',sourceLabel:'VAG-Coding',tags:['DRL','coming home','Tiguan','MK1'],added:'2024-11-07'},
+
+// ── BMW codări avansate ───────────────────────────────────────────────────────
+  {id:151,brand:'BMW',model:'Seria 3 (F30/F31)',year:'2012-2019',category:'Motor',title:'Sport+ mode deblocare F30 (N20/N55/B58)',
+   difficulty:'Avansat',tool:'BimmerCode Expert / E-SYS',description:'Deblocarea modului Sport+ pe F30 standard sau activarea setărilor suplimentare de dinamism. Pe M235i și M3 este standard – pe 320/328/330 se poate activa.',
+   steps:['BimmerCode Expert > DSC sau EDC','SPORT_PLUS_MODE = ENABLED','Sau Default_Mode = SPORT_INDIVIDUAL cu setări max','Testează în Sport+'],
+   code:'DSC:\nSPORT_PLUS_MODE = ENABLED\nEDC:\nSPORT_PLUS_SUSPENSION = AKTIV',warning:'Comportament agresiv al suspensiei și DSC. Test pe pistă.',
+   source:'https://www.bimmerfest.com/threads/coding-to-add-sport-mode-in-f30.921868/',sourceLabel:'BimmerFest F30',tags:['sport+','motor','F30','DSC','performanță'],added:'2024-11-09'},
+
+  {id:152,brand:'BMW',model:'Seria 3 (G20/G21)',year:'2019-2024',category:'Siguranță',title:'Speed Limit Sign afișaj + avertizare G20',
+   difficulty:'Ușor',tool:'BimmerCode',description:'Activare afișaj semne limită de viteză în bord și HUD (citite de camera KAFAS). Alertă audio/vizuală la depășire limită.',
+   steps:['BimmerCode > KOMBI + KAFAS','SPEED_LIMIT_DISPLAY = aktiv','SPEED_LIMIT_HUD = aktiv','SPEED_LIMIT_WARNING = aktiv','Testează pe drum cu semne'],
+   code:'KOMBI:\nSPEED_LIMIT_DISPLAY = AKTIV\nSPEED_LIMIT_HUD = AKTIV\nSPEED_LIMIT_WARNING = AKTIV',warning:'Necesită cameră KAFAS.',
+   source:'https://bimmercode.app',sourceLabel:'BimmerCode G20',tags:['speed sign','KAFAS','siguranță','G20'],added:'2024-11-11'},
+
+  {id:153,brand:'BMW',model:'Seria 5 (G30/G31)',year:'2017-2023',category:'Motor',title:'Launch Control deblocare G30 (M550i)',
+   difficulty:'Avansat',tool:'BimmerCode Expert',description:'Deblocarea funcției Launch Control pe M550i xDrive sau activarea modului echivalent pe 540i pentru porniri controlate maxim.',
+   steps:['BimmerCode Expert > DME (Engine ECU)','LAUNCH_CONTROL_AVAILABLE = aktiv','Sau DSC > LAUNCH_CONTROL = ENABLED','Activare: mod Sport+, frâna în picioare, accelerator fund'],
+   code:'DME:\nLAUNCH_CONTROL_AVAILABLE = AKTIV\nDSC:\nLAUNCH_CONTROL = ENABLED',warning:'Uzură crescută ambreiaj/transmisie la utilizare frecventă.',
+   source:'https://bimmerpost.com',sourceLabel:'Bimmerpost G30',tags:['launch control','motor','G30','M550i','performanță'],added:'2024-11-13'},
+
+  {id:154,brand:'BMW',model:'Seria 3 (E90/E91/E92)',year:'2005-2012',category:'Rețea',title:'Bluetooth streaming audio activare E90 (CCC/CIC)',
+   difficulty:'Mediu',tool:'NCS Expert',description:'Activare streaming audio Bluetooth A2DP pe sistemele CCC sau CIC ale E90. Pe CCC necesită module suplimentar hardware.',
+   steps:['NCS Expert > HU_CIC (dacă CIC)','BT_A2DP = aktiv','Sau HU_CCC > BT_AUDIO_STREAMING = aktiv','Pair telefon și testează redare muzică'],
+   code:'HU_CIC:\nBT_A2DP_STREAMING = AKTIV\nBT_PHONEBOOK_SYNC = AKTIV',warning:'CCC (iDrive 1) nu suportă A2DP fără modul hardware suplimentar.',
+   source:'https://www.e90post.com/forums',sourceLabel:'E90Post',tags:['bluetooth','audio','E90','CIC'],added:'2024-11-15'},
+
+  {id:155,brand:'BMW',model:'Seria 5 (F10/F11)',year:'2010-2017',category:'Rețea',title:'WiFi hotspot activare F10 (NBT)',
+   difficulty:'Mediu',tool:'BimmerCode Expert',description:'Activarea hotspot-ului WiFi integrat pe F10 cu sistem NBT dacă hardware-ul este montat (SIM card slot + antena TCU).',
+   steps:['BimmerCode Expert > TCU (Telematic Control Unit)','WIFI_HOTSPOT = aktiv','Inserați SIM card în slot (port ascuns în torpedou)','Setați din iDrive > Connected Drive > WiFi'],
+   code:'TCU:\nWIFI_HOTSPOT = AKTIV\nHOTSPOT_SSID = customizabil',warning:'Necesită hardware TCU cu SIM slot. Abonament date necesar.',
+   source:'https://www.bimmerfest.com',sourceLabel:'BimmerFest F10',tags:['WiFi','hotspot','F10','rețea'],added:'2024-11-17'},
+
+  {id:156,brand:'VAG',model:'Audi A6 (C8)',year:'2018-2024',category:'Rețea',title:'CarPlay wireless + Android Auto A6 C8',
+   difficulty:'Mediu',tool:'OBDEleven / VCDS',description:'Activare CarPlay wireless și Android Auto pe sistemul MMI A6 C8 dacă opțiunile nu sunt activate din fabrică.',
+   steps:['OBDEleven > Module 5F','CARPLAY_WIRELESS = ACTIVE','ANDROID_AUTO_WIRELESS = ACTIVE','Restart MMI','Test cu telefon compatibil'],
+   code:'Module 5F:\nCARPLAY_WIRELESS = ACTIVE\nANDROID_AUTO_WIRELESS = ACTIVE',warning:'Necesită firmware MMI compatibil. Verificați versiunea.',
+   source:'https://www.audizine.com',sourceLabel:'Audizine A6',tags:['CarPlay','Android Auto','A6 C8','wireless'],added:'2024-11-19'},
+
+  {id:157,brand:'VAG',model:'VW Golf 7 (5G)',year:'2013-2020',category:'Rețea',title:'MirrorLink activare Golf 7',
+   difficulty:'Ușor',tool:'VCDS / OBDEleven',description:'Activare protocol MirrorLink pentru oglindire ecran telefon compatibil pe sistemul Discover Media/Pro al Golf 7.',
+   steps:['VCDS > Module 5F – Info Electronics','MIRRORLINK = aktiv','Restart și conectare cablu USB'],
+   code:'Module 5F:\nMIRRORLINK = AKTIV',warning:'MirrorLink este limitat pe Android – funcțional complet cu telefoane compatibile oficial.',
+   source:'https://www.golfmk7.com/forums',sourceLabel:'GolfMK7',tags:['MirrorLink','telefon','Golf7','rețea'],added:'2024-11-21'},
+
+  {id:158,brand:'Mercedes',model:'Clasa S (W222)',year:'2013-2020',category:'Confort',title:'Executive Rear Seat – funcții suplimentare W222',
+   difficulty:'Mediu',tool:'Xentry',description:'Activare funcții suplimentare pentru scaunul executiv spate dreapta: masaj extins, poziții suplimentare, pernuțe pneumatice.',
+   steps:['Xentry > RSM (Rear Seat Module)','EXECUTIVE_SEAT_FUNCTIONS = EXTENDED','MASSAGE_ZONES = ALL','Restart RSM','Verifică din consola spate'],
+   code:'RSM:\nEXECUTIVE_SEAT_FUNCTIONS = EXTENDED\nMASSAGE_ZONES = ALL\nPNEUMATIC_LUMBAR_PLUS = YES',warning:'Necesită pachetul Executive Rear Seat hardware (SA460).',
+   source:'https://mbworld.org',sourceLabel:'MBWorld S Class',tags:['scaun','executive','W222','confort'],added:'2024-11-23'},
+
+  {id:159,brand:'Mercedes',model:'Clasa E (W213)',year:'2016-2023',category:'Motor',title:'E400/E450 sport exhaust valve coding W213',
+   difficulty:'Mediu',tool:'Xentry / iCarSoft',description:'Configurarea supapei de evacuare sport pe E400 și E450 (3.0T biturbo) pentru profil sonor mai agresiv în Sport mode.',
+   steps:['iCarSoft MB > ME module','EXHAUST_VALVE_PROFILE = SPORT','Sau SPORT_MODE_VALVE = OPEN','Testează în mod Sport la accelerare'],
+   code:'ME:\nEXHAUST_VALVE_SPORT = OPEN\nEXHAUST_VALVE_COMFORT = CLOSED',warning:'',
+   source:'https://mbworld.org',sourceLabel:'MBWorld W213',tags:['evacuare','sunet','W213','motor'],added:'2024-11-25'},
+
+  {id:160,brand:'BMW',model:'X5 (F15)',year:'2013-2018',category:'Confort',title:'Mirror fold + Auto High Beam X5 F15',
+   difficulty:'Ușor',tool:'BimmerCode',description:'Pliere automată oglinzi la blocare și auto faza lungă pe X5 F15.',
+   steps:['BimmerCode > FRM > Mirror Fold = aktiv','BimmerCode > FLA > AHB = aktiv'],
+   code:'FRM:\nSPIEGEL_ANKLAPPEN = AKTIV\nFLA:\nAHB_FUNKTION = AKTIV',warning:'',
+   source:'https://bimmercode.app/cars/f15/',sourceLabel:'BimmerCode F15',tags:['oglindă','AHB','X5 F15','confort'],added:'2024-11-27'},
+
+  {id:161,brand:'VAG',model:'Škoda Octavia 3',year:'2013-2020',category:'Motor',title:'Launch Control activare Octavia RS 230 / vRS',
+   difficulty:'Avansat',tool:'VCDS',description:'Activare Launch Control pe Octavia RS 230 și vRS (modele cu DSG și 2.0 TSI). Necesită DSG și modul sport hardware.',
+   steps:['VCDS > Module 02 – Transmission (DSG)','Security Access: DSG specific','LAUNCH_CONTROL = ENABLED','Activare: Sport mode, frână, accelerator la podea, eliberează frâna'],
+   code:'Module 02:\nLAUNCH_CONTROL = ENABLED',warning:'Uzura transmisiei DSG poate crește la utilizare frecventă.',
+   source:'https://www.vag-coding.net',sourceLabel:'VAG-Coding',tags:['launch control','DSG','Octavia RS','motor'],added:'2024-11-29'},
+
+  {id:162,brand:'Mercedes',model:'GLC (X253)',year:'2015-2022',category:'Motor',title:'GLC 300 4MATIC – AWD Off-Camber coding',
+   difficulty:'Avansat',tool:'DTS Monaco / Xentry',description:'Configurarea sistemului 4MATIC al GLC pentru distribuție diferită față-spate în moduri de condus selectabile, și activare mod Comfort cu distribuție egalizată.',
+   steps:['DTS Monaco > 4WD module','AWD_DISTRIBUTION_COMFORT = 40/60','AWD_DISTRIBUTION_SPORT = 30/70','AWD_OFF_CAMBER = ENABLED','Test pe diferite suprafețe'],
+   code:'4WD:\nAWD_DISTRIBUTION_COMFORT = BALANCED\nAWD_OFF_CAMBER_MODE = ENABLED',warning:'Modificări transmisie 4WD – recomandăm testare cu atenție.',
+   source:'https://mbworld.org',sourceLabel:'MBWorld GLC',tags:['4MATIC','AWD','GLC','motor','4x4'],added:'2024-12-01'},
+
+  {id:163,brand:'BMW',model:'Seria 3 (F30/F31)',year:'2012-2019',category:'Siguranță',title:'PDC – sensibilitate și ton ajustare F30',
+   difficulty:'Ușor',tool:'BimmerCode',description:'Ajustarea sensibilității senzorilor PDC (Park Distance Control) și tonului de avertizare pentru detectare la distanțe mai mari sau mai mici față de obstacole.',
+   steps:['BimmerCode > PDC module','PDC_SENSITIVITY = HIGH (detectare de la 150cm)','PDC_TONE_VOLUME = MEDIUM','Testează în parcare îngustă'],
+   code:'PDC:\nPDC_SENSITIVITY = HIGH\nPDC_TONE_VOLUME = MEDIUM\nPDC_FRONT = AKTIV',warning:'',
+   source:'https://bimmercode.app',sourceLabel:'BimmerCode',tags:['PDC','parcare','siguranță','F30'],added:'2024-12-03'},
+
+  {id:164,brand:'VAG',model:'Audi A4 (B9)',year:'2016-2023',category:'Siguranță',title:'Pre-Sense activare + sensibilitate A4 B9',
+   difficulty:'Mediu',tool:'OBDEleven / VCDS',description:'Activare și ajustare sensibilitate Audi Pre-Sense (frânare automată de urgență) pe A4 B9. Reacție mai devreme la pericol.',
+   steps:['OBDEleven > Module 12 – Driver Assistance','PRE_SENSE_ENABLED = YES','PRE_SENSE_SENSITIVITY = HIGH','Testează în condiții sigure'],
+   code:'Module 12:\nPRE_SENSE_ENABLED = YES\nPRE_SENSE_SENSITIVITY = HIGH',warning:'Sistemele de siguranță active – testați cu atenție după modificare.',
+   source:'https://www.audizine.com/forum',sourceLabel:'Audizine',tags:['pre-sense','frânare automată','A4 B9','siguranță'],added:'2024-12-05'},
+
+  {id:165,brand:'Mercedes',model:'GLE (W167)',year:'2019-2024',category:'Motor',title:'E-Active Body Control – Road Preview ajustare GLE',
+   difficulty:'Avansat',tool:'DTS Monaco',description:'Configurarea sistemului E-Active Body Control și Road Preview pe GLE W167. Scanare drum cu camera pentru pregătire suspensie.',
+   steps:['DTS Monaco > ABC (Active Body Control)','ROAD_PREVIEW = ENABLED','CAMERA_SCAN_DISTANCE = 5m','Calibrare după activare','Test pe drum cu denivelări'],
+   code:'ABC:\nROAD_PREVIEW = ENABLED\nE_ACTIVE_BODY_CONTROL = ENHANCED',warning:'Hardware E-ABC obligatoriu. Calibrare profesională necesară.',
+   source:'https://mbworld.org',sourceLabel:'MBWorld GLE W167',tags:['E-ABC','suspensie','GLE','avansat'],added:'2024-12-07'},
+
+  {id:166,brand:'BMW',model:'Seria 3 (G20/G21)',year:'2019-2024',category:'Lumini',title:'Adaptive LED Matrix faruri G20 activare completă',
+   difficulty:'Avansat',tool:'BimmerCode Expert',description:'Activare toate funcțiile farurilor LED Matrix Adaptive pe G20: evitare orbire, iluminare pietonă, glare-free high beam, cornering.',
+   steps:['BimmerCode Expert > FLA (Light Control)','MATRIX_LED_FULL = aktiv','GLARE_FREE_HIGH_BEAM = aktiv','PEDESTRIAN_HIGHLIGHT = aktiv','Calibrare far obligatorie după'],
+   code:'FLA:\nMATRIX_LED_FULL = AKTIV\nGLARE_FREE = AKTIV\nPEDESTRIAN_LIGHT = AKTIV',warning:'Calibrare profesională a farurilor obligatorie după activare.',
+   source:'https://g20.bimmerpost.com',sourceLabel:'Bimmerpost G20',tags:['LED Matrix','faruri','G20','avansat'],added:'2024-12-09'},
+
+  {id:167,brand:'VAG',model:'VW Golf 8 (CD)',year:'2020-2024',category:'Lumini',title:'IQ.Light Matrix LED activare completă Golf 8',
+   difficulty:'Avansat',tool:'OBDEleven Pro',description:'Activarea completă a funcționalităților farurilor IQ.Light LED Matrix pe Golf 8 incluisv modele de lumini suplimentare, cornering și high beam interactiv.',
+   steps:['OBDEleven Pro > Module 09','IQ_LIGHT_FULL = ACTIVE','MATRIX_FUNCTIONS = ALL','Calibrare far după activare','Test noapte autostradă'],
+   code:'Module 09:\nIQ_LIGHT_FULL = ACTIVE\nMATRIX_ALL = ACTIVE',warning:'Necesită faruri IQ.Light hardware. Calibrare obligatorie.',
+   source:'https://forum.obdeleven.com',sourceLabel:'OBDEleven Forum',tags:['IQ.Light','Matrix','Golf8','faruri','avansat'],added:'2024-12-11'},
+
+  {id:168,brand:'Mercedes',model:'Clasa C (W205)',year:'2014-2021',category:'Lumini',title:'Multibeam LED activare completă W205',
+   difficulty:'Avansat',tool:'Xentry',description:'Activare completă sistem Multibeam LED (64 LED high-performance) cu toate modelele de iluminare, inclusiv autostradă, curbe și zone de populație.',
+   steps:['Xentry > FLA module','MULTIBEAM_LED_FULL = YES','ALL_LIGHT_PATTERNS = ENABLED','Calibrare far obligatorie','Test noapte complet'],
+   code:'FLA:\nMULTIBEAM_FULL = YES\nALL_PATTERNS = ENABLED',warning:'Hardware Multibeam LED obligatoriu. Calibrare profesională necesară.',
+   source:'https://mbworld.org',sourceLabel:'MBWorld W205',tags:['Multibeam','LED','W205','faruri','avansat'],added:'2024-12-13'},
+
+  {id:169,brand:'VAG',model:'Audi A3 (8V)',year:'2013-2020',category:'Motor',title:'S-Tronic Launch Control activare A3 8V',
+   difficulty:'Avansat',tool:'VCDS',description:'Activare Launch Control pe A3 8V cu transmisie S-Tronic (DSG 7 viteze) și motoare 1.8T/2.0T.',
+   steps:['VCDS > Module 02 – Transmission','Security Access DSG','LAUNCH_CONTROL = ENABLED','Activare: Sport, frână, accelerator full'],
+   code:'Module 02:\nLAUNCH_CONTROL = ENABLED',warning:'Uzură DSG la utilizare frecventă.',
+   source:'https://forum.obdeleven.com',sourceLabel:'OBDEleven',tags:['launch control','S-Tronic','A3 8V','motor'],added:'2024-12-15'},
+
+  {id:170,brand:'BMW',model:'Seria 4 (G22/G23)',year:'2020-2024',category:'Confort',title:'Start-Stop Memory + Lap Timer G22/G23',
+   difficulty:'Ușor',tool:'BimmerCode',description:'Pachet esențial codări G22/G23 Seria 4: dezactivare permanentă Start-Stop și activare Lap Timer + sport display.',
+   steps:['BimmerCode > EfficientDynamics > MSA = nicht_aktiv','KOMBI > LAP_TIMER = aktiv','KOMBI > SPORT_DISPLAY = aktiv'],
+   code:'EfficientDynamics:\nMSA = NICHT_AKTIV\nKOMBI:\nLAP_TIMER = AKTIV\nSPORT_DISPLAY = AKTIV',warning:'',
+   source:'https://bimmerpost.com',sourceLabel:'Bimmerpost G22',tags:['start-stop','lap timer','G22','confort'],added:'2024-12-17'},
+
+  {id:171,brand:'Mercedes',model:'Clasa A (W176)',year:'2012-2018',category:'Display',title:'AMG Menu IC172 activare W176',
+   difficulty:'Mediu',tool:'Xentry / iCarSoft',description:'Meniu AMG în instrumentarul IC172 pe A-Class W176 cu date performanță.',
+   steps:['iCarSoft MB II sau Xentry','IC172 > AMG_MENU = ENABLED','Restart IC','Test: Menu > AMG'],
+   code:'IC172:\nAMG_MENU = ENABLED\nPERFORMANCE_PAGES = ON',warning:'',
+   source:'https://mbworld.org',sourceLabel:'MBWorld W176',tags:['AMG menu','W176','A class','IC172'],added:'2024-12-19'},
+
+  {id:172,brand:'VAG',model:'VW Passat B7',year:'2010-2015',category:'Lumini',title:'DRL + Coming Home Passat B7',
+   difficulty:'Ușor',tool:'VCDS',description:'Activare DRL și faruri Coming/Leaving Home pe Passat B7.',
+   steps:['VCDS > Module 09 > Security 31347','Byte 0 Bit 2 = 1 (DRL)','Adaptation > Coming Home = 30s'],
+   code:'Module 09:\nByte 0 Bit 2 = 1 (DRL)\nComing_Home = 30s',warning:'',
+   source:'https://www.vwvortex.com',sourceLabel:'VWVortex',tags:['DRL','coming home','Passat B7','lumini'],added:'2024-12-21'},
+
+  {id:173,brand:'BMW',model:'Seria 3 (E90/E91/E92)',year:'2005-2012',category:'Motor',title:'Exhaust valve sport mode E92 M3 / 335i',
+   difficulty:'Mediu',tool:'NCS Expert',description:'Configurarea supapei de evacuare pe 335i (N54/N55) sau M3 (S65) pentru deschidere permanentă sau modală.',
+   steps:['NCS Expert > DME','EXHAUST_VALVE = OPEN (permanent) sau SPORT_MODE_ONLY','Testează la accelerare'],
+   code:'DME:\nEXHAUST_VALVE = SPORT_MODE_OPEN',warning:'',
+   source:'https://www.e90post.com',sourceLabel:'E90Post',tags:['evacuare','sunet','E92','335i','motor'],added:'2024-12-23'},
+
+  {id:174,brand:'VAG',model:'Audi A6 (C7)',year:'2011-2018',category:'Confort',title:'Seat massage activare A6 C7',
+   difficulty:'Mediu',tool:'VCDS',description:'Activare funcție masaj scaune față pe A6 C7 dacă scaunele au hardware de masaj (opțional).',
+   steps:['VCDS > Module 52 – Door Electronics (Front Left)','SEAT_MASSAGE = ENABLED','Activare din meniu MMI > Comfort > Massage'],
+   code:'Module 52:\nSEAT_MASSAGE_FRONT = ENABLED',warning:'Necesită scaune cu hardware masaj.',
+   source:'https://www.vag-coding.net/audi/a6-c7/',sourceLabel:'VAG-Coding A6',tags:['masaj','scaune','A6 C7','confort'],added:'2024-12-25'},
+
+  {id:175,brand:'BMW',model:'Seria 5 (G30/G31)',year:'2017-2023',category:'Rețea',title:'ConnectedDrive Services activare G30',
+   difficulty:'Mediu',tool:'BimmerCode / BMW App',description:'Activare servicii ConnectedDrive suplimentare: Remote Services, Real-Time Traffic, Concierge, Smart Emergency Call pe G30.',
+   steps:['BimmerCode > TCU (Telematic Control Unit)','CONNECTED_DRIVE_FULL = aktiv','Remote_Services = aktiv','Activare din aplicația MyBMW app'],
+   code:'TCU:\nCONNECTED_DRIVE_FULL = AKTIV\nREMOTE_SERVICES = AKTIV',warning:'Necesită SIM TCU și abonament ConnectedDrive activ.',
+   source:'https://bimmerpost.com',sourceLabel:'Bimmerpost G30',tags:['ConnectedDrive','servicii','G30','rețea'],added:'2024-12-27'},
 ];
 
 // ===================== STATE =====================
 let allCodings = [];
 let filtered = [];
 let currentPage = 1;
-const PAGE_SIZE = 12;
+const PAGE_SIZE = 16;
 let currentView = 'grid';
 let activeBrand = 'all';
 let activeTag = null;
