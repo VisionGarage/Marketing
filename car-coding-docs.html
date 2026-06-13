@@ -7,8 +7,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="VG Codări">
-<meta name="theme-color" content="#e8b800" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#e8b800">
+<meta name="theme-color" content="#c9a84c" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#c9a84c">
 <meta name="description" content="175+ codări BMW, VAG, Mercedes structurate cu pași, parametri și surse forum.">
 <meta name="application-name" content="VisionGarage Codări">
 <link rel="manifest" href="manifest.json">
@@ -21,8 +21,8 @@
     --surface: #12121a;
     --surface2: #1a1a26;
     --border: #2a2a3a;
-    --accent: #e8b800;
-    --accent2: #ff6b00;
+    --accent: #c9a84c;
+    --accent2: #e8b800;
     --text: #e8e8f0;
     --muted: #7a7a9a;
     --bmw: #1c69d3;
@@ -48,14 +48,10 @@
     height: 64px;
   }
   .logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
-  .logo-icon {
-    width:38px; height:38px;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    border-radius:8px;
-    display:flex; align-items:center; justify-content:center;
-    font-size:18px; font-weight:900; color:#000;
-  }
-  .logo-text { font-size:16px; font-weight:700; color:var(--text); line-height:1.1; }
+  .logo-icon { width:38px; height:38px; border-radius:8px; flex-shrink:0; }
+  .logo-text { font-size:16px; font-weight:700; line-height:1.1; }
+  .logo-text .t-vision  { color:#fff; font-style:italic; letter-spacing:1px; }
+  .logo-text .t-garage  { color:var(--accent); font-size:11px; letter-spacing:4px; font-style:normal; font-weight:500; margin-left:1px; }
   .logo-sub { font-size:11px; color:var(--muted); font-weight:400; }
   .header-divider { width:1px; height:32px; background:var(--border); margin:0 8px; }
   .header-title { font-size:15px; font-weight:600; color:var(--accent); }
@@ -541,9 +537,9 @@
 <header>
   <div class="header-inner">
     <a class="logo" href="#">
-      <div class="logo-icon">VG</div>
+      <img class="logo-icon" src="vg-icon.svg" alt="VisionGarage">
       <div>
-        <div class="logo-text">VisionGarage</div>
+        <div class="logo-text"><span class="t-vision">VISION</span> <span class="t-garage">GARAGE</span></div>
         <div class="logo-sub">Automotive Coding</div>
       </div>
     </a>
