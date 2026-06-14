@@ -2615,18 +2615,25 @@ function lsGet(key) { try { return localStorage.getItem(key); } catch(e) { retur
 function lsSet(key, val) { try { localStorage.setItem(key, val); } catch(e) {} }
 
 function init() {
-  const saved = lsGet(DB_KEY);
-  if (saved) {
-    try { allCodings = JSON.parse(saved); } catch(e) { allCodings = [...SAMPLE_CODINGS]; }
-  } else {
+  try {
+    const raw = lsGet(DB_KEY);
+    let stored = null;
+    if (raw) {
+      try {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed) && parsed.length > 0) stored = parsed;
+      } catch(e) {}
+    }
+    allCodings = stored || [...SAMPLE_CODINGS];
+    if (!stored) lsSet(DB_KEY, JSON.stringify(allCodings));
+  } catch(e) {
     allCodings = [...SAMPLE_CODINGS];
-    save();
   }
-  updateStats();
-  populateFilterDropdowns();
-  buildTagsList();
-  applyFilters();
-  document.getElementById('lastUpdate').textContent = new Date().toLocaleDateString('ro-RO');
+  try { updateStats(); } catch(e) {}
+  try { populateFilterDropdowns(); } catch(e) {}
+  try { buildTagsList(); } catch(e) {}
+  try { applyFilters(); } catch(e) {}
+  try { document.getElementById('lastUpdate').textContent = new Date().toLocaleDateString('ro-RO'); } catch(e) {}
 }
 
 function save() {
