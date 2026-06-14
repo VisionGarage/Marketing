@@ -1,0 +1,69 @@
+{
+  "name": "VisionGarage – Codări Auto",
+  "short_name": "VG Codări",
+  "description": "Baza de date codări BMW, VAG, Mercedes – 175+ codări verificate cu pași, parametri și surse forum",
+  "start_url": "./car-coding-docs.html?source=pwa",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone"],
+  "background_color": "#1b3030",
+  "theme_color": "#c9a84c",
+  "orientation": "any",
+  "lang": "ro",
+  "dir": "ltr",
+  "categories": ["automotive", "tools", "utilities"],
+  "icons": [
+    {
+      "src": "vg-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "vg-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "label": "BMW codări list",
+      "platform": "wide",
+      "sizes": "1280x720"
+    },
+    {
+      "label": "Căutare avansată",
+      "platform": "narrow",
+      "sizes": "390x844"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Adaugă Codare",
+      "short_name": "Adaugă",
+      "description": "Adaugă o codare nouă rapid",
+      "url": "./car-coding-docs.html?action=add&source=shortcut",
+      "icons": [{ "src": "vg-icon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "BMW Codări",
+      "short_name": "BMW",
+      "description": "Filtrează codările BMW",
+      "url": "./car-coding-docs.html?brand=BMW&source=shortcut",
+      "icons": [{ "src": "vg-icon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "VAG Codări",
+      "short_name": "VAG",
+      "description": "Filtrează codările VAG",
+      "url": "./car-coding-docs.html?brand=VAG&source=shortcut",
+      "icons": [{ "src": "vg-icon.svg", "sizes": "any" }]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 480
+  }
+}
