@@ -28,6 +28,7 @@
     --bmw: #1c69d3;
     --vag: #2d6a2d;
     --merc: #888888;
+    --porsche: #a8892a;
     --radius: 10px;
     --shadow: 0 4px 24px rgba(0,0,0,0.5);
   }
@@ -84,6 +85,7 @@
   .badge-bmw { background:rgba(28,105,211,.2); color:#5b9ff0; border:1px solid rgba(28,105,211,.3); }
   .badge-vag { background:rgba(45,106,45,.2); color:#5dca5d; border:1px solid rgba(45,106,45,.3); }
   .badge-merc { background:rgba(136,136,136,.2); color:#b0b0b0; border:1px solid rgba(136,136,136,.3); }
+  .badge-porsche { background:rgba(168,137,42,.2); color:#d4af50; border:1px solid rgba(168,137,42,.3); }
 
   /* MAIN LAYOUT */
   .main { max-width:1400px; margin:0 auto; padding:20px 24px; display:flex; gap:20px; }
@@ -130,6 +132,7 @@
   .brand-btn.active-bmw { background:rgba(28,105,211,.15); border-color:var(--bmw); color:#5b9ff0; }
   .brand-btn.active-vag { background:rgba(45,106,45,.15); border-color:var(--vag); color:#5dca5d; }
   .brand-btn.active-merc { background:rgba(136,136,136,.15); border-color:var(--merc); color:#c0c0c0; }
+  .brand-btn.active-porsche { background:rgba(168,137,42,.15); border-color:var(--porsche); color:#d4af50; }
   .brand-btn.active-all { background:rgba(232,184,0,.1); border-color:var(--accent); color:var(--accent); }
   .count-chip {
     margin-left:auto; background:var(--surface2);
@@ -571,6 +574,10 @@
       <span class="brand-badge badge-merc">Mercedes</span>
       <span class="stat-num" id="mercCount" style="font-size:16px">0</span>
     </div>
+    <div class="stat">
+      <span class="brand-badge badge-porsche">Porsche</span>
+      <span class="stat-num" id="porscheCount" style="font-size:16px">0</span>
+    </div>
     <div style="margin-left:auto; font-size:11px; color:var(--muted)">
       🕒 Actualizat: <span id="lastUpdate">—</span>
     </div>
@@ -603,6 +610,10 @@
           <button class="brand-btn" data-brand="Mercedes" onclick="filterBrand('Mercedes',this)">
             <span class="dot" style="background:var(--merc)"></span> Mercedes-Benz
             <span class="count-chip" id="cnt-merc">0</span>
+          </button>
+          <button class="brand-btn" data-brand="Porsche" onclick="filterBrand('Porsche',this)">
+            <span class="dot" style="background:var(--porsche)"></span> Porsche
+            <span class="count-chip" id="cnt-porsche">0</span>
           </button>
         </div>
       </div>
@@ -879,7 +890,7 @@
 
 <script>
 // ===================== DATA =====================
-const DB_KEY = 'vg_codings_v4';
+const DB_KEY = 'vg_codings_v5';
 
 const MODELS = {
   BMW: ['Seria 1 (E87/E81)','Seria 1 (F20/F21)','Seria 2 (F22/F23)','Seria 3 (E90/E91/E92)','Seria 3 (F30/F31)','Seria 3 (G20/G21)',
@@ -892,7 +903,10 @@ const MODELS = {
         'Seat Leon (5F)','Seat Ateca','Škoda Octavia 3','Škoda Octavia 4','Škoda Superb 3'],
   Mercedes: ['Clasa A (W176)','Clasa A (W177)','Clasa C (W204)','Clasa C (W205)','Clasa C (W206)',
              'Clasa E (W212)','Clasa E (W213)','Clasa S (W222)','GLA (X156)','GLA (H247)',
-             'GLC (X253)','GLE (W166)','GLE (W167)','CLA (C117)','CLA (C118)']
+             'GLC (X253)','GLE (W166)','GLE (W167)','CLA (C117)','CLA (C118)'],
+  Porsche: ['Cayenne (9PA/955/957)','Cayenne (92A/958)','Cayenne (9YA/E3)','Macan (95B)','Macan (J1 EV)',
+            'Panamera (970)','Panamera (971)','911 (997)','911 (991)','911 (992)',
+            'Boxster/Cayman (987)','Boxster/Cayman (981/982)','Taycan (J1)']
 };
 
 const SAMPLE_CODINGS = [
