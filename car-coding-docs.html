@@ -2585,8 +2585,11 @@ let activeBrand = 'all';
 let activeTag = null;
 
 // ===================== INIT =====================
+function lsGet(key) { try { return localStorage.getItem(key); } catch(e) { return null; } }
+function lsSet(key, val) { try { localStorage.setItem(key, val); } catch(e) {} }
+
 function init() {
-  const saved = localStorage.getItem(DB_KEY);
+  const saved = lsGet(DB_KEY);
   if (saved) {
     try { allCodings = JSON.parse(saved); } catch(e) { allCodings = [...SAMPLE_CODINGS]; }
   } else {
@@ -2601,7 +2604,7 @@ function init() {
 }
 
 function save() {
-  localStorage.setItem(DB_KEY, JSON.stringify(allCodings));
+  lsSet(DB_KEY, JSON.stringify(allCodings));
 }
 
 // ===================== FILTERS =====================
