@@ -2167,6 +2167,194 @@ const SAMPLE_CODINGS = [
    steps:['PIWIS 3 > Front Lighting Module','MATRIX_LED_ENABLED = AKTIV','MATRIX_SELECTIVE_BEAM = AKTIV','WELCOME_ANIMATION = AKTIV','FOLLOW_ME_HOME = AKTIV','Testează noaptea pe drum fără iluminat stradal'],
    code:'FLM:\nMATRIX_LED_ENABLED = AKTIV\nMATRIX_SELECTIVE_BEAM = AKTIV\nWELCOME_ANIMATION = AKTIV',warning:'Necesită faruri Matrix LED montate fizic (SA 8IT). Pe Cayenne cu bi-xenon sau LED standard această codare nu are efect.',
    source:'https://www.rennlist.com/forums/2018-current-cayenne',sourceLabel:'Rennlist Cayenne E3',tags:['Matrix LED','lumini','Cayenne','animație','welcome'],added:'2024-03-25'},
+
+// ── MERCEDES DTS MONACO – C-Class W204 ───────────────────────────────────────
+  {id:201,brand:'Mercedes',model:'Clasa C (W204)',year:'2007-2014',category:'Display',title:'Video in motion COMAND NTG4.5 W204 – DTS Monaco',
+   difficulty:'Mediu',tool:'DTS Monaco',description:'Dezactivarea blocajului video în mișcare pe COMAND NTG4.5 al lui W204. Permite redarea DVD/video pe ecranul central în timp ce mașina este în mișcare. Editare directă byte în modulul HU_COMAND.',
+   steps:['DTS Monaco > Connect vehicle (K-Line / CAN)','Open ECU: HU_COMAND (adresa 37 sau via ZGW)','Read current variant coding','Byte 2 (Video in motion): valoare curentă 01 → schimbă la 00','Write coding și repornire COMAND (aprox 45 sec)','Testează redare video la viteză >10 km/h'],
+   code:'HU_COMAND (NTG4.5) Variant Coding:\nByte 2, Bit 0: VideoInMotion_Lock = 0 (dezactivat)\n\nAlternativ SCN coding string:\nxx xx 00 xx xx xx (byte 2 = 00)',warning:'Legal restricționat – folosiți doar ca pasager sau pe circuit. Șoferul nu trebuie să vizioneze video în trafic.',
+   source:'https://www.benzworld.org/forums/c-class',sourceLabel:'BenzWorld W204',tags:['video in motion','COMAND','NTG4.5','DTS Monaco','W204'],added:'2024-04-01'},
+
+  {id:202,brand:'Mercedes',model:'Clasa C (W204)',year:'2007-2014',category:'Display',title:'Digital speedometer IC activare W204 – DTS Monaco',
+   difficulty:'Ușor',tool:'DTS Monaco',description:'Afișarea vitezei digitale în colțul instrumentarului de bord pe W204. Modulul IC (Instrument Cluster) suportă afișajul digital nativ – necesită doar activare prin DTS Monaco.',
+   steps:['DTS Monaco > ECU: IC (Instrument Cluster, adresa 17)','Read Variant Coding','Byte 0: Digital_Speedometer_Display – bit 3 = 1','Write coding','Repornire contact (OFF > ON)','Verifică afișajul în stânga vitezometrului'],
+   code:'IC Variant Coding:\nByte 0, Bit 3: Digital_Speed_Display = 1\n\nSau Long Coding:\n[17] Byte 0 = xx | 0x08',warning:'Pe unele versiuni W204 cu cluster analogic vechi (pre-2010) funcția nu apare vizual. Necesită cluster digital parțial.',
+   source:'https://www.mbworld.org/forums/c-class-w204',sourceLabel:'MBWorld W204',tags:['vitezometru digital','IC','display','DTS Monaco','W204'],added:'2024-04-02'},
+
+  {id:203,brand:'Mercedes',model:'Clasa C (W204)',year:'2007-2014',category:'Lumini',title:'Coming Home / Leaving Home extins W204 – DTS Monaco',
+   difficulty:'Ușor',tool:'DTS Monaco',description:'Extinderea duratei farurilor Coming Home (rămân aprinse după blocare) și Leaving Home (se aprind la deblocare) pe W204. Standard 8 secunde – codabil până la 60 secunde prin SAM F.',
+   steps:['DTS Monaco > ECU: SAM_F (Signal Acquisition Module Front, adresa 15)','Read current coding','Byte 4: Coming_Home_Duration – valoare 08 (8 sec) → 3C (60 sec)','Byte 5: Leaving_Home_Duration – similar','Write și testează cu cheia'],
+   code:'SAM_F Coding:\nByte 4 (Coming Home): 0x3C = 60 sec, 0x1E = 30 sec, 0x08 = 8 sec\nByte 5 (Leaving Home): 0x3C = 60 sec',warning:'Valorile sunt în secunde hexadecimal (0x0A = 10 sec, 0x1E = 30 sec, 0x3C = 60 sec). Nu depășiți 0x78 (120 sec) – poate drena bateria.',
+   source:'https://www.mbworld.org/forums/c-class-w204',sourceLabel:'MBWorld W204',tags:['Coming Home','Leaving Home','SAM','lumini','DTS Monaco'],added:'2024-04-03'},
+
+  {id:204,brand:'Mercedes',model:'Clasa C (W204)',year:'2007-2014',category:'Confort',title:'Keyless Go comfort close windows W204 – DTS Monaco',
+   difficulty:'Ușor',tool:'DTS Monaco',description:'Ținând apăsat butonul de blocare pe cheia W204, geamurile și trapa se închid automat. Funcție standard pe pachetul Keyless Go – codabilă pe toate variantele cu motor geam electric prin SAM.',
+   steps:['DTS Monaco > ECU: EZS (Electronic Ignition Lock, adresa 33)','Read Variant Coding','Byte 1: Window_Close_On_Lock = 1','Byte 1: Sunroof_Close_On_Lock = 1 (dacă trapă există)','Write coding și testează cu cheia'],
+   code:'EZS Coding:\nByte 1, Bit 0: Window_Close_On_Lock = 1\nByte 1, Bit 1: Sunroof_Close_On_Lock = 1',warning:'Verificați că nu există obstacole în calea geamurilor sau trapei înainte de a testa. Sistemul nu detectează obstacole la închidere prin telecomandă.',
+   source:'https://www.benzworld.org/forums/c-class',sourceLabel:'BenzWorld W204',tags:['Keyless Go','geamuri','confort','DTS Monaco','W204'],added:'2024-04-04'},
+
+  {id:205,brand:'Mercedes',model:'Clasa C (W204)',year:'2007-2014',category:'Confort',title:'Umbrella holder compartment light W204 – DTS Monaco',
+   difficulty:'Ușor',tool:'DTS Monaco',description:'Activare iluminare compartiment umbrelă (ușa șoferului, W204 facelift). Lumina interioară se aprinde la deschiderea compartimentului de umbrelă – funcție ascunsă în SAM, dezactivată implicit.',
+   steps:['DTS Monaco > SAM_F','Read Variant Coding','Byte 3, Bit 6: Umbrella_Light = 0 → 1','Write și testează deschizând compartimentul umbrelă pe ușa șoferului'],
+   code:'SAM_F:\nByte 3, Bit 6: Umbrella_Light_Enable = 1',warning:'Disponibil doar pe W204 facelift (2011+) cu compartiment umbrelă. Pe versiunile pre-facelift nu există hardware.',
+   source:'https://www.benzworld.org/forums/c-class',sourceLabel:'BenzWorld W204',tags:['umbrelă','interior','confort','DTS Monaco'],added:'2024-04-05'},
+
+// ── MERCEDES DTS MONACO – C-Class W205 ───────────────────────────────────────
+  {id:206,brand:'Mercedes',model:'Clasa C (W205)',year:'2014-2021',category:'Display',title:'AMG Performance Display IC172 activare W205 – DTS Monaco',
+   difficulty:'Mediu',tool:'DTS Monaco',description:'Activarea meniului AMG Performance Display în instrumentarul IC172 al lui W205. Afișează turometru mare stilizat AMG, temperaturi motor/ulei, g-force și timer lap. Disponibil pe C200/C220 non-AMG prin codare software.',
+   steps:['DTS Monaco > ECU: IC (adresa 17)','Read Variant Coding','Byte 1, Bit 4: AMG_Performance_Menu = 1','Byte 1, Bit 5: AMG_Performance_Submenu = 1','Write coding','Repornire contact și navigare: MENU > Sport > AMG'],
+   code:'IC (IC172) Variant Coding:\nByte 1, Bit 4: AMG_Performance_Display = 1\nByte 1, Bit 5: AMG_Submenu_Enabled = 1\n\nAlternativ SCN:\nActivare SPORT_DISPLAY_AMG în parametri variant',warning:'Funcția vizuală funcționează pe orice W205. Datele afișate (temperaturi) sunt reale numai dacă senzorul corespunzător este montat.',
+   source:'https://www.mbworld.org/forums/c-class-w205',sourceLabel:'MBWorld W205',tags:['AMG Performance','IC172','display','DTS Monaco','W205'],added:'2024-04-06'},
+
+  {id:207,brand:'Mercedes',model:'Clasa C (W205)',year:'2014-2021',category:'Display',title:'Video in motion COMAND NTG5 W205 – DTS Monaco',
+   difficulty:'Mediu',tool:'DTS Monaco',description:'Dezactivare blocare video în mișcare pe COMAND Online NTG5 al lui W205. NTG5 folosește un mecanism diferit față de NTG4.5 – blocajul este în HU_HMI nu în HU_COMAND.',
+   steps:['DTS Monaco > HU_HMI (Head Unit HMI, adresa 37)','Read Variant Coding','Byte 4: Video_In_Motion_Lock = 0','Write coding','Repornire HU (aprox 60 sec)','Testează cu video în redare și mașina în mișcare'],
+   code:'HU_HMI (NTG5) Variant Coding:\nByte 4, Bit 0: Video_In_Motion_Lock = 0\n\nNote: pe NTG5.5 (post-2018) se găsește în\nHU_BASE > Byte 4, Bit 0 = 0',warning:'NTG5 și NTG5.5 au module diferite. Verificați versiunea COMAND din: Settings > System > About.',
+   source:'https://www.mbworld.org/forums/c-class-w205',sourceLabel:'MBWorld W205',tags:['video in motion','NTG5','COMAND','DTS Monaco','W205'],added:'2024-04-07'},
+
+  {id:208,brand:'Mercedes',model:'Clasa C (W205)',year:'2014-2021',category:'Lumini',title:'Ambient light 64 culori activare W205 – DTS Monaco',
+   difficulty:'Mediu',tool:'DTS Monaco',description:'W205 cu pachet Ambient Lighting standard are 5 culori. Prin DTS Monaco se activează paleta completă de 64 culori și controlul individual pe zone (plafon, uși, panouri). Modulul KFB gestionează iluminarea ambientală.',
+   steps:['DTS Monaco > ECU: KFB (Body Control, adresa 3B)','Read Variant Coding','Byte 2: Ambient_Light_Colors = 0x40 (64 culori în loc de 0x05)','Byte 2, Bit 7: Zone_Control_Enable = 1','Write coding','Testează în: Settings > Display > Ambient Light'],
+   code:'KFB Variant Coding:\nByte 2: Ambient_Colors_Count = 0x40 (64 culori)\nByte 2, Bit 7: Ambient_Zone_Control = 1',warning:'Necesită modulul hardware de iluminare ambientală (SA 877). Fără acest hardware, codarea nu are efect vizibil.',
+   source:'https://www.mbworld.org/forums/c-class-w205',sourceLabel:'MBWorld W205',tags:['ambient','lumini','64 culori','DTS Monaco','W205'],added:'2024-04-08'},
+
+  {id:209,brand:'Mercedes',model:'Clasa C (W205)',year:'2014-2021',category:'Lumini',title:'Ambient roșu în modul Sport + Sport+ W205 – DTS Monaco',
+   difficulty:'Mediu',tool:'DTS Monaco',description:'Iluminarea ambientală comută automat la roșu intens când selectați modul Sport sau Sport+ din DYNAMIC SELECT. Pe AMG C63 această funcție este standard – codabilă pe toate W205 cu pachet Ambient.',
+   steps:['DTS Monaco > KFB','Byte 3: Sport_Mode_Ambient_Color = 0xFF0000 (roșu) sau cod culoare dorit','Byte 3, Bit 0: Ambient_Sport_Mode_Link = 1','DYNAMIC SELECT > modul Sport → verifică schimbare culoare','Write coding și testează cu DYNAMIC SELECT activ'],
+   code:'KFB:\nByte 3, Bit 0: Ambient_Sport_Mode_Link = 1\nByte 4-6: RGB Sport Color = FF 00 00 (roșu)\n          Alternativ: FF 69 00 (portocaliu AMG)',warning:'Culoarea roșie intens poate fi deranjantă pe timp de noapte. Puteți folosi portocaliu (FF 69 00) pentru un aspect mai discret.',
+   source:'https://www.mbworld.org/forums/c-class-w205',sourceLabel:'MBWorld W205 AMG',tags:['ambient roșu','Sport mode','KFB','DTS Monaco','W205'],added:'2024-04-09'},
+
+  {id:210,brand:'Mercedes',model:'Clasa C (W205)',year:'2014-2021',category:'Sunet',title:'Sport Exhaust permanent deschis C63 AMG W205 – DTS Monaco',
+   difficulty:'Mediu',tool:'DTS Monaco',description:'Pe C63 AMG W205, valvele exhaust rămân permanent deschise indiferent de modul DYNAMIC SELECT. Sunetul V8 biturbo la intensitate maximă constant. Editare directă în modulul ECM (Engine Control Module).',
+   steps:['DTS Monaco > ECU: ECM (Engine, adresa 01)','Read Variant Coding','Byte 6: Exhaust_Valve_Default = 0x02 (SPORT_PLUS, permanent deschis)','Valori: 0x00=COMFORT, 0x01=SPORT, 0x02=SPORT_PLUS (permanent)','Write și repornire motor','Testează pornire la rece – sunet imediat deschis'],
+   code:'ECM Variant Coding (C63 AMG):\nByte 6: Exhaust_Valve_Default\n  0x00 = COMFORT (normal)\n  0x01 = SPORT\n  0x02 = SPORT_PLUS (permanent open)',warning:'Nivel zgomot ridicat poate depăși 95 dB la accelerare. Verificați legislația locală privind zgomotul de evacuare.',
+   source:'https://www.mbworld.org/forums/amg',sourceLabel:'MBWorld C63 AMG',tags:['evacuare','exhaust','C63 AMG','DTS Monaco','sport'],added:'2024-04-10'},
+
+// ── MERCEDES DTS MONACO – E-Class W212 ───────────────────────────────────────
+  {id:211,brand:'Mercedes',model:'Clasa E (W212)',year:'2009-2016',category:'Siguranță',title:'Night View Assist Plus cu detectare pietoni W212 – DTS Monaco',
+   difficulty:'Avansat',tool:'DTS Monaco',description:'Activarea completă a Night View Assist Plus pe W212 (cu cameră infraroșu montată). Funcția de detectare și evidențiere a pietonilor în HUD/IC este dezactivată software pe versiunile non-premium – codabilă prin DTS Monaco.',
+   steps:['DTS Monaco > ECU: NIGHT_VIEW sau NVA (Night Vision, adresa 73)','Read Variant Coding','Byte 0, Bit 2: Pedestrian_Detection = 1','Byte 0, Bit 3: Pedestrian_Highlight_HUD = 1','Byte 1: Detection_Sensitivity = 0x02 (medium)','Write și testează noaptea pe drum neiluminat'],
+   code:'NVA Module:\nByte 0, Bit 2: Pedestrian_Detection_Enable = 1\nByte 0, Bit 3: HUD_Highlight_Pedestrian = 1\nByte 1: Sensitivity = 0x02',warning:'Necesită camera Night Vision montată fizic (SA P65). Fără hardware, codarea nu are niciun efect. Costul hardware-ului este semnificativ.',
+   source:'https://www.mbworld.org/forums/e-class-w212',sourceLabel:'MBWorld W212',tags:['Night Vision','pietoni','siguranță','DTS Monaco','W212'],added:'2024-04-11'},
+
+  {id:212,brand:'Mercedes',model:'Clasa E (W212)',year:'2009-2016',category:'Display',title:'Video in motion + split screen COMAND W212 – DTS Monaco',
+   difficulty:'Mediu',tool:'DTS Monaco',description:'Dezactivare blocare video și activare split screen (hartă navigare + video simultan) pe COMAND NTG4.5 al lui W212. Permite vizualizarea navigării și video pe același ecran.',
+   steps:['DTS Monaco > HU_COMAND (adresa 37)','Byte 2, Bit 0: VideoInMotion = 0','Byte 3, Bit 4: SplitScreen_Enable = 1','Write coding','Repornire COMAND','Testează: sursă video > apasă MAP pentru split'],
+   code:'HU_COMAND:\nByte 2, Bit 0: Video_In_Motion = 0 (dezactivat lock)\nByte 3, Bit 4: Split_Screen = 1',warning:'Split screen reduce calitatea imaginii pe ambele panouri. Recomandăm utilizarea numai pe ecrane cu rezoluție nativă mai mare (W212 facelift).',
+   source:'https://www.mbworld.org/forums/e-class-w212',sourceLabel:'MBWorld W212',tags:['video in motion','split screen','COMAND','DTS Monaco'],added:'2024-04-12'},
+
+  {id:213,brand:'Mercedes',model:'Clasa E (W212)',year:'2009-2016',category:'Confort',title:'Distronic Plus activare completă W212 – DTS Monaco',
+   difficulty:'Mediu',tool:'DTS Monaco',description:'Activarea funcțiilor extinse Distronic Plus pe W212 (radar adaptiv). Include Stop & Go complet (oprire 0 km/h și repornire automată), Active Lane Keeping Assist și Pre-Safe Brake – dezactivate parțial pe piețe non-germane.',
+   steps:['DTS Monaco > ECU: DISTRONIC (adresa 76)','Byte 0, Bit 2: Stop_And_Go_Enable = 1','Byte 0, Bit 3: Auto_Resume_Enable = 1','DTS Monaco > PRE_SAFE (adresa 63)','Byte 1, Bit 0: Pre_Safe_Brake_Enable = 1','Write ambele module și testează pe autostradă'],
+   code:'DISTRONIC:\nByte 0, Bit 2: Stop_And_Go = 1\nByte 0, Bit 3: Auto_Resume = 1\n\nPRE_SAFE:\nByte 1, Bit 0: Pre_Safe_Brake = 1',warning:'Testați funcțiile Distronic pe drum liber, cu trafic redus, până vă familiarizați cu comportamentul.',
+   source:'https://www.mbworld.org/forums/e-class-w212',sourceLabel:'MBWorld W212',tags:['Distronic','ACC','Stop Go','siguranță','DTS Monaco'],added:'2024-04-13'},
+
+// ── MERCEDES DTS MONACO – E-Class W213 ───────────────────────────────────────
+  {id:214,brand:'Mercedes',model:'Clasa E (W213)',year:'2016-2024',category:'Confort',title:'Rear axle steering activare W213 – DTS Monaco',
+   difficulty:'Avansat',tool:'DTS Monaco',description:'Activarea direcției pe axa spate (Rear Axle Steering) pe E-Class W213. La viteze mici (<60 km/h) roțile spate virează opus față (raza de viraj redusă), la viteze mari virează în aceeași direcție (stabilitate). Necesită hardware montat (opțional pe W213).',
+   steps:['DTS Monaco > ECU: HPS (Hydraulic Power Steering / RAS, adresa 44)','Byte 0, Bit 0: RAS_System_Enable = 1','Byte 1: Low_Speed_Angle_Max = 0x0A (10 grade, max legal)','Byte 2: High_Speed_Angle_Max = 0x03 (3 grade)','DTS Monaco > ZGW > activare semnalizare RAS','Write toate modulele, calibrare geometrie obligatorie'],
+   code:'HPS/RAS Module:\nByte 0, Bit 0: RAS_Enable = 1\nByte 1: Low_Speed_Max_Angle = 0x0A\nByte 2: High_Speed_Max_Angle = 0x03\n\n!!! Calibrare geometrie roți obligatorie după activare !!!',warning:'ATENȚIE: Necesită hardware RAS montat fizic (motor electric pe ax spate). Activarea software fără hardware poate produce comportament imprevizibil la volan. Calibrare la service autorizat obligatorie.',
+   source:'https://www.mbworld.org/forums/e-class-w213',sourceLabel:'MBWorld W213',tags:['rear axle steering','RAS','direcție','DTS Monaco','W213'],added:'2024-04-14'},
+
+  {id:215,brand:'Mercedes',model:'Clasa E (W213)',year:'2016-2024',category:'Display',title:'Apple CarPlay wireless + Android Auto W213 MBUX – DTS Monaco',
+   difficulty:'Mediu',tool:'DTS Monaco',description:'Activarea Apple CarPlay și Android Auto wireless (fără cablu) pe W213 cu MBUX. Pe versiunile cu CarPlay cu fir, DTS Monaco poate activa conexiunea wireless prin Wi-Fi Direct integrat în HU_BASE.',
+   steps:['DTS Monaco > HU_BASE (Head Unit Base, adresa 37)','Read Variant Coding','Byte 5, Bit 2: CarPlay_Wireless = 1','Byte 5, Bit 3: AndroidAuto_Wireless = 1','Write și repornire HU (aprox 2 min)','Activare în: Settings > Connections > Apple CarPlay > Wireless'],
+   code:'HU_BASE (MBUX):\nByte 5, Bit 2: CarPlay_Wireless_Enable = 1\nByte 5, Bit 3: AndroidAuto_Wireless_Enable = 1',warning:'Necesită HU_BASE cu modul Wi-Fi dual-band. Pe W213 pre-2019 modulul Wi-Fi poate lipsi sau fi Single-band, caz în care wireless nu funcționează.',
+   source:'https://www.mbworld.org/forums/e-class-w213',sourceLabel:'MBWorld W213 MBUX',tags:['CarPlay','Android Auto','wireless','MBUX','DTS Monaco'],added:'2024-04-15'},
+
+  {id:216,brand:'Mercedes',model:'Clasa E (W213)',year:'2016-2024',category:'Display',title:'Widescreen digital cluster activare completă W213 – DTS Monaco',
+   difficulty:'Mediu',tool:'DTS Monaco',description:'W213 cu afișaj digital 12.3" (Widescreen Cockpit): activarea layout-urilor suplimentare Classic/Sport/Progressive și afișajul tuturor parametrilor AMG în modul Sport pe clustere non-AMG.',
+   steps:['DTS Monaco > IC (Instrument Cluster, adresa 17)','Byte 2, Bit 0: Widescreen_Sport_Layout = 1','Byte 2, Bit 1: Widescreen_Classic_Layout = 1','Byte 3, Bit 4: AMG_Sport_Data = 1 (temperaturi, g-force)','Write și testează: Settings > Display > Instrument cluster'],
+   code:'IC (W213 Widescreen):\nByte 2, Bit 0: Sport_Layout = 1\nByte 2, Bit 1: Classic_Layout = 1\nByte 3, Bit 4: AMG_Extended_Data = 1',warning:'Funcțiile AMG Extended Data (temperaturi, g-force) necesită senzori fizici corespunzători. Fără senzori, valorile pot fi "—" sau 0.',
+   source:'https://www.mbworld.org/forums/e-class-w213',sourceLabel:'MBWorld W213',tags:['widescreen','digital cluster','IC','DTS Monaco','W213'],added:'2024-04-16'},
+
+  {id:217,brand:'Mercedes',model:'Clasa E (W213)',year:'2016-2024',category:'Siguranță',title:'PRE-SAFE Sound activare W213 – DTS Monaco',
+   difficulty:'Ușor',tool:'DTS Monaco',description:'PRE-SAFE Sound emite un scurt impuls sonor prin difuzoare la detectarea unui impact iminent, declanșând reflexul auditiv uman (contracție mușchi ureche internă) pentru protecție împotriva sunetului puternic al airbag-urilor.',
+   steps:['DTS Monaco > ECU: PRE_SAFE (adresa 63) sau SCF','Read Variant Coding','Byte 0, Bit 5: PreSafe_Sound_Enable = 1','Write coding','Testare non-invazivă: folosiți Xentry pentru simulare PRE-SAFE test (nu airbag real!)'],
+   code:'PRE_SAFE Module:\nByte 0, Bit 5: PRE_SAFE_Sound = 1',warning:'PRE-SAFE Sound este o funcție de siguranță. Nu dezactivați odată activată. Necesită sistem audio Burmester sau Premium Sound pentru funcționare optimă.',
+   source:'https://www.mbworld.org/forums/e-class-w213',sourceLabel:'MBWorld W213',tags:['PRE-SAFE','siguranță','sound','DTS Monaco','W213'],added:'2024-04-17'},
+
+  {id:218,brand:'Mercedes',model:'Clasa E (W213)',year:'2016-2024',category:'Display',title:'360° Surround Camera activare W213 – DTS Monaco',
+   difficulty:'Mediu',tool:'DTS Monaco',description:'Activarea sistemului 360° Surround View Camera pe W213 (necesită 4 camere montate: față, spate, laterale). Sistemul creează o imagine de sus a vehiculului în timp real, util la parcare.',
+   steps:['DTS Monaco > ECU: VMC (Video Module Camera, adresa 7A)','Byte 0, Bit 0: Camera_360_Enable = 1','Byte 1, Bit 2: Surround_View_Enable = 1','DTS Monaco > PARKTRONIC (adresa 6A)','Byte 2, Bit 0: Camera_Integration = 1','Calibrare camere obligatorie după activare (Xentry > Camera Calibration)'],
+   code:'VMC:\nByte 0, Bit 0: Camera_360_Enable = 1\nByte 1, Bit 2: Surround_View = 1\n\nPARKTRONIC:\nByte 2, Bit 0: Camera_Integration = 1\n\n!!! Calibrare obligatorie: Xentry > 7A > Camera_Calibration !!!',warning:'Necesită toate cele 4 camere montate și cablate corect. Calibrarea camerei trebuie efectuată pe suprafață plană cu marcaje de referință specifice Mercedes.',
+   source:'https://www.mbworld.org/forums/e-class-w213',sourceLabel:'MBWorld W213',tags:['360 camera','surround view','parcare','DTS Monaco','W213'],added:'2024-04-18'},
+
+// ── MERCEDES DTS MONACO – S-Class W222 ───────────────────────────────────────
+  {id:219,brand:'Mercedes',model:'Clasa S (W222)',year:'2013-2020',category:'Confort',title:'Airmatic sport lowering permanent W222 – DTS Monaco',
+   difficulty:'Avansat',tool:'DTS Monaco',description:'Setarea înălțimii de gardă permanente în poziția "Sport" pe W222 cu Airmatic. Mașina rămâne joasă (30mm față de Normal) la orice viteză, inclusiv la viteze mari unde sistemul ridică automat de obicei.',
+   steps:['DTS Monaco > ECU: AIRMATIC (adresa 37 sau 47)','Read Variant Coding','Byte 3: Default_Height = 0x01 (Sport, în loc de 0x02 Comfort)','Byte 4, Bit 2: Speed_Based_Lifting = 0 (dezactivat)','Byte 4, Bit 3: Highway_Auto_Raise = 0','Write coding','Testează la viteze >130 km/h – mașina rămâne joasă'],
+   code:'AIRMATIC:\nByte 3: Default_Height = 0x01 (Sport)\n  0x00 = Low, 0x01 = Sport, 0x02 = Comfort, 0x03 = High\nByte 4, Bit 2: Speed_Lift_Disable = 1',warning:'IMPORTANT: Dezactivarea ridicării automate la viteze mari poate afecta stabilitatea. Recomandat doar pentru circuit sau uz ocazional. Pe drumuri cu denivelări, gardă redusă poate produce contact cu caroseria.',
+   source:'https://www.mbworld.org/forums/s-class-w222',sourceLabel:'MBWorld W222',tags:['Airmatic','suspensie','sport','DTS Monaco','W222'],added:'2024-04-19'},
+
+  {id:220,brand:'Mercedes',model:'Clasa S (W222)',year:'2013-2020',category:'Display',title:'HUD extins vitezometru + navigare + G-meter W222 – DTS Monaco',
+   difficulty:'Mediu',tool:'DTS Monaco',description:'Extinderea afișajului Head-Up Display pe W222 pentru a include: viteza digitală, indicator navigare, limita de viteză citită de cameră, g-force și consum instantaneu. Standard HUD-ul afișează minimal.',
+   steps:['DTS Monaco > ECU: HUD (Head-Up Display, adresa 29)','Byte 0: HUD_Info_Mask = 0xFF (toate informațiile activate)','Byte 1, Bit 0: Navigation_Arrow = 1','Byte 1, Bit 1: Speed_Limit_Display = 1','Byte 1, Bit 4: G_Force_Display = 1','Byte 2: HUD_Brightness_Default = 0x50 (50%)','Write și testează pe autostradă'],
+   code:'HUD Module:\nByte 0: Info_Mask = 0xFF\nByte 1, Bit 0: Navi_Arrow = 1\nByte 1, Bit 1: Speed_Limit = 1\nByte 1, Bit 4: G_Force = 1\nByte 2: Default_Brightness = 0x50',warning:'G-Force display funcționează corect doar cu senzori inerțiali activi. Pe W222 fără pachetul Magic Body Control, senzorul accelerație poate lipsi.',
+   source:'https://www.mbworld.org/forums/s-class-w222',sourceLabel:'MBWorld W222',tags:['HUD','head-up display','DTS Monaco','W222','navigare'],added:'2024-04-20'},
+
+  {id:221,brand:'Mercedes',model:'Clasa S (W222)',year:'2013-2020',category:'Siguranță',title:'Night Vision Plus detectare persoane și animale W222 – DTS Monaco',
+   difficulty:'Avansat',tool:'DTS Monaco',description:'Activarea completă a Night View Assist Plus pe W222 cu cameră termică frontală. Include detectarea și evidențierea separată a pietonilor, cicliștilor și animalelor în HUD. Pe versiunile non-AMG, unele funcții sunt blocate software.',
+   steps:['DTS Monaco > NVA (adresa 73)','Byte 0, Bit 0: Night_Vision_Enable = 1','Byte 0, Bit 2: Pedestrian_Detection = 1','Byte 0, Bit 3: Animal_Detection = 1','Byte 0, Bit 4: Cyclist_Detection = 1','Byte 1, Bit 0: HUD_Highlight = 1','Byte 1, Bit 1: Warning_Tone = 1','Write și testează noaptea'],
+   code:'NVA Module:\nByte 0, Bit 0: NV_Enable = 1\nByte 0, Bit 2: Pedestrian_Detect = 1\nByte 0, Bit 3: Animal_Detect = 1\nByte 0, Bit 4: Cyclist_Detect = 1\nByte 1, Bit 0: HUD_Highlight = 1',warning:'Necesită camera termică Night Vision (SA P65) montată în grila față. Hardware-ul este costisitor – verificați existența acestuia înainte de codare.',
+   source:'https://www.mbworld.org/forums/s-class-w222',sourceLabel:'MBWorld W222',tags:['Night Vision','termică','pietoni','DTS Monaco','W222'],added:'2024-04-21'},
+
+  {id:222,brand:'Mercedes',model:'Clasa S (W222)',year:'2013-2020',category:'Confort',title:'Magic Body Control preview activare W222 – DTS Monaco',
+   difficulty:'Avansat',tool:'DTS Monaco',description:'Magic Body Control pe W222 Luxury folose camera frontală pentru a "citi" denivelările din față și pre-adaptează suspensiile înainte de impact. Funcția Road Surface Scan (camera stereo) poate fi activată pe versiunile cu hardware prezent.',
+   steps:['DTS Monaco > MBC (Magic Body Control, adresa 4A)','Byte 0, Bit 5: Road_Surface_Scan = 1','Byte 1, Bit 0: Preview_Suspension = 1','DTS Monaco > STEREO_CAMERA (adresa 8A)','Byte 0, Bit 2: Road_Scan_Feed = 1','Write ambele module','Calibrare cameră stereo obligatorie dacă s-a intervenit pe ea'],
+   code:'MBC Module:\nByte 0, Bit 5: Road_Surface_Scan = 1\nByte 1, Bit 0: Preview_Suspension = 1\n\nSTEREO_CAMERA:\nByte 0, Bit 2: Road_Scan_MBC_Feed = 1',warning:'Exclusiv pentru W222 cu Magic Body Control (SA E49) și cameră stereo frontală (SA P20). Fără ambele sisteme hardware, activarea nu produce niciun efect.',
+   source:'https://www.mbworld.org/forums/s-class-w222',sourceLabel:'MBWorld W222 MBC',tags:['Magic Body Control','suspensie','preview','DTS Monaco','W222'],added:'2024-04-22'},
+
+// ── MERCEDES DTS MONACO – A-Class W177 / CLA C118 ────────────────────────────
+  {id:223,brand:'Mercedes',model:'Clasa A (W177)',year:'2018-2024',category:'Display',title:'MBUX augmented reality navigare activare W177 – DTS Monaco',
+   difficulty:'Mediu',tool:'DTS Monaco',description:'Activarea navigării cu realitate augmentată (AR) pe MBUX din W177. Camera frontală suprapune săgeți de navigare pe imaginea live a drumului afișată pe ecranul central. Disponibil hardware pe toate W177 cu MBUX, dezactivat software pe versiunile entry.',
+   steps:['DTS Monaco > HU_BASE (MBUX, adresa 37)','Read Variant Coding','Byte 6, Bit 0: AR_Navigation_Enable = 1','Byte 6, Bit 1: Camera_Feed_Navigation = 1','Write coding','Repornire MBUX (aprox 90 sec)','Activare: Navigation > Settings > Map view > AR View'],
+   code:'HU_BASE (MBUX W177):\nByte 6, Bit 0: AR_Navigation = 1\nByte 6, Bit 1: Camera_AR_Feed = 1',warning:'Necesită camera frontală MBUX (standard pe W177 2020+). Pe W177 2018-2019 camera poate lipsi sau fi de rezoluție mai mică.',
+   source:'https://www.mbworld.org/forums/a-class-w177',sourceLabel:'MBWorld W177',tags:['AR navigare','MBUX','realitate augmentată','DTS Monaco','W177'],added:'2024-04-23'},
+
+  {id:224,brand:'Mercedes',model:'Clasa A (W177)',year:'2018-2024',category:'Display',title:'Sport Red display theme activare W177 – DTS Monaco',
+   difficulty:'Ușor',tool:'DTS Monaco',description:'Activarea temei de afișaj roșu Sport pe instrumentarul digital al lui W177. Fundalul cluster-ului devine roșu închis, acele vitezometrului și turometrului devin roșii, similar cu AMG A35/A45.',
+   steps:['DTS Monaco > IC (adresa 17)','Byte 1, Bit 6: Sport_Red_Theme = 1','Byte 1, Bit 7: AMG_Style_Display = 1','Write coding','Testează în: Settings > Display > Style > Sport Red'],
+   code:'IC (W177):\nByte 1, Bit 6: Sport_Red_Theme = 1\nByte 1, Bit 7: AMG_Style_Display = 1',warning:'Tema Sport Red poate reduce lizibilitatea la lumina directă a soarelui. Disponibil și în tema "Sport Grey" dacă roșul este prea intens.',
+   source:'https://www.mbworld.org/forums/a-class-w177',sourceLabel:'MBWorld W177',tags:['Sport Red','display','tema','DTS Monaco','W177'],added:'2024-04-24'},
+
+  {id:225,brand:'Mercedes',model:'CLA (C118)',year:'2019-2024',category:'Display',title:'MBUX wide display Full HD activare CLA C118 – DTS Monaco',
+   difficulty:'Mediu',tool:'DTS Monaco',description:'Activarea rezoluției Full HD (1920×720) pe display-ul widescreen al CLA C118 cu MBUX. Pe versiunile standard, rezoluția este limitată la 1280×480 – upgrade software pur prin DTS Monaco.',
+   steps:['DTS Monaco > HU_BASE','Read Variant Coding','Byte 7, Bit 0: Display_FullHD = 1','Byte 7, Bit 1: Rendering_Quality = HIGH','Write coding','Repornire completă MBUX (aprox 2 min)','Verificați: Settings > Display > Resolution'],
+   code:'HU_BASE (CLA C118):\nByte 7, Bit 0: Display_FullHD = 1\nByte 7, Bit 1: Render_Quality = HIGH',warning:'Procesorul MBUX suportă Full HD pe toate variantele CLA C118. Nu există risc hardware. Poate încetini ușor animațiile pe procesoare mai lente (pre-2021).',
+   source:'https://www.mbworld.org/forums/cla-c118',sourceLabel:'MBWorld CLA C118',tags:['Full HD','MBUX','display','DTS Monaco','CLA'],added:'2024-04-25'},
+
+// ── MERCEDES DTS MONACO – GLC X253 ───────────────────────────────────────────
+  {id:226,brand:'Mercedes',model:'GLC (X253)',year:'2015-2022',category:'Display',title:'Offroad Engineering display GLC X253 – DTS Monaco',
+   difficulty:'Mediu',tool:'DTS Monaco',description:'Activarea meniului Offroad Engineering extins pe GLC X253. Afișează în timp real: unghi de atac față/spate, unghi de caroserie lateral, grafic distribuție tracțiune 4MATIC, presiuni anvelope și temperaturi frâne.',
+   steps:['DTS Monaco > IC (adresa 17)','Byte 3, Bit 0: Offroad_Display_Enable = 1','Byte 3, Bit 1: Traction_Distribution_Graph = 1','Byte 3, Bit 2: Approach_Departure_Angle = 1','DTS Monaco > 4WD Module','Byte 0, Bit 5: Offroad_Data_Feed = 1','Write ambele module – testează în modul Offroad DYNAMIC SELECT'],
+   code:'IC (GLC X253):\nByte 3, Bit 0: Offroad_Display = 1\nByte 3, Bit 1: Traction_Graph = 1\nByte 3, Bit 2: Angle_Display = 1\n\n4WD:\nByte 0, Bit 5: Offroad_Data = 1',warning:'Pe GLC 2WD (fără 4MATIC), graficul de distribuție tracțiune nu va afișa date relevante (va arăta 100% față). Funcția unghiurilor este disponibilă și pe 2WD.',
+   source:'https://www.mbworld.org/forums/glc-x253',sourceLabel:'MBWorld GLC X253',tags:['offroad','display','4MATIC','DTS Monaco','GLC'],added:'2024-04-26'},
+
+  {id:227,brand:'Mercedes',model:'GLC (X253)',year:'2015-2022',category:'Confort',title:'360° camera + Transparent Hood GLC X253 – DTS Monaco',
+   difficulty:'Mediu',tool:'DTS Monaco',description:'Activarea 360° Surround View și a funcției Transparent Hood pe GLC X253. Transparent Hood combină imaginile camerelor pentru a simula o vedere "prin capotă" – utilă la off-road pentru a vedea terenul din față.',
+   steps:['DTS Monaco > VMC (adresa 7A)','Byte 0, Bit 0: Camera_360 = 1','Byte 1, Bit 4: Transparent_Hood = 1','DTS Monaco > PARKTRONIC','Byte 2, Bit 0: Camera_Integration = 1','Calibrare camere cu Xentry după activare','Testează funcția Transparent Hood: viteză <20 km/h, modul Offroad activ'],
+   code:'VMC:\nByte 0, Bit 0: Camera_360 = 1\nByte 1, Bit 4: Transparent_Hood = 1\n\nPARKTRONIC:\nByte 2, Bit 0: Cam_Integration = 1',warning:'Transparent Hood necesită toate cele 4 camere + calibrare precisă. O calibrare incorectă produce imagine distorsionată sau linie de orizont greșită.',
+   source:'https://www.mbworld.org/forums/glc-x253',sourceLabel:'MBWorld GLC X253',tags:['360 camera','Transparent Hood','offroad','DTS Monaco','GLC'],added:'2024-04-27'},
+
+// ── MERCEDES DTS MONACO – GLE W167 ───────────────────────────────────────────
+  {id:228,brand:'Mercedes',model:'GLE (W167)',year:'2019-2024',category:'Confort',title:'E-Active Body Control sport preset GLE W167 – DTS Monaco',
+   difficulty:'Avansat',tool:'DTS Monaco',description:'GLE W167 cu E-Active Body Control (suspensie hidraulică activă cu cameră stereo): activare preset Sport mai agresiv, cu reducere ruliu de până la 90% în viraje și pornire din modul Comfort. Calibrare fină a parametrilor prin DTS Monaco.',
+   steps:['DTS Monaco > EABC (E-Active Body Control, adresa 4C)','Byte 0, Bit 3: Sport_Preset_Enable = 1','Byte 2: Anti_Roll_Sport = 0xE0 (90% reducere ruliu)','Byte 2 (Normal): Anti_Roll_Normal = 0x80 (50% reducere)','Byte 3: Sport_Damping = 0x70 (amortizare sport)','Write și testează ruliu în viraj la 60 km/h'],
+   code:'EABC Module:\nByte 0, Bit 3: Sport_Preset = 1\nByte 2 (Sport): Anti_Roll = 0xE0 (90%)\nByte 2 (Normal): Anti_Roll = 0x80 (50%)\nByte 3: Damping_Sport = 0x70',warning:'Parametri agresivi (Anti_Roll > 0xE0) pot afecta confortul pe drum drept. Recomandăm 0xC0 (75%) pentru uz stradal zilnic. Testați pe drum sigur înainte de setări finale.',
+   source:'https://www.mbworld.org/forums/gle-w167',sourceLabel:'MBWorld GLE W167',tags:['E-Active Body Control','suspensie','sport','DTS Monaco','GLE'],added:'2024-04-28'},
+
+  {id:229,brand:'Mercedes',model:'GLE (W167)',year:'2019-2024',category:'Display',title:'MBUX Hyperscreen activare extinsă GLE W167 – DTS Monaco',
+   difficulty:'Mediu',tool:'DTS Monaco',description:'Pe GLE W167 cu MBUX Hyperscreen (display tripl 56"): activarea funcțiilor ascunse – pasagerul din dreapta poate opera propriul ecran independent, Gaming mode (jocuri pe ecranul pasager) și AI Assistant extins.',
+   steps:['DTS Monaco > HU_BASE (MBUX Hyperscreen)','Byte 8, Bit 0: Passenger_Screen_Independent = 1','Byte 8, Bit 2: Gaming_Mode_Enable = 1','Byte 9, Bit 0: AI_Assistant_Extended = 1','Repornire completă MBUX','Testează: pasagerul din dreapta poate naviga independent pe ecranul său'],
+   code:'HU_BASE (Hyperscreen):\nByte 8, Bit 0: Passenger_Independent = 1\nByte 8, Bit 2: Gaming_Mode = 1\nByte 9, Bit 0: AI_Extended = 1',warning:'Gaming Mode este blocat în timp ce mașina se mișcă pe unele piețe (restricție legală). Verificați legile locale privind utilizarea ecranelor de divertisment la bordul vehiculelor.',
+   source:'https://www.mbworld.org/forums/gle-w167',sourceLabel:'MBWorld GLE W167',tags:['MBUX Hyperscreen','gaming','pasager','DTS Monaco','GLE'],added:'2024-04-29'},
+
+  {id:230,brand:'Mercedes',model:'Clasa E (W213)',year:'2016-2024',category:'Siguranță',title:'Attention Assist calibrare sensibilitate W213 – DTS Monaco',
+   difficulty:'Ușor',tool:'DTS Monaco',description:'Ajustarea sensibilității sistemului Attention Assist (detecție oboseală șofer) pe W213. Standard setarea e medie – prin DTS Monaco se poate ajusta pragul de alertă și intervalul minim înainte de avertizare.',
+   steps:['DTS Monaco > ECU: SCF (Sliding Control Front, adresa 15) sau ATTENTION_ASSIST','Read Variant Coding','Byte 2: Alert_Sensitivity = 0x02 (Mediu), 0x01 (Redus), 0x03 (Ridicat)','Byte 3: Min_Drive_Time_Minutes = 0x14 (20 min) implicit → 0x0A (10 min) pentru sensibilitate mai rapidă','Write și testează pe conduce de minim 20-30 minute'],
+   code:'SCF / ATTENTION_ASSIST:\nByte 2: Sensitivity\n  0x01 = Low (alertă tardivă)\n  0x02 = Medium (default)\n  0x03 = High (alertă timpurie)\nByte 3: Min_Time = 0x0A (10 min) sau 0x14 (20 min)',warning:'Nu reduceți sensibilitatea la 0x01 (Low) pentru uz zilnic – scopul sistemului este siguranța. Recomandăm 0x03 (High) pentru șoferi care conduc distanțe lungi.',
+   source:'https://www.mbworld.org/forums/e-class-w213',sourceLabel:'MBWorld W213',tags:['Attention Assist','oboseală','siguranță','DTS Monaco','W213'],added:'2024-04-30'},
 ];
 
 // ===================== STATE =====================
