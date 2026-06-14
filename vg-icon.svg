@@ -1,48 +1,43 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <rect width="512" height="512" rx="80" fill="#1b3030"/>
 
-  <!--
-    Symbol: 4 diagonal arms (NE/SE/SW/NW), each arm = outer-V + inner-V + side-bars + connector.
-    All arms are identical; each rotated 45°, 135°, 225°, 315° around centre (256,175).
-  -->
   <defs>
     <g id="arm" fill="#c9a84c">
-      <!-- Outer V (tip at top, opens downward) -->
-      <polygon points="-3,-68 -11,-52 -17,-52 -9,-68 0,-73 9,-68 17,-52 11,-52 3,-68"/>
-      <!-- Side bars connecting outer V feet to inner V feet -->
-      <rect x="-19" y="-52" width="5" height="19" rx="1"/>
-      <rect x="14"  y="-52" width="5" height="19" rx="1"/>
-      <!-- Inner V (tip at top, smaller) -->
-      <polygon points="-2,-45 -8,-33 -13,-33 -5,-45 0,-50 5,-45 13,-33 8,-33 2,-45"/>
-      <!-- Short connector bar to centre diamond -->
-      <rect x="-5" y="-32" width="10" height="20" rx="2"/>
+      <!-- Outer chevron with flat top -->
+      <polygon points="0,-76 -13,-55 -21,-55 -11,-76 0,-82 11,-76 21,-55 13,-55"/>
+      <!-- Outer side bars -->
+      <rect x="-24" y="-55" width="7" height="22" rx="1.5"/>
+      <rect x="17"  y="-55" width="7" height="22" rx="1.5"/>
+      <!-- Inner chevron -->
+      <polygon points="0,-43 -10,-29 -16,-29 -7,-43 0,-50 7,-43 16,-29 10,-29"/>
+      <!-- Connector to diamond -->
+      <rect x="-6" y="-28" width="12" height="17" rx="2"/>
     </g>
   </defs>
 
-  <g transform="translate(256,175)">
-    <!-- 4 identical arms at the 4 diagonal corners -->
+  <g transform="translate(256,188)" fill="#c9a84c">
     <use href="#arm" transform="rotate(45)"/>
     <use href="#arm" transform="rotate(135)"/>
     <use href="#arm" transform="rotate(225)"/>
     <use href="#arm" transform="rotate(315)"/>
 
     <!-- Centre diamond -->
-    <rect x="-20" y="-20" width="40" height="40" rx="2"
-          transform="rotate(45)" fill="#c9a84c"/>
+    <rect x="-19" y="-19" width="38" height="38" rx="2" transform="rotate(45)"/>
     <!-- 4 dots (cut-outs) -->
-    <circle cx="-7" cy="-7" r="5"  fill="#1b3030"/>
-    <circle cx="7"  cy="-7" r="5"  fill="#1b3030"/>
-    <circle cx="-7" cy="7"  r="5"  fill="#1b3030"/>
-    <circle cx="7"  cy="7"  r="5"  fill="#1b3030"/>
+    <circle cx="-7" cy="-7" r="5.5" fill="#1b3030"/>
+    <circle cx="7"  cy="-7" r="5.5" fill="#1b3030"/>
+    <circle cx="-7" cy="7"  r="5.5" fill="#1b3030"/>
+    <circle cx="7"  cy="7"  r="5.5" fill="#1b3030"/>
   </g>
 
-  <!-- Brand name -->
-  <text x="256" y="355"
+  <!-- VISION – bold white serif -->
+  <text x="256" y="362"
         font-family="Georgia,'Times New Roman',serif"
-        font-weight="700" font-size="95"
+        font-weight="700" font-size="98"
         fill="#ffffff" text-anchor="middle" letter-spacing="-2">VISION</text>
-  <text x="256" y="422"
+  <!-- GARAGE – gold spaced -->
+  <text x="256" y="426"
         font-family="Arial,Helvetica,sans-serif"
         font-size="44" font-weight="400"
-        fill="#c9a84c" text-anchor="middle" letter-spacing="13">GARAGE</text>
+        fill="#c9a84c" text-anchor="middle" letter-spacing="14">GARAGE</text>
 </svg>
