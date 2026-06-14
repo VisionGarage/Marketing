@@ -2007,6 +2007,166 @@ const SAMPLE_CODINGS = [
    steps:['BimmerCode > TCU (Telematic Control Unit)','CONNECTED_DRIVE_FULL = aktiv','Remote_Services = aktiv','Activare din aplicația MyBMW app'],
    code:'TCU:\nCONNECTED_DRIVE_FULL = AKTIV\nREMOTE_SERVICES = AKTIV',warning:'Necesită SIM TCU și abonament ConnectedDrive activ.',
    source:'https://bimmerpost.com',sourceLabel:'Bimmerpost G30',tags:['ConnectedDrive','servicii','G30','rețea'],added:'2024-12-27'},
+
+// ── PORSCHE CAYENNE 9PA/955 ──────────────────────────────────────────────────
+  {id:176,brand:'Porsche',model:'Cayenne (9PA/955/957)',year:'2002-2010',category:'Lumini',title:'Lumini de zi (DRL) permanente pe Cayenne 9PA',
+   difficulty:'Ușor',tool:'PIWIS / VCDS',description:'Activare lumini de zi permanente pe Cayenne 955/957. Pe modelele cu xenon, farurile de poziție rămân aprinse permanent la viteză >10 km/h.',
+   steps:['PIWIS > Gateway > Coding','Sau VCDS Adresa 09 (Central Electrics)','Long coding helper > byte 0, bit 5 = 1 (DRL enable)','Salvează și testează la viteză >10 km/h'],
+   code:'Module 09 – Central Electrics:\nByte 0, Bit 5: DRL = 1 (activat)',warning:'Pe piețe non-EU DRL este activat implicit. Verifică întâi dacă nu este deja activ.',
+   source:'https://www.rennlist.com/forums/cayenne',sourceLabel:'Rennlist Cayenne',tags:['DRL','lumini','Cayenne','9PA'],added:'2024-03-01'},
+
+  {id:177,brand:'Porsche',model:'Cayenne (9PA/955/957)',year:'2002-2010',category:'Confort',title:'Pliere oglinzi automată la blocare Cayenne 955',
+   difficulty:'Ușor',tool:'PIWIS / VCDS',description:'Oglinzile laterale se pliază automat la blocarea cu cheia și se desfac la deblocare. Funcție standard pe Cayenne S/Turbo – codabilă pe versiunile de bază cu motor oglindă electric.',
+   steps:['VCDS > Adresa 09 (Central Electrics)','Long coding helper > byte 2, bit 2 = 1','Sau PIWIS > Central Electrics > Folding Mirrors on Lock','Testează cu telecomanda'],
+   code:'Module 09:\nByte 2, Bit 2: Mirror fold on lock = 1',warning:'Necesită oglinzi cu motor electric. Nu funcționează pe oglinzi manuale sau fără modul electric.',
+   source:'https://www.rennlist.com/forums/cayenne',sourceLabel:'Rennlist Cayenne',tags:['oglinzi','confort','Cayenne'],added:'2024-03-02'},
+
+// ── PORSCHE CAYENNE 92A/958 ──────────────────────────────────────────────────
+  {id:178,brand:'Porsche',model:'Cayenne (92A/958)',year:'2010-2017',category:'Confort',title:'Sport Chrono Start-Stop dezactivare permanentă Cayenne 958',
+   difficulty:'Ușor',tool:'PIWIS II',description:'Dezactivarea permanentă a sistemului Start-Stop Engine auto pe Cayenne 92A. Sistemul reține setarea "off" după fiecare repornire a motorului, eliminând necesitatea apăsării manuale.',
+   steps:['PIWIS II > Engine Control Module','Coding > ISG (Integrated Starter-Generator) parameters','ISG_AUTO_START_STOP_DEFAULTSTATE = OFF','Scrie coding și repornește vehiculul','Verifică că sistemul S/S rămâne oprit după repornire'],
+   code:'ECM:\nISG_AUTO_START_STOP_DEFAULTSTATE = OFF',warning:'Poate afecta garanția pe vehicule noi. Recomandat doar pe vehicule ieșite din garanție.',
+   source:'https://www.rennlist.com/forums/2011-2018-cayenne',sourceLabel:'Rennlist 958',tags:['Start-Stop','confort','Cayenne','958'],added:'2024-03-03'},
+
+  {id:179,brand:'Porsche',model:'Cayenne (92A/958)',year:'2010-2017',category:'Display',title:'Activare Sport Plus / Offroad display PCM Cayenne 958',
+   difficulty:'Mediu',tool:'PIWIS II',description:'Activare meniu suplimentar Sport Plus și Offroad în PCM (Porsche Communication Management). Permite vizualizarea parametrilor avansați: unghi caroserie, presiune distribuitor, temperaturi diferențiale.',
+   steps:['PIWIS II > PCM (Communication Module)','Coding > Extended menu options','SPORT_PLUS_MENU = AKTIV','OFFROAD_EXTENDED_DISPLAY = AKTIV','Repornire PCM (aprox 2 min)'],
+   code:'PCM:\nSPORT_PLUS_MENU = AKTIV\nOFFROAD_EXTENDED_DISPLAY = AKTIV',warning:'Pe Cayenne fără pachetul Offroad Pro, unele opțiuni din meniu vor fi inactive (gri).',
+   source:'https://www.rennlist.com/forums/2011-2018-cayenne',sourceLabel:'Rennlist 958',tags:['PCM','display','Sport Plus','Cayenne'],added:'2024-03-04'},
+
+  {id:180,brand:'Porsche',model:'Cayenne (92A/958)',year:'2010-2017',category:'Lumini',title:'LED DRL cu intensitate variabilă Cayenne 958 facelift',
+   difficulty:'Mediu',tool:'PIWIS II',description:'Pe Cayenne 958 facelift (2014+) cu faruri LED full, activare DRL de zi cu intensitate 100% și reducere la 30% când farurile principale sunt aprinse. Aspect mult mai sportiv.',
+   steps:['PIWIS II > Front Lighting Module (FLM)','DRL_INTENSITY_DAY = 100','DRL_INTENSITY_HEADLIGHTS_ON = 30','DRL_TYPE = LED_POSITION_LIGHT','Testează ziua și noaptea'],
+   code:'FLM:\nDRL_INTENSITY_DAY = 100\nDRL_INTENSITY_HEADLIGHTS_ON = 30\nDRL_TYPE = LED_POSITION_LIGHT',warning:'Funcționează doar pe Cayenne 958 facelift cu faruri LED full (nu halogen sau bi-xenon).',
+   source:'https://www.rennlist.com/forums/2011-2018-cayenne',sourceLabel:'Rennlist 958 Facelift',tags:['LED','DRL','lumini','Cayenne','958'],added:'2024-03-05'},
+
+// ── PORSCHE CAYENNE E3 (9YA) ─────────────────────────────────────────────────
+  {id:181,brand:'Porsche',model:'Cayenne (9YA/E3)',year:'2018-2024',category:'Confort',title:'Auto S/S memory + PDCC Sport Cayenne E3',
+   difficulty:'Ușor',tool:'PIWIS 3',description:'Cayenne E3 generația 3: Start-Stop reține setarea oprită. Combinate cu activarea PDCC Sport (Porsche Dynamic Chassis Control Sport) care rămâne activ permanent în modul Normal.',
+   steps:['PIWIS 3 > Vehicle Options > Driver Assistance','START_STOP_DEFAULT = INAKTIV','PIWIS 3 > Chassis Control Unit','PDCC_SPORT_DEFAULT_ACTIVE = AKTIV','Scrie și repornește'],
+   code:'PDCC:\nPDCC_SPORT_DEFAULT_ACTIVE = AKTIV\nSTART_STOP_DEFAULT = INAKTIV',warning:'PDCC Sport crește ușor consumul de combustibil. Nu activați dacă vehiculul nu are hardware PDCC (opțiune SA 454).',
+   source:'https://www.rennlist.com/forums/2018-current-cayenne',sourceLabel:'Rennlist E3',tags:['Start-Stop','PDCC','confort','Cayenne','E3'],added:'2024-03-06'},
+
+  {id:182,brand:'Porsche',model:'Cayenne (9YA/E3)',year:'2018-2024',category:'Display',title:'Rear seat PCM screen activare independentă E3',
+   difficulty:'Mediu',tool:'PIWIS 3',description:'Activare ecranelor din spate (Rear Seat Entertainment) pentru funcționare independentă față de PCM-ul principal. Ocupanții din spate pot controla sursa media proprie.',
+   steps:['PIWIS 3 > PCM Control Module','RSE_INDEPENDENT_OPERATION = AKTIV','RSE_HDMI_INPUT = AKTIV (dacă echipat)','Repornire completă sistem (aprox 5 min)','Testează cu telecomanda RSE din spate'],
+   code:'PCM:\nRSE_INDEPENDENT_OPERATION = AKTIV\nRSE_HDMI_INPUT = AKTIV',warning:'Necesită Rear Seat Entertainment montat fizic (SA 6FY). Nu se poate activa fără hardware.',
+   source:'https://www.rennlist.com/forums/2018-current-cayenne',sourceLabel:'Rennlist E3',tags:['RSE','display','infotainment','Cayenne'],added:'2024-03-07'},
+
+// ── PORSCHE MACAN 95B ─────────────────────────────────────────────────────────
+  {id:183,brand:'Porsche',model:'Macan (95B)',year:'2014-2023',category:'Confort',title:'Start-Stop dezactivare permanentă Macan 95B',
+   difficulty:'Ușor',tool:'PIWIS / OBDEleven',description:'Macan 95B (inclusiv Macan S, GTS, Turbo): dezactivare permanentă sistem Start-Stop Auto. Setarea se păstrează după repornire, fără a mai apăsa butonul A-OFF la fiecare start.',
+   steps:['OBDEleven sau PIWIS > Engine Module','Coding > Start-Stop parameters','AUTO_START_STOP_DEFAULT = INAKTIV','Alternativ OBDEleven: 12 – Engine > Long Coding > bit 5 = 0','Testează 3 reporniri consecutive'],
+   code:'Engine Module:\nAUTO_START_STOP_DEFAULT = INAKTIV',warning:'Pe Macan electric (J1) această codare nu există – sistemul de recuperare frânare îndeplinește altă funcție.',
+   source:'https://www.rennlist.com/forums/macan',sourceLabel:'Rennlist Macan',tags:['Start-Stop','confort','Macan'],added:'2024-03-08'},
+
+  {id:184,brand:'Porsche',model:'Macan (95B)',year:'2014-2023',category:'Lumini',title:'DRL LED inel lumini zi Macan 95B',
+   difficulty:'Ușor',tool:'PIWIS / OBDEleven',description:'Activare DRL prin inelele LED din faruri pe Macan 95B. La viteză >5 km/h, inelele LED funcționează ca lumini de zi la intensitate maximă (100%).',
+   steps:['PIWIS > FLM (Front Light Module)','DRL_SOURCE = LED_RING','DRL_INTENSITY = 100','DRL_SPEED_THRESHOLD = 5 km/h','Testează pe stradă la viteze reduse'],
+   code:'FLM:\nDRL_SOURCE = LED_RING\nDRL_INTENSITY = 100',warning:'Standard activat pe piețele UE. Verifică dacă nu este deja activ înainte de codare.',
+   source:'https://www.rennlist.com/forums/macan',sourceLabel:'Rennlist Macan',tags:['DRL','LED','lumini','Macan'],added:'2024-03-09'},
+
+  {id:185,brand:'Porsche',model:'Macan (95B)',year:'2014-2023',category:'Display',title:'Sport Chrono display extins bord Macan',
+   difficulty:'Mediu',tool:'PIWIS',description:'Activare cronometru Sport Chrono și g-force meter pe instrumentarul de bord Macan. Afișează lap timer, accelerație laterală și longitudinală în timp real. Necesită pachetul Sport Chrono sau codare software.',
+   steps:['PIWIS > Instrument Cluster Control Unit','SPORT_CHRONO_DISPLAY = AKTIV','G_FORCE_METER = AKTIV','LAP_TIMER = AKTIV','Testează în modul Sport din PCM'],
+   code:'Instrument Cluster:\nSPORT_CHRONO_DISPLAY = AKTIV\nG_FORCE_METER = AKTIV\nLAP_TIMER = AKTIV',warning:'Afișajul extins poate ascunde informații standard de bord. Reversibil dacă nu vă place.',
+   source:'https://www.rennlist.com/forums/macan',sourceLabel:'Rennlist Macan',tags:['Sport Chrono','display','Macan'],added:'2024-03-10'},
+
+// ── PORSCHE PANAMERA 970 ──────────────────────────────────────────────────────
+  {id:186,brand:'Porsche',model:'Panamera (970)',year:'2009-2016',category:'Sunet',title:'Sport Exhaust activare permanentă Panamera 970',
+   difficulty:'Mediu',tool:'PIWIS II',description:'Panamera 970 V8 (4S/Turbo): valvele de evacuare rămân deschise permanent, indiferent de modul de condus selectat. Sunet de evacuare sportiv constant, similar cu "Sport Plus" permanent.',
+   steps:['PIWIS II > Engine Control Module','EXHAUST_VALVE_CONTROL = PERMANENT_OPEN','Sau EXHAUST_VALVE_DEFAULT_POSITION = SPORT','Repornire motor și testare sunet','Reglare fină cu EXHAUST_VALVE_NORMAL_MODE = SPORT'],
+   code:'ECM:\nEXHAUST_VALVE_CONTROL = PERMANENT_OPEN\nEXHAUST_VALVE_DEFAULT_POSITION = SPORT',warning:'Poate fi deranjant în trafic urban. Recomandăm SPORT în loc de PERMANENT_OPEN pentru mai mult control.',
+   source:'https://www.rennlist.com/forums/panamera',sourceLabel:'Rennlist Panamera',tags:['evacuare','sunet','Panamera','sport'],added:'2024-03-11'},
+
+  {id:187,brand:'Porsche',model:'Panamera (970)',year:'2009-2016',category:'Display',title:'PCM 3.0 night mode + font size Panamera 970',
+   difficulty:'Ușor',tool:'PIWIS II',description:'Activare mod noapte automat (dimming display) în PCM 3.0 și mărire font hartă GPS. PCM-ul reduce automat luminozitatea la crepuscul și mărește fontul textului de navigare.',
+   steps:['PIWIS II > PCM Unit','DISPLAY_AUTO_NIGHT_MODE = AKTIV','MAP_FONT_SIZE = LARGE','DISPLAY_BRIGHTNESS_NIGHT = 40 (0-100)','Testează noaptea sau acoperind senzorul luminos'],
+   code:'PCM:\nDISPLAY_AUTO_NIGHT_MODE = AKTIV\nMAP_FONT_SIZE = LARGE\nDISPLAY_BRIGHTNESS_NIGHT = 40',warning:'Dacă luminozitatea de zi rămâne prea intensă, ajustați DISPLAY_BRIGHTNESS_DAY.',
+   source:'https://www.rennlist.com/forums/panamera',sourceLabel:'Rennlist Panamera',tags:['PCM','display','night mode','Panamera'],added:'2024-03-12'},
+
+// ── PORSCHE PANAMERA 971 ──────────────────────────────────────────────────────
+  {id:188,brand:'Porsche',model:'Panamera (971)',year:'2016-2024',category:'Confort',title:'Adaptive cruise ACC + InnoDrive activare Panamera 971',
+   difficulty:'Mediu',tool:'PIWIS 3',description:'Activare funcții extinse Adaptive Cruise Control (ACC) și InnoDrive pe Panamera 971. InnoDrive planifică viteza de-a lungul traseului GPS, anticipând curbe și limitări de viteză.',
+   steps:['PIWIS 3 > Adaptive Cruise Control Module','ACC_EXTENDED_FUNCTIONS = AKTIV','INNODRIVE_NAVIGATION_LINKED = AKTIV','PIWIS 3 > PCM > Navigation Module','NAV_SPEED_ADVISORY = AKTIV','Testează pe autostradă'],
+   code:'ACC:\nACC_EXTENDED_FUNCTIONS = AKTIV\nINNODRIVE_NAVIGATION_LINKED = AKTIV',warning:'Necesită navigație activă și hartă actualizată. Funcționează corect doar cu hărți de ultimă generație.',
+   source:'https://www.rennlist.com/forums/panamera',sourceLabel:'Rennlist 971',tags:['ACC','InnoDrive','confort','Panamera'],added:'2024-03-13'},
+
+  {id:189,brand:'Porsche',model:'Panamera (971)',year:'2016-2024',category:'Display',title:'Virtual cockpit extins 4D instrument cluster Panamera 971',
+   difficulty:'Mediu',tool:'PIWIS 3',description:'Activare mod extins pe instrumentarul digital 4D al Panamarei 971. Afișează un al treilea ecran central cu informații trafic, trecând de la layout 3 ecrane la 5 ecrane virtuale.',
+   steps:['PIWIS 3 > 4D Instrument Cluster','CLUSTER_EXTENDED_VIEW = AKTIV','CENTER_SCREEN_TRAFFIC = AKTIV','MAP_CLUSTER_INTEGRATION = AKTIV','Repornire cluster (aprox 90 sec)'],
+   code:'4D Cluster:\nCLUSTER_EXTENDED_VIEW = AKTIV\nCENTER_SCREEN_TRAFFIC = AKTIV',warning:'Disponibil doar pe Panamera 971 cu 4D Plus Instrument Cluster (opțiune SA HE8).',
+   source:'https://www.rennlist.com/forums/panamera',sourceLabel:'Rennlist 971',tags:['4D cluster','display','Panamera'],added:'2024-03-14'},
+
+// ── PORSCHE 911 991 ──────────────────────────────────────────────────────────
+  {id:190,brand:'Porsche',model:'911 (991)',year:'2011-2019',category:'Motor',title:'PDK Launch Control activare 911 991',
+   difficulty:'Avansat',tool:'PIWIS II',description:'Activarea completa a Launch Control pe transmisia PDK a lui 911 991 (Carrera S/4S/Turbo). Standard blocată software pe anumite variante – codarea o deblochează complet.',
+   steps:['PIWIS II > PDK (Doppelkupplungsgetriebe) Module','LAUNCH_CONTROL_ENABLED = AKTIV','LAUNCH_CONTROL_MAX_REVS = 4500 (RPM)','Sport Chrono obligatoriu activ','Testare: Sport+ > frână stânga > gaz complet > eliberare frână'],
+   code:'PDK:\nLAUNCH_CONTROL_ENABLED = AKTIV\nLAUNCH_CONTROL_MAX_REVS = 4500',warning:'Uzură accelerată a ambreiajului PDK. Folosiți sporadic. Poate invalida garanția.',
+   source:'https://www.rennlist.com/forums/991',sourceLabel:'Rennlist 991',tags:['PDK','launch control','motor','911'],added:'2024-03-15'},
+
+  {id:191,brand:'Porsche',model:'911 (991)',year:'2011-2019',category:'Sunet',title:'Sport Exhaust valve permanent open 991 Carrera',
+   difficulty:'Ușor',tool:'PIWIS II / OBDEleven',description:'Valvele de evacuare ale lui 911 991 (boxer 6 / flat-6) rămân deschise permanent. Sunetul flat-6 Porsche la maxim constant, indiferent de modul selectat pe volan.',
+   steps:['OBDEleven sau PIWIS II > Engine','SPORT_EXHAUST_DEFAULT = OPEN','Sau: EXHAUST_VALVE_NORMAL = SPORT_PLUS','Sport > exhaust: set permanent open','Testează la pornire rece – sunet mai pregnant'],
+   code:'Engine:\nSPORT_EXHAUST_DEFAULT = OPEN\nEXHAUST_VALVE_NORMAL = SPORT_PLUS',warning:'Nivel zgomot poate depăși limitele legale în zone rezidențiale. Verificați legislația locală.',
+   source:'https://www.rennlist.com/forums/991',sourceLabel:'Rennlist 991 Forum',tags:['evacuare','sunet','911','sport exhaust'],added:'2024-03-16'},
+
+// ── PORSCHE 911 992 ──────────────────────────────────────────────────────────
+  {id:192,brand:'Porsche',model:'911 (992)',year:'2019-2024',category:'Display',title:'PCM 6.0 Wet Mode activare 992 non-Turbo',
+   difficulty:'Mediu',tool:'PIWIS 3',description:'Activare modul "Wet Mode" (detecție suprafață umedă) pe 911 992 versiunile non-Turbo. Modulul ajustează electronic distribuția momentului, ABS și PSM pentru suprafețe umede.',
+   steps:['PIWIS 3 > PSM (Porsche Stability Module)','WET_MODE_AVAILABLE = AKTIV','PSM > Friction Detection Camera','FRICTION_DETECTION_ACTIVE = AKTIV','PCM > Vehicle Options','WET_MODE_MENU_VISIBLE = AKTIV'],
+   code:'PSM:\nWET_MODE_AVAILABLE = AKTIV\nFRICTION_DETECTION_ACTIVE = AKTIV',warning:'Necesită senzor de accelerație unghiulară și cameră frontală. Verificați că hardware-ul există înainte de codare.',
+   source:'https://www.rennlist.com/forums/992',sourceLabel:'Rennlist 992',tags:['Wet Mode','PSM','siguranță','992','911'],added:'2024-03-17'},
+
+  {id:193,brand:'Porsche',model:'911 (992)',year:'2019-2024',category:'Confort',title:'Start-Stop memory + Sport Response default 992',
+   difficulty:'Ușor',tool:'PIWIS 3',description:'911 992: Start-Stop reține starea oprită, iar butonul Sport Response (momentul maxim 20 sec) este accesibil direct din modul Normal, nu doar Sport/Sport+.',
+   steps:['PIWIS 3 > Engine Management','START_STOP_MEMORY = AKTIV','SPORT_RESPONSE_BUTTON_NORMAL_MODE = AKTIV','Repornire ECU','Testează butonul Sport Response în modul Normal'],
+   code:'ECM:\nSTART_STOP_MEMORY = AKTIV\nSPORT_RESPONSE_BUTTON_NORMAL_MODE = AKTIV',warning:'Sport Response în modul Normal poate surprinde prin răspuns brusc al motorului. Informați pasagerii.',
+   source:'https://www.rennlist.com/forums/992',sourceLabel:'Rennlist 992',tags:['Start-Stop','Sport Response','confort','992'],added:'2024-03-18'},
+
+// ── PORSCHE BOXSTER/CAYMAN 981/982 ───────────────────────────────────────────
+  {id:194,brand:'Porsche',model:'Boxster/Cayman (981/982)',year:'2012-2024',category:'Sunet',title:'Sport Exhaust + PSE activare Boxster 981/Cayman 982',
+   difficulty:'Ușor',tool:'PIWIS / OBDEleven',description:'Porsche Sports Exhaust (PSE) activare permanentă pe Boxster 981 și Cayman 982. Valvele rămân deschise în toate modurile de condus. Sunetul 4 cilindri boxer la intensitate maximă.',
+   steps:['OBDEleven > Engine Control Module','PSE_DEFAULT_POSITION = OPEN','Sau PIWIS: EXHAUST_VALVE_SPORT_DEFAULT = AKTIV','Testează la rece și cald (sunet diferă)'],
+   code:'ECM:\nPSE_DEFAULT_POSITION = OPEN',warning:'Cayman/Boxster cu motor 4 cilindri (718 după 2016) – sunetul este diferit față de 6 cilindri. Asigurați-vă că vă place sunetul înainte de activare permanentă.',
+   source:'https://www.rennlist.com/forums/boxster-cayman',sourceLabel:'Rennlist Boxster/Cayman',tags:['PSE','evacuare','sunet','Boxster','Cayman'],added:'2024-03-19'},
+
+  {id:195,brand:'Porsche',model:'Boxster/Cayman (981/982)',year:'2012-2024',category:'Motor',title:'PDK Sport mode default Cayman GT4/GTS',
+   difficulty:'Mediu',tool:'PIWIS',description:'Cayman GT4 și GTS (981/982 PDK): transmisia pornește implicit în modul Sport, cu schimburi de viteze mai rapide și puncte de schimb mai înalte. Elimina necesitatea selectării manuale la fiecare pornire.',
+   steps:['PIWIS > PDK Module','PDK_DEFAULT_MODE = SPORT','PDK_KICKDOWN_ENABLE = AKTIV','Testează: accelerat normal și verifică punctul de schimb'],
+   code:'PDK:\nPDK_DEFAULT_MODE = SPORT\nPDK_KICKDOWN_ENABLE = AKTIV',warning:'Consum mai mare de combustibil. PDK Sport la opriri repetate (trafic urban) poate deveni deranjant.',
+   source:'https://www.rennlist.com/forums/boxster-cayman',sourceLabel:'Rennlist Cayman GT4',tags:['PDK','motor','Cayman','sport'],added:'2024-03-20'},
+
+// ── PORSCHE TAYCAN J1 ─────────────────────────────────────────────────────────
+  {id:196,brand:'Porsche',model:'Taycan (J1)',year:'2019-2024',category:'Motor',title:'Launch Control dezactivare limita Taycan',
+   difficulty:'Mediu',tool:'PIWIS 3',description:'Taycan (inclusiv 4S/Turbo/Turbo S): dezactivarea limitei de temperaturi la Launch Control, permițând mai multe folosiri consecutive fără răcire forțată. Standard sistemul blochează LC după 3 utilizări.',
+   steps:['PIWIS 3 > Electric Drive (front și rear)','LAUNCH_CONTROL_THERMAL_LIMIT = EXTENDED','LAUNCH_CONTROL_COOLDOWN_REDUCTION = 50','Testează 5 LC consecutive și monitorizează temperaturi în PCM'],
+   code:'Electric Drive:\nLAUNCH_CONTROL_THERMAL_LIMIT = EXTENDED\nLAUNCH_CONTROL_COOLDOWN_REDUCTION = 50',warning:'Poate accelera degradarea termică a motoarelor electrice. Folosiți pe circuit, nu pe drumuri publice.',
+   source:'https://www.rennlist.com/forums/taycan',sourceLabel:'Rennlist Taycan',tags:['launch control','motor','Taycan','EV'],added:'2024-03-21'},
+
+  {id:197,brand:'Porsche',model:'Taycan (J1)',year:'2019-2024',category:'Display',title:'Passenger screen activare independent Taycan',
+   difficulty:'Ușor',tool:'PIWIS 3',description:'Taycan are un ecran dedicat pentru pasagerul din dreapta față (Passenger Display). Activare funcționare complet independentă față de PCM, cu propria sursă media și control climatizare.',
+   steps:['PIWIS 3 > PCM / Infotainment','PASSENGER_DISPLAY_INDEPENDENT = AKTIV','PASSENGER_DISPLAY_CLIMATE_CONTROL = AKTIV','Repornire PCM și testare cu utilizator în dreapta'],
+   code:'PCM:\nPASSENGER_DISPLAY_INDEPENDENT = AKTIV\nPASSENGER_DISPLAY_CLIMATE_CONTROL = AKTIV',warning:'Disponibil doar pe Taycan cu Passenger Display montat (opțiune SA HDC). Standard nu există pe toate variantele.',
+   source:'https://www.rennlist.com/forums/taycan',sourceLabel:'Rennlist Taycan',tags:['display','pasager','Taycan','infotainment'],added:'2024-03-22'},
+
+  {id:198,brand:'Porsche',model:'Taycan (J1)',year:'2019-2024',category:'Confort',title:'One-Pedal Driving activare completă Taycan',
+   difficulty:'Ușor',tool:'PIWIS 3',description:'Activare completă One-Pedal Driving pe Taycan – recuperarea de frânare se intensifică la eliberarea pedalei de accelerație până la oprire completă (0 km/h). Standard sistemul nu oprește complet vehiculul.',
+   steps:['PIWIS 3 > Electric Drive Management','ONE_PEDAL_DRIVING_FULL_STOP = AKTIV','REGENERATIVE_BRAKING_STRENGTH = MAXIMUM','Testează pe parcare – mașina trebuie să se oprească la eliberarea pedalei'],
+   code:'Electric Drive:\nONE_PEDAL_DRIVING_FULL_STOP = AKTIV\nREGENERATIVE_BRAKING_STRENGTH = MAXIMUM',warning:'Pasagerii neobișnuiți cu One-Pedal se pot dezechilibra la frânarea bruscă. Informați-i înainte de activare.',
+   source:'https://www.rennlist.com/forums/taycan',sourceLabel:'Rennlist Taycan EV',tags:['One-Pedal','regenerare','Taycan','EV','confort'],added:'2024-03-23'},
+
+  {id:199,brand:'Porsche',model:'Taycan (J1)',year:'2019-2024',category:'Siguranță',title:'Porsche InnoDrive + predictive energy management Taycan',
+   difficulty:'Mediu',tool:'PIWIS 3',description:'InnoDrive pe Taycan folosește harta GPS și datele de trafic pentru a optimiza recuperarea de energie pe traseu. Sistemul anticipează coborâri, curbe și orașe pentru a maximiza autonomia.',
+   steps:['PIWIS 3 > Driver Assistance Systems','INNODRIVE_ACTIVE = AKTIV','INNODRIVE_REGEN_PREDICTIVE = AKTIV','PCM > Navigation','NAV_ENERGY_PLANNING = AKTIV','Testează pe un traseu cu variații de altitudine'],
+   code:'DAS:\nINNODRIVE_ACTIVE = AKTIV\nINNODRIVE_REGEN_PREDICTIVE = AKTIV',warning:'Necesită semnal GPS bun și hărți actualizate. Pe zone fără cartografiere detaliată, funcția este limitată.',
+   source:'https://www.rennlist.com/forums/taycan',sourceLabel:'Rennlist Taycan',tags:['InnoDrive','autonomie','Taycan','EV','navigație'],added:'2024-03-24'},
+
+  {id:200,brand:'Porsche',model:'Cayenne (9YA/E3)',year:'2018-2024',category:'Lumini',title:'Matrix LED activare completă + animație Cayenne E3',
+   difficulty:'Mediu',tool:'PIWIS 3',description:'Cayenne E3 cu Matrix LED faruri full: activare funcție Matrix completă (mascare selectivă a fasciculului față de vehiculele din față) și animație de bun-venit la deblocare.',
+   steps:['PIWIS 3 > Front Lighting Module','MATRIX_LED_ENABLED = AKTIV','MATRIX_SELECTIVE_BEAM = AKTIV','WELCOME_ANIMATION = AKTIV','FOLLOW_ME_HOME = AKTIV','Testează noaptea pe drum fără iluminat stradal'],
+   code:'FLM:\nMATRIX_LED_ENABLED = AKTIV\nMATRIX_SELECTIVE_BEAM = AKTIV\nWELCOME_ANIMATION = AKTIV',warning:'Necesită faruri Matrix LED montate fizic (SA 8IT). Pe Cayenne cu bi-xenon sau LED standard această codare nu are efect.',
+   source:'https://www.rennlist.com/forums/2018-current-cayenne',sourceLabel:'Rennlist Cayenne E3',tags:['Matrix LED','lumini','Cayenne','animație','welcome'],added:'2024-03-25'},
 ];
 
 // ===================== STATE =====================
@@ -2047,6 +2207,7 @@ function filterBrand(brand, btn) {
   if (brand === 'all') btn.classList.add('active-all');
   else if (brand === 'BMW') btn.classList.add('active-bmw');
   else if (brand === 'VAG') btn.classList.add('active-vag');
+  else if (brand === 'Porsche') btn.classList.add('active-porsche');
   else btn.classList.add('active-merc');
 
   // Update model dropdown
@@ -2216,10 +2377,12 @@ function updateStats() {
   document.getElementById('bmwCount').textContent = allCodings.filter(c => c.brand === 'BMW').length;
   document.getElementById('vagCount').textContent = allCodings.filter(c => c.brand === 'VAG').length;
   document.getElementById('mercCount').textContent = allCodings.filter(c => c.brand === 'Mercedes').length;
+  document.getElementById('porscheCount').textContent = allCodings.filter(c => c.brand === 'Porsche').length;
   document.getElementById('cnt-all').textContent = allCodings.length;
   document.getElementById('cnt-bmw').textContent = allCodings.filter(c => c.brand === 'BMW').length;
   document.getElementById('cnt-vag').textContent = allCodings.filter(c => c.brand === 'VAG').length;
   document.getElementById('cnt-merc').textContent = allCodings.filter(c => c.brand === 'Mercedes').length;
+  document.getElementById('cnt-porsche').textContent = allCodings.filter(c => c.brand === 'Porsche').length;
 }
 
 // ===================== TAGS =====================
