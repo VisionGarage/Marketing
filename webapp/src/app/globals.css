@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #1a3330;
+  --ink-light: #244742;
+  --ink-dark: #0d1e1c;
+  --gold: #b8922a;
+  --gold-light: #d4ae55;
+  --cream: #f4efe4;
+}
+
+html,
+body {
+  background-color: var(--ink-dark);
+  color: var(--cream);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-montserrat), system-ui, sans-serif;
+  min-height: 100dvh;
+}
+
+h1, h2, h3, .font-heading {
+  font-family: var(--font-cormorant), Georgia, serif;
+}
+
+/* Scrollbar discret pe temă dark */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--ink-dark); }
+::-webkit-scrollbar-thumb { background: #2c4f49; border-radius: 6px; }
+::-webkit-scrollbar-thumb:hover { background: #386a61; }
+
+/* Watermark "VG" discret, repetat pe fundalul aplicației */
+.vg-watermark::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.025;
+  background-image: url("/icons/icon-192.png");
+  background-repeat: repeat;
+  background-size: 180px;
+}
+
+/* Marcaj per-user discret peste conținut (urmărire scurgeri) */
+.vg-user-mark {
+  position: fixed;
+  bottom: 8px;
+  right: 12px;
+  z-index: 5;
+  pointer-events: none;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: rgba(244, 239, 228, 0.18);
+  text-transform: uppercase;
+}
+
+/* ─── Markdown render (.prose-vg) ─── */
+.prose-vg { color: #e6e0d2; line-height: 1.75; }
+.prose-vg h1, .prose-vg h2, .prose-vg h3 {
+  color: #fff; font-family: var(--font-cormorant), serif;
+  margin: 1.4em 0 0.5em; line-height: 1.2;
+}
+.prose-vg h1 { font-size: 1.9rem; }
+.prose-vg h2 { font-size: 1.45rem; border-bottom: 1px solid rgba(184,146,42,.2); padding-bottom: .25em; }
+.prose-vg h3 { font-size: 1.2rem; color: var(--gold-light); }
+.prose-vg p { margin: 0.7em 0; }
+.prose-vg a { color: var(--gold-light); text-decoration: underline; }
+.prose-vg ul, .prose-vg ol { margin: 0.6em 0; padding-left: 1.4em; }
+.prose-vg ul { list-style: disc; }
+.prose-vg ol { list-style: decimal; }
+.prose-vg li { margin: 0.25em 0; }
+.prose-vg blockquote {
+  border-left: 3px solid var(--gold);
+  background: rgba(184,146,42,.06);
+  padding: 0.4em 1em; margin: 1em 0; color: #d8d2c4; border-radius: 0 6px 6px 0;
+}
+.prose-vg code:not(pre code) {
+  background: #14201e; color: var(--gold-light);
+  padding: 0.12em 0.4em; border-radius: 4px; font-size: 0.88em;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+}
+.prose-vg mark { background: var(--gold); color: var(--ink-dark); padding: 0 2px; border-radius: 2px; }
+.prose-vg img { max-width: 100%; border-radius: 8px; margin: 0.8em 0; border: 1px solid rgba(184,146,42,.2); }
+.prose-vg table { border-collapse: collapse; margin: 1em 0; width: 100%; }
+.prose-vg th, .prose-vg td { border: 1px solid #2c4f49; padding: 0.4em 0.7em; }
+.prose-vg th { background: #14201e; }
+
+/* Bloc de cod cu buton copiază */
+.code-block { position: relative; margin: 1em 0; }
+.code-block pre {
+  background: #0c1614; border: 1px solid rgba(184,146,42,.18);
+  border-radius: 8px; padding: 1em 1em; overflow-x: auto;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.86rem; color: #cfeae3;
+}
