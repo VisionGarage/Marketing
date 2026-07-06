@@ -1,0 +1,38 @@
+{
+  "name": "autohex-manager",
+  "productName": "VisionGarage Coding Manager",
+  "version": "0.1.0",
+  "description": "Aplicatie desktop pentru gestiunea procedurilor de coding si retrofit, fisiere de coding si istoric interventii - VisionGarage",
+  "main": "dist-electron/main.js",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.electron.json && vite build",
+    "electron:dev": "npm run build && electron .",
+    "electron:pack": "npm run build && electron-builder"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.11",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "@types/node": "^22.5.4",
+    "@vitejs/plugin-react": "^4.3.1",
+    "electron": "^32.0.0",
+    "electron-builder": "^25.0.0",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.2"
+  },
+  "build": {
+    "appId": "ro.visiongarage.codingmanager",
+    "productName": "VisionGarage Coding Manager",
+    "files": ["dist", "dist-electron"],
+    "win": {
+      "target": "nsis"
+    }
+  }
+}
