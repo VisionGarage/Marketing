@@ -1,0 +1,485 @@
+[
+  {
+    "id": "s1",
+    "title": "BMW F30 — Video In Motion (VIM) pe NBT prin E-Sys",
+    "brand": "BMW",
+    "category": "Codare",
+    "vehicle": "F30",
+    "module": "HU_NBT",
+    "tool": "E-Sys",
+    "language": "ro",
+    "tags": [
+      "vim",
+      "nbt",
+      "fdl",
+      "codare"
+    ],
+    "source": "Referință VisionGarage — verificat pe build NBT",
+    "content": "## Scop\nActivarea redării video în mers (Video In Motion) pe **HU_NBT**.\n\n## Pași\n1. E-Sys → **Read FA** (citește FA din vehicul), Activate FA.\n2. Calculează **VO** pentru CAFD-ul HU_NBT.\n3. Deschide **HU_NBT** → editare **FDL**.\n\n## Valori FDL\n```\nSPEEDLOCK_SPEEDVALUE_MIN:  reset / 0 km/h\nSPEEDLOCK_SPEEDVALUE_MAX:  1023 km/h (max)\nVIDEO_HANDBRAKE:           nicht_aktiv\nVIDEO_FRONT_LOCKED:        nicht_aktiv\nVIDEO_SPEEDLOCK_CONDITION: nicht_aktiv\n```\n\n## Scriere\n- **FDL-Code** → **Code-FDL** pe HU_NBT.\n- Klemme 15 OFF/ON 2 min.\n\n> ⚠️ Doar pasager. Verifică legislația locală. Valorile diferă între NBT și NBT EVO."
+  },
+  {
+    "id": "s2",
+    "title": "BMW — Rabatare oglinzi la închidere (ASP) prin E-Sys",
+    "brand": "BMW",
+    "category": "Retrofit",
+    "vehicle": "F-Series",
+    "module": "FRM / ASP",
+    "tool": "E-Sys",
+    "language": "ro",
+    "tags": [
+      "oglinzi",
+      "rabatare",
+      "asp",
+      "comfort"
+    ],
+    "source": "Referință VisionGarage",
+    "content": "## Scop\nRabatare oglinzi la închidere (comfort close) + desfacere la descuiere.\n\n## Modul\n**FRM** (Footwell Module) sau modulul de oglinzi, secțiunea ASP.\n\n## Valori FDL\n```\nASP_EINKLAPPEN:                        aktiv\nASP_BEIKLAPPEN_BEI_KOMFORTSCHLIESSEN:  aktiv\nASP_AUSKLAPPEN_NACH_KOMFORTSCHLIESSEN: aktiv\n```\n\n## Alternativ — rabatare din cheie\n- Ține **lock** apăsat pe telecomandă → oglinzile se pliază.\n\n> Necesită oglinzi cu motor de pliere montate. Verifică prezența actuatorului."
+  },
+  {
+    "id": "s3",
+    "title": "BMW — Viteză digitală / Sport Displays (M-View)",
+    "brand": "BMW",
+    "category": "Codare",
+    "vehicle": "F20/F30",
+    "module": "KOMBI",
+    "tool": "E-Sys",
+    "language": "ro",
+    "tags": [
+      "viteza digitala",
+      "m-view",
+      "kombi",
+      "sport displays"
+    ],
+    "source": "Referință VisionGarage",
+    "content": "## Scop\nAfișaj viteză digitală / **Sport Displays (M-View)** cu putere & cuplu.\n\n## Modul\n**HU_NBT** (meniul de bord/entertainment) + **KOMBI** pentru unele build-uri.\n\n## Valori FDL\n```\nHU_NBT:  M_VIEW = aktiv  (sau SPORT_DISPLAYS = aktiv)\nKOMBI:   DIGITAL_SPEED / DIGITAL_V = aktiv\n```\n\n## Acces\n- În iDrive: Apps → M / Sport Displays.\n\n> Denumirile parametrilor variază pe build. Caută „M_VIEW\" / „SPORT\" în CAFD."
+  },
+  {
+    "id": "s4",
+    "title": "BMW — Dezactivare avertizare centură (KOMBI)",
+    "brand": "BMW",
+    "category": "Ceas / Cluster",
+    "vehicle": "F-Series",
+    "module": "KOMBI",
+    "tool": "E-Sys",
+    "language": "ro",
+    "tags": [
+      "centura",
+      "gong",
+      "seatbelt",
+      "kombi"
+    ],
+    "source": "Referință VisionGarage",
+    "content": "## Scop\nDezactivare avertizare centură (gong/lampă) — util la testare pe rampă.\n\n## Modul\n**KOMBI**, secțiunea siguranță centură.\n\n## Valori FDL\n```\nGURTWARNUNG_VORN:   nicht_aktiv   (avertizare față)\nSITZBELEGUNGSMATTE: dupa caz\n```\n\n> ⚠️ Doar pentru scop tehnic. Recomandat să rămână activ în uz normal (siguranță)."
+  },
+  {
+    "id": "s5",
+    "title": "BMW — Comfort Access: geamuri/trapă din cheie (CAS4/FEM/BDC)",
+    "brand": "BMW",
+    "category": "Codare",
+    "vehicle": "F/G-Series",
+    "module": "CAS4 / FEM / BDC",
+    "tool": "E-Sys",
+    "language": "ro",
+    "tags": [
+      "comfort access",
+      "geamuri",
+      "fob",
+      "sunroof"
+    ],
+    "source": "Referință VisionGarage",
+    "content": "## Scop\nÎnchidere/deschidere geamuri (și trapă) din cheie / Comfort Access.\n\n## Modul\n**CAS4** (F pre-LCI) / **FEM_BODY** / **BDC** (F LCI, G).\n\n## Valori FDL\n```\nKOMFORTZUGANG:          aktiv\nFH_KOMFORTOEFFNUNG:     aktiv   (deschidere geamuri)\nFH_KOMFORTSCHLIESSUNG:  aktiv   (inchidere geamuri)\nSHD_KOMFORT:            aktiv   (trapa)\n```\n\n> Ține butonul de pe telecomandă apăsat pentru acțiune. Verifică prezența Comfort Access."
+  },
+  {
+    "id": "s6",
+    "title": "BMW — Eliminare disclaimer legal la pornire (NBT)",
+    "brand": "BMW",
+    "category": "Codare",
+    "vehicle": "F-Series",
+    "module": "HU_NBT",
+    "tool": "E-Sys",
+    "language": "ro",
+    "tags": [
+      "disclaimer",
+      "legal",
+      "warning",
+      "nbt"
+    ],
+    "source": "Referință VisionGarage",
+    "content": "## Scop\nEliminare ecran de avertizare legal (disclaimer) la pornire în iDrive/Navi.\n\n## Modul\n**HU_NBT**.\n\n## Valori FDL\n```\nWARNUNG_UNBEDENKLICH:  aktiv        (accepta automat)\nENTERTAINMENT_LEGALTEXT: nicht_aktiv\nNAVIGATION_LEGALTEXT:    nicht_aktiv\n```\n\n> Confort pur; nu afectează funcționalitatea."
+  },
+  {
+    "id": "s7",
+    "title": "BMW — Auto Start/Stop reține ultima stare (MSA)",
+    "brand": "BMW",
+    "category": "Codare",
+    "vehicle": "F-Series",
+    "module": "IHKA / KOMBI",
+    "tool": "E-Sys",
+    "language": "ro",
+    "tags": [
+      "start-stop",
+      "msa",
+      "memorie"
+    ],
+    "source": "Referință VisionGarage",
+    "content": "## Scop\nAuto Start/Stop (MSA) să rețină **ultima stare** (OFF rămâne OFF).\n\n## Modul\nUzual **IHKA** sau modulul care deține parametrul MSA (variază pe serie).\n\n## Valori FDL\n```\nMSA_AUTOMATISCH_AUS:   aktiv      (dezactivare automata memorata)\n// sau\nMSA_LAST_STATE:        aktiv\n```\n\n> Denumirea variază mult între F și G. Caută „MSA\" în CAFD-urile candidate."
+  },
+  {
+    "id": "s8",
+    "title": "BMW EDC17 — Pinout bench + checksum la flash",
+    "brand": "BMW",
+    "category": "Pinout",
+    "vehicle": "F-Series",
+    "module": "EDC17C50",
+    "tool": "E-Sys",
+    "language": "ro",
+    "tags": [
+      "edc17",
+      "bench",
+      "pinout",
+      "flash",
+      "checksum"
+    ],
+    "source": "Pinout de referință — uz intern",
+    "content": "## Pinout bench EDC17C50\n```\nPin 1   -> GND\nPin 2   -> +12V (KL30)\nPin 91  -> CAN-H\nPin 92  -> CAN-L\n```\n\n## Flash\n1. Citește **full backup** înainte de orice scriere.\n2. Aplică modificarea, **recalculează checksum**.\n3. Scrie și verifică.\n\n```\nchecksum: auto (tool) -> verify OK inainte de write\n```\n\n> ⚠️ Fără backup = risc de cărămidă."
+  },
+  {
+    "id": "v1",
+    "title": "VAG MQB — Activare Lane Assist (ODIS/VCDS + SVM)",
+    "brand": "VAG",
+    "category": "Codare",
+    "vehicle": "MQB",
+    "module": "Kamera R242",
+    "tool": "ODIS",
+    "language": "ro",
+    "tags": [
+      "lane assist",
+      "mqb",
+      "svm",
+      "long coding"
+    ],
+    "source": "ODIS pentru SVM + VCDS pentru long coding",
+    "content": "## Scop\nRetrofit + codare **Lane Assist** pe MQB.\n\n## SVM (online, ODIS)\n```\nSVM-Code: 3E3E\nActiune: SVM - Actualizare directa prin cod\n```\n\n## Long Coding (cameră R242)\n```\nByte 0 Bit 0: Lane Assist installed = active\nByte 5: 01 (sensibilitate standard)\n```\n\n## Adaptări\n```\nCanal: Lane Assist - steering torque -> medium\n```\n\n> Necesită calibrare cameră după montaj (țintă + rulare)."
+  },
+  {
+    "id": "v2",
+    "title": "VAG Golf 7 — Needle sweep / staging ace (VCDS [17])",
+    "brand": "VAG",
+    "category": "Ceas / Cluster",
+    "vehicle": "Golf 7 / MQB",
+    "module": "17 - Instrumente",
+    "tool": "VCDS",
+    "language": "ro",
+    "tags": [
+      "needle sweep",
+      "staging",
+      "kombi",
+      "17"
+    ],
+    "source": "Referință VisionGarage",
+    "content": "## Scop\n**Needle sweep** (baletul acelor) la pornire.\n\n## Modul\n**[17] Instrumente** → Long Coding Helper.\n\n## Valori\n```\nByte 1, Bit 0:  Staging (Needle Sweep) = activat\n```\n\n> ⚠️ Mașina TREBUIE oprită (RPM = 0) când aplici, altfel apare eroare de calibrare ace."
+  },
+  {
+    "id": "v3",
+    "title": "VAG Golf 7 — Rabatare oglinzi din telecomandă (VCDS)",
+    "brand": "VAG",
+    "category": "Codare",
+    "vehicle": "Golf 7 / MQB",
+    "module": "52 / 42 - Uși",
+    "tool": "VCDS",
+    "language": "ro",
+    "tags": [
+      "oglinzi",
+      "rabatare",
+      "funk",
+      "spiegel"
+    ],
+    "source": "Referință VisionGarage",
+    "content": "## Scop\nRabatare oglinzi din telecomandă (Funk / remote).\n\n## Modul\n**[52] Door Elect, Pass** (și [42] șofer) → Adaptare.\n\n## Adaptare\n```\nCanal: Funk_Spiegelanklappen_Modus\nValoare: activat / aktiviert\n```\n\n> Necesită oglinzi rabatabile electric. Setează pe ambele uși (42 + 52)."
+  },
+  {
+    "id": "v4",
+    "title": "VAG Golf 7 — Coming / Leaving Home (VCDS [09])",
+    "brand": "VAG",
+    "category": "Codare",
+    "vehicle": "Golf 7 / MQB",
+    "module": "09 - Electronică centrală",
+    "tool": "VCDS",
+    "language": "ro",
+    "tags": [
+      "coming home",
+      "leaving home",
+      "lumini",
+      "09"
+    ],
+    "source": "Referință VisionGarage",
+    "content": "## Scop\nLumini **Coming / Leaving Home** + iluminare confort.\n\n## Modul\n**[09] Cent. Elect.** → Security Access.\n\n## Pași\n```\nSecurity Access code: 31347\nComfort-Illumination -> Fog Light (ceata) sau Low Beam\n```\n\n## Durată\n```\nAdaptare: Menu duration / Leaving home time -> 30-60 s\n```\n\n> Verifică opțiunile în meniul MMI/infotainment după codare."
+  },
+  {
+    "id": "v5",
+    "title": "VAG Golf 7 — Geamuri confort din telecomandă (VCDS [09])",
+    "brand": "VAG",
+    "category": "Codare",
+    "vehicle": "Golf 7 / MQB",
+    "module": "09 - Electronică centrală",
+    "tool": "VCDS",
+    "language": "ro",
+    "tags": [
+      "geamuri",
+      "confort",
+      "telecomanda",
+      "09"
+    ],
+    "source": "Referință VisionGarage",
+    "content": "## Scop\nÎnchidere/deschidere **geamuri din telecomandă** (comfort open/close).\n\n## Modul\n**[09] Cent. Elect.** → Long Coding / Adaptare.\n\n## Valori\n```\nAdaptare: Komfortoeffnung / Komfortschliessung -> aktiviert\n// unele build-uri: Long Coding byte pentru 'convenience windows'\n```\n\n> Ține butonul lock/unlock apăsat pe cheie pentru acțiune."
+  },
+  {
+    "id": "v6",
+    "title": "VAG Golf 7 — Dezactivare avertizare centură (VCDS [17])",
+    "brand": "VAG",
+    "category": "Diagnoză",
+    "vehicle": "Golf 7 / MQB",
+    "module": "17 - Instrumente",
+    "tool": "VCDS",
+    "language": "ro",
+    "tags": [
+      "centura",
+      "seatbelt",
+      "warning",
+      "17"
+    ],
+    "source": "Referință VisionGarage",
+    "content": "## Scop\nDezactivare avertizare centură (pentru testare pe rampă).\n\n## Modul\n**[17] Instrumente** → Adaptare.\n\n## Valori\n```\nCanal: Seatbelt warning (driver/pass) -> deactivated\n// sau Long Coding: bit 'Seatbelt warning active' = 0\n```\n\n> ⚠️ Doar tehnic. Repune pe activat pentru uz normal."
+  },
+  {
+    "id": "v7",
+    "title": "VAG Golf 7 — Tear-wipe (ștergere după spălare)",
+    "brand": "VAG",
+    "category": "Codare",
+    "vehicle": "Golf 7 / MQB",
+    "module": "09 - Electronică centrală",
+    "tool": "VCDS",
+    "language": "ro",
+    "tags": [
+      "stergator",
+      "tear wipe",
+      "spalare",
+      "09"
+    ],
+    "source": "Referință VisionGarage",
+    "content": "## Scop\n**Tear-wipe** — o ștergere suplimentară la câteva secunde după spălare.\n\n## Modul\n**[09] Cent. Elect.** → Adaptare.\n\n## Valori\n```\nCanal: Wipe after wash / Nachwischen -> aktiviert\nInterval: ~4-6 s\n```\n\n> Confort; util iarna împotriva petelor de lichid."
+  },
+  {
+    "id": "v8",
+    "title": "VAG Golf 7 — Emergency brake light flashing",
+    "brand": "VAG",
+    "category": "Codare",
+    "vehicle": "Golf 7 / MQB",
+    "module": "09 - Electronică centrală",
+    "tool": "VCDS",
+    "language": "ro",
+    "tags": [
+      "frana",
+      "emergency",
+      "flashing",
+      "brake"
+    ],
+    "source": "Referință VisionGarage",
+    "content": "## Scop\n**Emergency brake light flashing** — clipire stopuri la frânare bruscă.\n\n## Modul\n**[09] Cent. Elect.** (și ABS [03] pe unele build-uri) → Long Coding / Adaptare.\n\n## Valori\n```\nEmergency brake flashing: activated\nMod: brake light flashing (nu hazard) sau hazard, dupa preferinta\n```\n\n> Verifică omologarea locală pentru modul (stop vs. avarii)."
+  },
+  {
+    "id": "v9",
+    "title": "VAG MIB2 — Video In Motion (VCDS [5F])",
+    "brand": "VAG",
+    "category": "Codare",
+    "vehicle": "MIB2 / MQB",
+    "module": "5F - Infotainment",
+    "tool": "VCDS",
+    "language": "ro",
+    "tags": [
+      "video in motion",
+      "mib2",
+      "green menu",
+      "5f"
+    ],
+    "source": "Referință VisionGarage",
+    "content": "## Scop\n**Video In Motion** pe unitate MIB2.\n\n## Modul\n**[5F] Information Electr.** — prin meniu dezvoltator (green menu) sau adaptare.\n\n## Pași\n```\nGreen Engineering Menu -> nu bloca video la viteza\n// sau Adaptare: 'Video nur im Stand' -> deactivated\n```\n\n> ⚠️ Poate necesita FEC/SWaP. Doar pasager, respectă legislația."
+  },
+  {
+    "id": "v10",
+    "title": "VAG MQB — Eliminare Component Protection (ODIS SVM)",
+    "brand": "VAG",
+    "category": "IMMO / Component Protection",
+    "vehicle": "MQB",
+    "module": "diverse ECU",
+    "tool": "ODIS",
+    "language": "ro",
+    "tags": [
+      "component protection",
+      "svm",
+      "immo",
+      "adaptare"
+    ],
+    "source": "Referință VisionGarage — necesită acces online",
+    "content": "## Scop\nEliminare **Component Protection** după înlocuire modul (VAG).\n\n## Pași (ODIS + SVM)\n```\nSVM: Adaptare componenta / Actualizare software prin cod\nGeko/online login necesar\n```\n\n## Verificare\n```\nCiteste DTC -> fara 'component protection active'\n```\n\n> Necesită cont online valid (GeKo). VCP/adaptare offline doar pe cazuri limitate."
+  },
+  {
+    "id": "m1",
+    "title": "Mercedes W447 (Vito) — Component Protection / SCN (Xentry)",
+    "brand": "Mercedes",
+    "category": "IMMO / Component Protection",
+    "vehicle": "W447",
+    "module": "EZS / ME-SFI",
+    "tool": "Xentry",
+    "language": "ro",
+    "tags": [
+      "component protection",
+      "scn",
+      "immo",
+      "vito"
+    ],
+    "source": "Testat pe W447 2018",
+    "content": "## Scop\nEliminare **Component Protection (CP)** după înlocuire calculator.\n\n## Pași\n1. Xentry → Diagnoză → modul → **Control unit adaptations**.\n2. Selectează **SCN coding** (online + acces).\n3. Rulează **Teach-in / CP reset**.\n\n## Comenzi cheie\n```\nSCN: Online coding required\nCP:  Reset component protection -> Execute\n```\n\n## Verificare\n```\nCiteste DTC -> fara 'Component protection active'\n```\n\n> ⚠️ Necesită acces online valid."
+  },
+  {
+    "id": "m2",
+    "title": "Mercedes W205/W213 — Video In Motion (Vediamo, NTG5)",
+    "brand": "Mercedes",
+    "category": "Codare",
+    "vehicle": "W205 / W213",
+    "module": "HU / COMAND-NTG5",
+    "tool": "Vediamo",
+    "language": "ro",
+    "tags": [
+      "video in motion",
+      "comand",
+      "ntg5",
+      "vediamo"
+    ],
+    "source": "Referință VisionGarage",
+    "content": "## Scop\n**Video In Motion** pe COMAND/Audio (NTG5/NTG5.5).\n\n## Modul\n**HU** (Head Unit) → variant coding în Vediamo (ECU: HU5 / NTG5).\n\n## Valori\n```\nVIDEO_IN_MOTION:            enabled / codiert\nTV_FRONT_DISPLAY_IN_MOTION: enabled\n```\n\n> ⚠️ Pe NTG6/W213 mai nou folosește DTS Monaco. Doar pasager; respectă legislația."
+  },
+  {
+    "id": "m3",
+    "title": "Mercedes W205/W213 — Meniu iluminare ambientală (DTS Monaco)",
+    "brand": "Mercedes",
+    "category": "Retrofit",
+    "vehicle": "W205 / W213",
+    "module": "EZS / BCF / HU",
+    "tool": "DTS Monaco",
+    "language": "ro",
+    "tags": [
+      "ambient",
+      "iluminare",
+      "lumini",
+      "dts"
+    ],
+    "source": "Referință VisionGarage",
+    "content": "## Scop\nActivare **meniu iluminare ambientală** (64 culori) după retrofit LED.\n\n## Module\n**HU** (meniul ambient) + **BCF_222 / SAM** (control benzi LED) + **EZS**.\n\n## Valori (DTS Monaco / variant coding)\n```\nHU:   AMBIENT_LIGHT_MENU = coded\nSAM:  AMBIENTE_BELEUCHTUNG = 64_farben\n```\n\n> Necesită benzi LED ambientale montate. Codare pe mai multe ECU-uri."
+  },
+  {
+    "id": "m4",
+    "title": "Mercedes W205/W213 — Meniu AMG + vitezometru digital",
+    "brand": "Mercedes",
+    "category": "Ceas / Cluster",
+    "vehicle": "W205 / W213",
+    "module": "IC / KOMBI",
+    "tool": "DTS Monaco",
+    "language": "ro",
+    "tags": [
+      "amg menu",
+      "digital speed",
+      "cluster",
+      "ic"
+    ],
+    "source": "Referință VisionGarage",
+    "content": "## Scop\n**Meniu AMG** în bord (temp ulei, cutie, turometru sport) + **vitezometru digital**.\n\n## Modul\n**IC** (Instrument Cluster) → variant coding.\n\n## Valori\n```\nAMG_MENU / SPORT_DISPLAY: enabled\nDIGITAL_SPEEDOMETER:      enabled\nOIL_TEMP_DISPLAY:         enabled\n```\n\n> Disponibil pe cluster non-AMG. Denumirile variază NTG5 vs NTG6."
+  },
+  {
+    "id": "m5",
+    "title": "Mercedes W205/W213 — Rabatare automată oglinzi la închidere",
+    "brand": "Mercedes",
+    "category": "Codare",
+    "vehicle": "W205 / W213",
+    "module": "SAM / oglinzi",
+    "tool": "DTS Monaco",
+    "language": "ro",
+    "tags": [
+      "oglinzi",
+      "rabatare",
+      "auto fold",
+      "lock"
+    ],
+    "source": "Referință VisionGarage",
+    "content": "## Scop\nRabatare automată oglinzi la închidere + desfacere la descuiere.\n\n## Modul\n**SAM** / modul uși → variant coding.\n\n## Valori\n```\nMIRROR_FOLD_ON_LOCK:    enabled\nMIRROR_UNFOLD_ON_UNLOCK: enabled\n```\n\n> Necesită oglinzi cu pliere electrică."
+  },
+  {
+    "id": "m6",
+    "title": "Mercedes W205/W213 — Coming / Leaving Home",
+    "brand": "Mercedes",
+    "category": "Codare",
+    "vehicle": "W205 / W213",
+    "module": "SAM / EZS",
+    "tool": "DTS Monaco",
+    "language": "ro",
+    "tags": [
+      "coming home",
+      "leaving home",
+      "lumini"
+    ],
+    "source": "Referință VisionGarage",
+    "content": "## Scop\nLumini **Coming / Leaving Home** cu durată reglabilă.\n\n## Modul\n**SAM** (control lumini) → variant coding.\n\n## Valori\n```\nCOMING_HOME:  enabled\nLEAVING_HOME: enabled\nDURATION:     ~40 s\n```\n\n> Reglează durata din meniul bordului după codare."
+  },
+  {
+    "id": "m7",
+    "title": "Mercedes W205/W213 — Dezactivare avertizare centură",
+    "brand": "Mercedes",
+    "category": "Codare",
+    "vehicle": "W205 / W213",
+    "module": "IC / SRS",
+    "tool": "Vediamo",
+    "language": "ro",
+    "tags": [
+      "centura",
+      "chime",
+      "seatbelt"
+    ],
+    "source": "Referință VisionGarage",
+    "content": "## Scop\nDezactivare avertizare sonoră centură (scop tehnic pe rampă).\n\n## Modul\n**IC** / modul SRS → variant coding.\n\n## Valori\n```\nSEATBELT_CHIME:   disabled\nSEATBELT_WARNING: disabled\n```\n\n> ⚠️ Doar tehnic. Recomandat repus pe activ pentru uz normal (siguranță)."
+  },
+  {
+    "id": "m8",
+    "title": "Mercedes W205/W213 — Descuiere selectivă (o ușă)",
+    "brand": "Mercedes",
+    "category": "Codare",
+    "vehicle": "W205 / W213",
+    "module": "EZS / SAM",
+    "tool": "DTS Monaco",
+    "language": "ro",
+    "tags": [
+      "descuiere selectiva",
+      "single door",
+      "unlock"
+    ],
+    "source": "Referință VisionGarage",
+    "content": "## Scop\n**Descuiere selectivă** (o singură ușă la prima apăsare pe cheie).\n\n## Modul\n**EZS / SAM** → variant coding.\n\n## Valori\n```\nSELECTIVE_UNLOCK / SINGLE_DOOR_UNLOCK: enabled\n```\n\n> Confort + securitate. O apăsare = ușa șoferului; două = toate."
+  },
+  {
+    "id": "m9",
+    "title": "Mercedes W205/W213 — Animație de pornire AMG/Designo",
+    "brand": "Mercedes",
+    "category": "Codare",
+    "vehicle": "W205 / W213",
+    "module": "HU / IC",
+    "tool": "DTS Monaco",
+    "language": "ro",
+    "tags": [
+      "startup",
+      "animatie",
+      "amg",
+      "designo"
+    ],
+    "source": "Referință VisionGarage",
+    "content": "## Scop\n**Animație de pornire** AMG / Designo pe display + bord.\n\n## Module\n**HU** (display central) + **IC** (bord).\n\n## Valori\n```\nSTARTUP_ANIMATION: AMG  (sau Designo / Maybach)\n```\n\n> Pur estetic. Alege setul care se potrivește echiparea."
+  }
+]
