@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <title>Generator FSC</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 520px; margin: 40px auto; padding: 0 16px; color: #222; }
+    h1 { font-size: 1.4rem; }
+    label { display: block; margin-top: 16px; font-weight: 600; }
+    input[type=text], select, input[type=file] { width: 100%; padding: 8px; margin-top: 4px; box-sizing: border-box; }
+    .row { display: flex; align-items: center; gap: 8px; margin-top: 16px; }
+    button { margin-top: 24px; padding: 10px 18px; font-size: 1rem; cursor: pointer; }
+    .flash { background: #fee; border: 1px solid #c33; padding: 10px; margin-top: 16px; border-radius: 4px; }
+    .hint { color: #666; font-size: 0.85rem; margin-top: 4px; }
+  </style>
+</head>
+<body>
+  <h1>Generator FSC</h1>
+  <p class="hint">Introdu VIN-ul (7 caractere) și App ID-ul, apoi generează fișierul .fsc.</p>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for m in messages %}
+        <div class="flash">{{ m }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <form method="post" action="{{ url_for('generate') }}" enctype="multipart/form-data">
+    <label for="vin">VIN (7 caractere alfanumerice)</label>
+    <input type="text" id="vin" name="vin" maxlength="7" minlength="7" required pattern="[A-Za-z0-9]{7}">
+
+    <label for="appid">App ID (hex)</label>
+    <select id="appid" name="appid">
+      {% for a in appid_choices %}
+        <option value="{{ a }}" {% if a == default_appid %}selected{% endif %}>{{ a }}</option>
+      {% endfor %}
+    </select>
+    <div class="hint">Ignorat dacă bifezi "generează toate" mai jos.</div>
+
+    <div class="row">
+      <input type="checkbox" id="generate_all" name="generate_all">
+      <label for="generate_all" style="margin:0;">Generează toate App ID-urile predefinite (.zip)</label>
+    </div>
+
+    <label for="template">Template binar (opțional)</label>
+    <input type="file" id="template" name="template">
+    <div class="hint">Lasă gol pentru a folosi template-ul implicit.</div>
+
+    <button type="submit">Generează</button>
+  </form>
+</body>
+</html>
